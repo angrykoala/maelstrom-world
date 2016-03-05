@@ -18,7 +18,7 @@ var s1 = new Ship("Galleon", {
 	cargo: 2000
 });
 world.users.addUser("usidx", function(err, u1) {
-	u1.buildShip("black pearl", s1,"Granada", function() {
+	u1.buildShip("black pearl", s1, "Granada", function() {
 
 		world.map.addCity(c1);
 		world.map.addCity(c2);

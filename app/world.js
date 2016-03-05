@@ -2,7 +2,7 @@
 Name: World
 Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
-Description: Game World, ddefining all necessary elements
+Description: Game World, defining all necessary elements
 */
 
 var User = require('./user');
