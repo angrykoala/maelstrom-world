@@ -11,7 +11,7 @@ var Ship = function(name, user, shipModel, city) {
 	this.life = shipModel.life;
 	this.city = city;
 	this.setStatus("DOCKED");
-	this.products = [];
+	this.products = {};
 };
 Ship.prototype.setStatus = function(status, data) {
 	this.status = status;

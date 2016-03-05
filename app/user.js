@@ -22,5 +22,7 @@ User.prototype.buildShip = function(name, model, city, done) {
 User.prototype.getAllShips = function() {
 	return Object.keys(this.ships);
 };
-
+User.prototype.getShip = function(shipName) {
+	return this.ships[shipName];
+};
 module.exports = User;

@@ -144,7 +144,6 @@ module.exports = function(app) {
 			else return response.status(201).json(res);
 		});
 	});
-	/*
 	app.put('/user/buy', function(req, response) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;
@@ -154,14 +153,44 @@ module.exports = function(app) {
 		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(500).json({
 			error: "Not valid data"
 		});
-		Actions.buyProduct(userId, shipId, productId, quantity, function(err, res) {
+		var p = World.products.getProduct(productId);
+		World.users.getUser(userId, function(err, res) {
 			if (err) return response.status(500).json({
-				error: err.toString()
+				error: "Not user found"
 			});
-			else if (!res) return response.status(500).json({
-				error: "Can't buy product"
+			var user = res;
+			var ship = res.getShip(shipId);
+			if (ship.status != "DOCKED") return response.status(500).json({
+				error: "Ship not docked"
 			});
-			else return response.status(201).json(res);
+			var city = ship.city;
+			var price = quantity * p.price;
+			if (user.money < price) return response.status(500).json({
+				error: "Not enough money"
+			});
+			user.money -= price;
+			World.map.getCity(city, function(err, res) {
+				if (err) {
+					user.money += price;
+					return response.status(500).json(err);
+				}
+				city.buyProduct(p.name, quantity, function(err, res) {
+					if (err) {
+						user.money += price;
+						return response.status(500).json(err);
+					}
+					ship.addProduct(p.name, quantity);
+					return response.status(201).end();
+
+				});
+			});
 		});
-	});*/
+	});
+	/*	app.put('/user/sell',function(req,response){
+		
+		
+		
+		});
+		
+		*/
 };
