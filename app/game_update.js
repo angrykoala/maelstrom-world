@@ -4,7 +4,6 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: Update logic for game event loop
 */
-var dbHandler = require('./dbhandler.js');
 var config = require('../config/config.js');
 var async = require('async');
 
@@ -12,9 +11,9 @@ var timer = null;
 
 
 var GameUpdate = {
-	beginLoop: function(time, tick) {
+	startLoop: function(time, tick) {
 		var gu = this;
-		if (!time || time < 0) time = config.refreshTime;
+		if (!time || time <= 0) time = config.refreshTime;
 		timer = setInterval(function() {
 			gu.cityProductsUpdate(function(err, res) {
 				if (err) return tick(err);
@@ -30,9 +29,11 @@ var GameUpdate = {
 	},
 	cityProductsUpdate: function(done) {
 		//TODO
+		done();
 	},
 	shipsUpdate: function(done) {
 		//TODO
+		done();
 	}
 };
 

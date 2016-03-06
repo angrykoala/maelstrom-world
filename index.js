@@ -6,6 +6,7 @@ require('./app/routes.js')(app); //loads routes
 var world = require('./app/world');
 var City = require('./app/city');
 var Ship = require('./app/ship');
+var gu = require('./app/game_update');
 
 
 //token for testing: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE0NTcwMjI5OTcsImV4cCI6MTQ4ODU1ODk5NywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsImlkIjoidXNpZHgifQ.TXLzue_OcnPF4Jh0lDDYGWQWUtzWTvxqRgnM5P2GdZ4
@@ -26,7 +27,15 @@ world.users.addUser("usidx", function(err, u1) {
 	});
 });
 
-
 app.listen(8080, function() {
 	console.log("Server running");
+	gu.startLoop(null, function(err) {
+		var date=new Date();
+		var sec  = date.getSeconds();
+		console.log(sec);
+		if (err)
+			console.log("Tick: Error - " + err);
+		else
+			console.log("Tick: No Error");
+	});
 });

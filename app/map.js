@@ -24,9 +24,9 @@ var map = {
 		if (cities[name]) return true;
 		else return false;
 	},
-	updateCities: function(done){
-		for(var i in cities){
-			cities[i].update();			
+	updateCities: function(done) {
+		for (var i in cities) {
+			cities[i].update();
 		}
 		done(null);
 	}

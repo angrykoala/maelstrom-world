@@ -35,7 +35,7 @@ Ship.prototype.removeProduct = function(product, quantity) {
 		if (this.products[product] === 0) delete this.product[product];
 	} else return false;
 };
-Ship.prototype.update=function(){
+Ship.prototype.update = function() {
 	//TODO
 };
 var ShipModel = function(name, data) {

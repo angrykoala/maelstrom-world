@@ -40,9 +40,9 @@ var ships = {
 	getShipList: function(done) {
 		return done(null, this.list);
 	},
-	updateShips: function(done){
-		for(var i in this.list){
-			this.list[i].update();			
+	updateShips: function(done) {
+		for (var i in this.list) {
+			this.list[i].update();
 		}
 		done(null);
 	}
