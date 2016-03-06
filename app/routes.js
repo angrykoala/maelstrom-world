@@ -126,7 +126,7 @@ module.exports = function(app) {
 			}
 		});
 	});
-	app.put('/user/move/ship', function(req, response) {
+	/*app.put('/user/move/ship', function(req, response) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;
 		var cityId = req.body.city;
@@ -143,7 +143,7 @@ module.exports = function(app) {
 			});
 			else return response.status(201).json(res);
 		});
-	});
+	});*/
 	app.put('/user/buy', function(req, response) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;

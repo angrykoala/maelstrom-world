@@ -7,7 +7,6 @@ Description: Update logic for game event loop
 var dbHandler = require('./dbhandler.js');
 var config = require('../config/config.js');
 var async = require('async');
-var tables = dbHandler.tables;
 
 var timer = null;
 
@@ -15,7 +14,7 @@ var timer = null;
 var GameUpdate = {
 	beginLoop: function(time, tick) {
 		var gu = this;
-		if (!time || time < 0) time = config.defaultTime;
+		if (!time || time < 0) time = config.refreshTime;
 		timer = setInterval(function() {
 			gu.cityProductsUpdate(function(err, res) {
 				if (err) return tick(err);

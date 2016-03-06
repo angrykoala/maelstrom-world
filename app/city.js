@@ -39,6 +39,10 @@ city.prototype.getPrice = function(productId, quantity, done) {
 	if (!p) return done(new Error("not product found"));
 	return done(p.price * quantity);
 };
+city.prototype.update=function(){
+	//TODO
+	
+};
 
 
 module.exports = city;

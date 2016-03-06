@@ -23,6 +23,12 @@ var map = {
 	isCity: function(name) {
 		if (cities[name]) return true;
 		else return false;
+	},
+	updateCities: function(done){
+		for(var i in cities){
+			cities[i].update();			
+		}
+		done(null);
 	}
 };
 
