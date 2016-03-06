@@ -1,6 +1,10 @@
 Maelström - World
 =================
 _by @demiurgosoft_
+[![Build Status](https://travis-ci.org/demiurgosoft/maelstrom-world.svg?branch=master)](https://travis-ci.org/demiurgosoft/maelstrom-world)
+[![Build Status](https://travis-ci.org/demiurgosoft/maelstrom-world.svg?branch=master)](https://travis-ci.org/demiurgosoft/maelstrom-world)
+[![Dependency Status](https://gemnasium.com/demiurgosoft/maelstrom-world.svg)](https://gemnasium.com/demiurgosoft/maelstrom-world)
+[![Code Climate](https://codeclimate.com/github/demiurgosoft/maelstrom-world/badges/gpa.svg)](https://codeclimate.com/github/demiurgosoft/maelstrom-world)
 
 Game server to handle maelstrom dynamic world and game logic
 
