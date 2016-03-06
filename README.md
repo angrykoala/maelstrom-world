@@ -1,8 +1,8 @@
 Maelström - World
 =================
-_by @demiurgosoft_
+_by @demiurgosoft_     
 [![Build Status](https://travis-ci.org/demiurgosoft/maelstrom-world.svg?branch=master)](https://travis-ci.org/demiurgosoft/maelstrom-world)
-[![Build Status](https://travis-ci.org/demiurgosoft/maelstrom-world.svg?branch=master)](https://travis-ci.org/demiurgosoft/maelstrom-world)
+[![Coverage Status](https://coveralls.io/repos/github/demiurgosoft/maelstrom-world/badge.svg?branch=master)](https://coveralls.io/github/demiurgosoft/maelstrom-world?branch=master)
 [![Dependency Status](https://gemnasium.com/demiurgosoft/maelstrom-world.svg)](https://gemnasium.com/demiurgosoft/maelstrom-world)
 [![Code Climate](https://codeclimate.com/github/demiurgosoft/maelstrom-world/badges/gpa.svg)](https://codeclimate.com/github/demiurgosoft/maelstrom-world)
 
