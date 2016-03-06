@@ -153,7 +153,6 @@ module.exports = function(app) {
 		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(500).json({
 			error: "Not valid data"
 		});
-		var p = World.products.getProduct(productId);
 		World.users.getUser(userId, function(err, res) {
 			if (err) return response.status(500).json({
 				error: "Not user found"
@@ -163,25 +162,25 @@ module.exports = function(app) {
 			if (ship.status != "DOCKED") return response.status(500).json({
 				error: "Ship not docked"
 			});
+			//Check cargo here
 			var city = ship.city;
-			var price = quantity * p.price;
-			if (user.money < price) return response.status(500).json({
-				error: "Not enough money"
-			});
-			user.money -= price;
 			World.map.getCity(city, function(err, res) {
-				if (err) {
-					user.money += price;
-					return response.status(500).json(err);
-				}
-				city.buyProduct(p.name, quantity, function(err, res) {
-					if (err) {
-						user.money += price;
-						return response.status(500).json(err);
-					}
-					ship.addProduct(p.name, quantity);
-					return response.status(201).end();
+				if (err) return response.status(500).json(err);
+				city.getPrice(productId, quantity, function(err, price) {
+					if (err) return response.status(500).json(err);
 
+					if (user.money < price) return response.status(500).json({
+						error: "Not enough money"
+					});
+					user.money -= price;
+					city.buyProduct(productId, quantity, function(err, res) {
+						if (err) {
+							user.money += price;
+							return response.status(500).json(err);
+						}
+						ship.addProduct(productId, quantity);
+						return response.status(201).end();
+					});
 				});
 			});
 		});

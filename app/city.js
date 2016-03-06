@@ -5,6 +5,8 @@ Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: 
 */
 
+var productList = require('./world').products;
+
 var city = function(name, position, products) {
 	if (name) this.name = name;
 	if (position) this.position = [position[0], position[1]];
@@ -30,6 +32,12 @@ city.prototype.buyProduct = function(productName, quantity, done) {
 	if (p.quantity < quantity) return done(new Error("Not enough quantity"));
 	p.quantity += quantity;
 	return done();
+};
+city.prototype.getPrice = function(productId, quantity, done) {
+	if (!productName || quantity < 0) return done(new Error("Bad data"));
+	var p = productList.getProduct(productId);
+	if (!p) return done(new Error("not product found"));
+	return done(p.price * quantity);
 };
 
 

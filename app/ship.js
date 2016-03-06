@@ -17,7 +17,11 @@ Ship.prototype.setStatus = function(status, data) {
 	this.status = status;
 };
 Ship.prototype.getCurrentCargo = function() {
-
+	var cargo = 0;
+	for (var p in this.products) {
+		if (!p.hasOwnProperty(key)) continue;
+		cargo += this.products[p];
+	}
 };
 Ship.prototype.addProduct = function(product, quantity) {
 	if ((quantity + this.getCurrentCargo()) < this.model.cargo && quantity >= 0) {
