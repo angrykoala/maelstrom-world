@@ -1,115 +1,77 @@
 //Data for testing
-//correct value indicates if data is correct
-//var mongoose = require('mongoose');
 
 module.exports = {
 	ships: {
 		galleon: {
 			name: "Galleon",
 			life: 1000,
-			price: 12,
+			price: 1200,
 			speed: 4.5,
-			cargo: 1200,
-			correct: true
+			cargo: 1200
 		},
 		caravel: {
 			name: "caravel",
-			price: 100,
+			life: 30,
+			price: 10,
 			speed: 8,
-			cargo: 400,
-			correct: false
+			cargo: 100
 		}
 	},
 	products: {
 		bread: {
 			name: "Bread",
-			basePrice: 50,
-			correct: true
+			basePrice: 50
 		},
 		redmeat: {
 			name: "Red meat",
-			basePrice: 50.2,
-			correct: true
+			basePrice: 50.2
 		},
 		stone: {
 			name: "Stone",
-			basePrice: 10.2,
-			correct: true
-		},
-		salt: {
-			basePrice: 100,
-			correct: false
-		},
-		gold: {
-			name: "Gold",
-			correct: false
+			basePrice: 10.2
 		}
 	},
 	cities: {
 		minasTirith: {
 			name: "Minas Tirith",
 			positionX: 10,
-			positionY: 40,
-			correct: true
+			positionY: 40
 		},
 		isengard: {
 			name: "Isengard",
 			positionX: -5,
-			positionY: -259.5,
-			correct: true
+			positionY: -259.5
 		},
 		rohan: {
 			name: "Rohan",
 			positionX: 0,
-			positionY: 0,
-			correct: true
-		},
-		rivendel: {
-			positionX: -5,
-			positionY: -259.5,
-			correct: false
+			positionY: 0
 		}
 	},
 	userShips: {
 		blackPearl: {
 			name: "Black Pearl",
-			model: 1,
+			model: "Galleon",
 			life: 110,
 			status: "docked",
-			correct: true
+			city: "Isengard"
 		},
 		whitePearl: {
 			name: "White Pearl",
-			model: 1,
+			model: "Caravel",
 			life: 110,
 			status: "docked",
-			correct: true
-		},
-		flyingdutchman: {
-			name: "flying_dutchman",
-			life: 100,
-			status: "traveling",
-			correct: false
+			city: "Minas Tirith"
 		}
 	},
 	users: {
 		arthur: {
 			id: 1,
-			money: 101,
-			correct: true
+			money: 101
 		},
 		ford: {
 			id: 2,
-			money: 12000,
-			correct: true
-		},
-		marvin: {
-			id: 4,
-			correct: false
-		},
-		deepthinking: {
-			money: 150,
-			correct: false
+			money: 12000
 		}
 	}
 };

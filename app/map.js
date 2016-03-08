@@ -41,6 +41,9 @@ var map = {
 		if (distace >= 0) return done(null, distance);
 		else return done(new Error("Error in distance"));
 
+	},
+	clear:function(){
+		cities={};
 	}
 };
 
