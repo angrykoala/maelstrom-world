@@ -4,18 +4,20 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: 
 */
+var map = require('./map');
+
 var Ship = function(name, user, shipModel, city) {
 	this.name = name;
 	this.owner = user.id;
 	this.model = shipModel;
 	this.life = shipModel.life;
 	this.city = city;
-	this.setStatus("DOCKED");
+	this.setStatus("docked");
 	this.products = {};
 };
 Ship.prototype.setStatus = function(status, data) {
-	this.status = status;
-	//TODO: status
+	this.status = data || {};
+	this.status.value = status;
 };
 Ship.prototype.getCurrentCargo = function() {
 	var cargo = 0;
@@ -30,6 +32,18 @@ Ship.prototype.addProduct = function(product, quantity) {
 		return true;
 	} else return false;
 };
+Ship.prototype.moveShip = function(destiny, done) {
+	if (this.status.value !== "docked") return done(new Error("Ship is not docked"));
+	map.getDistance(this.city, destiny, function(err, res) {
+		if (err) return done(err);
+		var spd = this.model.speed;
+		var time = res / spd;
+		this.setStatus("traveling", {
+			remaining: time,
+			destiny: destiny
+		});
+	});
+};
 Ship.prototype.removeProduct = function(product, quantity) {
 	if (this.products[product] >= quantity) {
 		this.products[product] -= quantity;
@@ -37,7 +51,13 @@ Ship.prototype.removeProduct = function(product, quantity) {
 	} else return false;
 };
 Ship.prototype.update = function() {
-	//TODO
+	if (this.status.value === "traveling") {
+		this.status.remaining--;
+		if (this.status.remaining <= 0) {
+			this.status.value = "docked";
+			this.city = this.status.destiny;
+		}
+	}
 };
 var ShipModel = function(name, data) {
 	this.name = name;

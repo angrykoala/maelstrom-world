@@ -29,6 +29,18 @@ var map = {
 			cities[i].update();
 		}
 		done(null);
+	},
+	getDistance: function(city1, city2, done) {
+		var pos1 = cities[city1].position;
+		var pos2 = cities[city2].position;
+		if (!pos1 || !pos2) return done(new Error("Invalid positions"));
+		var dx = pos1[0] - pos2[0];
+		var dy = pos1[1] - pos2[1];
+
+		var distance = Math.sqrt(dx * dx + dy * dy);
+		if (distace >= 0) return done(null, distance);
+		else return done(new Error("Error in distance"));
+
 	}
 };
 
