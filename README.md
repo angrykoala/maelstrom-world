@@ -6,6 +6,8 @@ _by @demiurgosoft_
 [![Dependency Status](https://gemnasium.com/demiurgosoft/maelstrom-world.svg)](https://gemnasium.com/demiurgosoft/maelstrom-world)
 [![Code Climate](https://codeclimate.com/github/demiurgosoft/maelstrom-world/badges/gpa.svg)](https://codeclimate.com/github/demiurgosoft/maelstrom-world)
 
+![Maelström Logo](https://raw.githubusercontent.com/demiurgosoft/maelstrom/master/logo/logo.jpg)
+
 Game server to handle maelstrom dynamic world and game logic
 
 ## Geting Started
@@ -16,3 +18,4 @@ Game server to handle maelstrom dynamic world and game logic
 
 
 > Licensed under GNU AFFERO GENERAL PUBLIC LICENSE Version 3
+> Maelström logo by @iblancasa under CC-by-sa

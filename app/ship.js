@@ -15,6 +15,7 @@ var Ship = function(name, user, shipModel, city) {
 };
 Ship.prototype.setStatus = function(status, data) {
 	this.status = status;
+	//TODO: status
 };
 Ship.prototype.getCurrentCargo = function() {
 	var cargo = 0;

@@ -40,8 +40,13 @@ city.prototype.getPrice = function(productId, quantity, done) {
 	return done(p.price * quantity);
 };
 city.prototype.update = function() {
-	//TODO
-
+	var prods = this.products;
+	for (var prod in prods) {
+		if (!prods.hasOwnProperty(key)) continue;
+		var obj = prods[prod];
+		obj.quantity += obj.productionRate;
+		if (obj.quantity < 0) obj.quantity = 0;
+	}
 };
 
 

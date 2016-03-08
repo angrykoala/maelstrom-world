@@ -30,8 +30,8 @@ world.users.addUser("usidx", function(err, u1) {
 app.listen(8080, function() {
 	console.log("Server running");
 	gu.startLoop(null, function(err) {
-		var date=new Date();
-		var sec  = date.getSeconds();
+		var date = new Date();
+		var sec = date.getSeconds();
 		console.log(sec);
 		if (err)
 			console.log("Tick: Error - " + err);

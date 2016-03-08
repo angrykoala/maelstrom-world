@@ -6,6 +6,7 @@ Description: Update logic for game event loop
 */
 var config = require('../config/config.js');
 var async = require('async');
+var map = require('./map');
 
 var timer = null;
 
@@ -32,8 +33,7 @@ var GameUpdate = {
 		done();
 	},
 	shipsUpdate: function(done) {
-		//TODO
-		done();
+		map.updateCities(done);
 	}
 };
 
