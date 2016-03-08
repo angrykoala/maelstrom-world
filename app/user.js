@@ -5,6 +5,8 @@ Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: 
 */
 
+var map = require('./map');
+
 var User = function(id) {
 	this.id = id;
 	this.ships = {};
@@ -30,5 +32,32 @@ User.prototype.updateShips = function() {
 		if (!this.ships.hasOwnProperty(i)) continue;
 		this.ships[i].update();
 	}
+};
+User.prototype.buyProduct = function(shipId, product, quantity, done) {
+	var ship = this.getShip(shipId);
+	if (ship.status != "DOCKED") return done(new Error("Ship not docked"));
+	var city = ship.city;
+	map.getCity(city, function(err, res) {
+		if (err) return done(new Error("City not valid"));
+		city.getPrice(product, quantity, function(err, price) {
+			if (err) return done(err);
+
+			if (user.money < price) return done(new Error("Not enough money"));
+			user.money -= price;
+			city.buyProduct(product, quantity, function(err, res) {
+				if (err) {
+					user.money += price;
+					return done(err);
+				}
+				ship.addProduct(product, quantity);
+				return done();
+			});
+		});
+	});
+};
+User.prototype.moveShip = function(shipId, destiny, done) {
+	var s = this.getShip(shipId);
+	if (!s) done(new Error("Not ship found"));
+	s.move(destiny, done);
 };
 module.exports = User;

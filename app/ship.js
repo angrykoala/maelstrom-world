@@ -32,7 +32,7 @@ Ship.prototype.addProduct = function(product, quantity) {
 		return true;
 	} else return false;
 };
-Ship.prototype.moveShip = function(destiny, done) {
+Ship.prototype.move = function(destiny, done) {
 	if (this.status.value !== "docked") return done(new Error("Ship is not docked"));
 	map.getDistance(this.city, destiny, function(err, res) {
 		if (err) return done(err);
@@ -42,6 +42,7 @@ Ship.prototype.moveShip = function(destiny, done) {
 			remaining: time,
 			destiny: destiny
 		});
+		done();
 	});
 };
 Ship.prototype.removeProduct = function(product, quantity) {

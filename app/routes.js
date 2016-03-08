@@ -96,7 +96,6 @@ module.exports = function(app) {
 		});
 	});
 	app.put('/user/build/ship', function(req, response) {
-		//TODO: set money
 		var userId = req.user.id;
 		var shipModelId = req.body.model;
 		var shipName = req.body.ship_name;
@@ -126,7 +125,7 @@ module.exports = function(app) {
 			}
 		});
 	});
-	/*app.put('/user/move/ship', function(req, response) {
+	app.put('/user/move/ship', function(req, response) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;
 		var cityId = req.body.city;
@@ -134,23 +133,24 @@ module.exports = function(app) {
 		if (shipModelId === undefined || shipId === undefined || cityId === undefined) return response.status(500).json({
 			error: "Not valid data"
 		});
-		Actions.moveShip(userId, shipId, cityId, function(err, res) {
+
+		World.users.getUser(userId, function(err, res) {
 			if (err) return response.status(500).json({
 				error: err.toString()
 			});
-			else if (!res) return response.status(500).json({
-				error: "Can't move ship"
+			res.moveShip(shipId, cityId, function(err, res) {
+				if (err) return response.status(500).json(err);
+				return response.status(200).end();
 			});
-			else return response.status(201).json(res);
 		});
-	});*/
+	});
 	app.put('/user/buy', function(req, response) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;
 		var productId = req.body.product;
 		var quantity = req.body.quantity;
 		console.log("Buy Product " + userId);
-		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(500).json({
+		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(400).json({
 			error: "Not valid data"
 		});
 		World.users.getUser(userId, function(err, res) {
@@ -158,30 +158,9 @@ module.exports = function(app) {
 				error: "Not user found"
 			});
 			var user = res;
-			var ship = res.getShip(shipId);
-			if (ship.status != "DOCKED") return response.status(500).json({
-				error: "Ship not docked"
-			});
-			//Check cargo here
-			var city = ship.city;
-			World.map.getCity(city, function(err, res) {
+			user.buyProduct(shipId, productId, quantity, function(err) {
 				if (err) return response.status(500).json(err);
-				city.getPrice(productId, quantity, function(err, price) {
-					if (err) return response.status(500).json(err);
-
-					if (user.money < price) return response.status(500).json({
-						error: "Not enough money"
-					});
-					user.money -= price;
-					city.buyProduct(productId, quantity, function(err, res) {
-						if (err) {
-							user.money += price;
-							return response.status(500).json(err);
-						}
-						ship.addProduct(productId, quantity);
-						return response.status(201).end();
-					});
-				});
+				return response.status(200).end();
 			});
 		});
 	});
