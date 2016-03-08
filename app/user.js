@@ -25,4 +25,10 @@ User.prototype.getAllShips = function() {
 User.prototype.getShip = function(shipName) {
 	return this.ships[shipName];
 };
+User.prototype.updateShips = function() {
+	for (var i in this.ships) {
+		if (!this.ships.hasOwnProperty(i)) continue;
+		this.ships[i].update();
+	}
+};
 module.exports = User;

@@ -24,6 +24,13 @@ var users = {
 			res = this.users[id];
 			return done(null, res);
 		}
+	},
+	updateShips: function(done) {
+		for (var i in this.users) {
+			if (!this.users.hasOwnProperty(i)) continue;
+			this.users[i].updateShips();
+		}
+		done(null);
 	}
 };
 
@@ -39,12 +46,6 @@ var ships = {
 	},
 	getShipList: function(done) {
 		return done(null, this.list);
-	},
-	updateShips: function(done) {
-		for (var i in this.list) {
-			this.list[i].update();
-		}
-		done(null);
 	}
 };
 

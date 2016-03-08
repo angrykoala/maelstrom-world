@@ -7,7 +7,7 @@ Description: Update logic for game event loop
 var config = require('../config/config.js');
 var async = require('async');
 var map = require('./map');
-var shipList = require('.world').ships;
+var userList = require('./world').users;
 
 var timer = null;
 
@@ -32,7 +32,7 @@ var GameUpdate = {
 		map.updateCities(done);
 	},
 	shipsUpdate: function(done) {
-		shipList.updateShips(done);
+		userList.updateShips(done);
 	}
 };
 
