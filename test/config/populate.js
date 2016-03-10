@@ -13,10 +13,7 @@ module.exports=function(done){
     insertProducts();
     insertShipModels();
     insertCities();
-    insertUsers(function(){
-        insertShips();
-        done();
-    });
+    insertUsers(done);
     };
 
 module.exports.clear=function(){
@@ -51,14 +48,13 @@ function insertUsers(done){
     async.forEachOf(data.users,function(user,key,cb){
         World.users.addUser(user.id,function(err,res){
             res.money=user.money;
-            cb();            
+            insertShip(res,cb);            
         });        
     },function(err){
         done();        
     });
 }
-function insertShips(){
-    
-    
-    
+function insertShip(user,cb){
+    var shipsModel=data.ships.caravel;
+    user.buildShip("Black Pearl", shipModel, data.cities.isengard, cb);   
 }
