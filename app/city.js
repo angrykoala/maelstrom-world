@@ -6,11 +6,13 @@ Description:
 */
 
 var productList = require('./world').products;
+var utils = require('./utils');
 
 var city = function(name, position, products) {
 	if (name) this.name = name;
 	if (position) this.position = [position[0], position[1]];
 	this.products = products || {};
+	this.slug = utils.slugify(this.name);
 };
 city.prototype.addProduct = function(productName, quantity, productionRate) {
 	this.products[productName] = {

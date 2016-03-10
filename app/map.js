@@ -4,12 +4,14 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: 
 */
+
+var utils = require('./utils');
 var cities = {};
 
 var map = {
 	addCity: function(city) {
-		if (city && city.name) {
-			cities[city.name] = city;
+		if (city && city.slug) {
+			cities[city.slug] = city;
 		}
 	},
 	getCity: function(name, done) {
