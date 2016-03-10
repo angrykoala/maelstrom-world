@@ -38,14 +38,21 @@ var ships = {
 	list: {},
 	addShip: function(model) {
 		if (model && model.name) {
-			this.list[model.name] = model;
+			this.list[model.slug] = model;
 		}
 	},
 	getShip: function(name) {
 		return this.list[name] || null;
 	},
 	getShipList: function(done) {
-		return done(null, this.list);
+		var res = [];
+		var l = this.list;
+		for (var k in l) {
+			if (l.hasOwnProperty(k)) {
+				res.push(l[k]);
+			}
+		}
+		return done(null, res);
 	}
 };
 

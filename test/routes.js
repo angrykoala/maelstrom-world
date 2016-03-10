@@ -53,22 +53,40 @@ describe('Routes', function() {
 						.end(function(err, res) {
 							assert.notOk(err);
 							assert.ok(res);
-							var body=res.body;
+							var body = res.body;
 							assert.ok(body.name);
 							assert.ok(body.position);
-							assert.strictEqual(body.position.length,2);
+							assert.strictEqual(body.position.length, 2);
 							assert.ok(body.slug);
 							cb();
 						});
 				}, function(err) {
 					assert.notOk(err);
-
 					done();
 				});
 			});
 		});
-		it.skip('/ship_models', function() {
-			throw new Error("not implemented");
+		it('/ship_models', function(done) {
+			request(app)
+				.get('/ship_models')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end(function(err, res) {
+					assert.notOk(err);
+					assert.ok(res.body);
+					var body = res.body;
+					assert.typeOf(body,'array');
+					for(var i=0;i<body.length;i++){
+							var s=body[i];
+							assert.ok(s.name);
+							assert.ok(s.life);
+							assert.ok(s.speed);
+							assert.ok(s.price);
+							assert.ok(s.cargo);
+							assert.ok(s.slug);					
+					}
+					done();
+				});
 		});
 		it.skip('/user/ships', function() {
 			throw new Error("not implemented");

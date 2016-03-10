@@ -5,6 +5,7 @@ Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: 
 */
 var map = require('./map');
+var utils = require('./utils');
 
 var Ship = function(name, user, shipModel, city) {
 	this.name = name;
@@ -14,6 +15,7 @@ var Ship = function(name, user, shipModel, city) {
 	this.city = city;
 	this.setStatus("docked");
 	this.products = {};
+	this.slug = utils.slugify(name);
 };
 Ship.prototype.setStatus = function(status, data) {
 	this.status = data || {};
@@ -66,6 +68,7 @@ var ShipModel = function(name, data) {
 	this.speed = data.speed || 0;
 	this.price = data.price || 0;
 	this.cargo = data.cargo || 0;
+	this.slug = utils.slugify(name);
 };
 ShipModel.prototype.createShip = function(name, user, city) {
 	return new Ship(name, user, this, city);
