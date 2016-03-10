@@ -1,6 +1,6 @@
 {
 	"name": "maelstrom-world",
-	"version": "0.2.9",
+	"version": "0.3.0",
 	"description": "Game server to handle maelstrom dynamic world",
 	"main": "server.js",
 	"scripts": {
@@ -39,6 +39,7 @@
 		"coveralls": "^2.11.8",
 		"istanbul": "^0.4.0",
 		"js-beautify": "^1.5.10",
-		"mocha": "^2.3.3"
+		"mocha": "^2.3.3",
+		"supertest": "^1.2.0"
 	}
 }
