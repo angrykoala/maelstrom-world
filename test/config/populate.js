@@ -14,7 +14,6 @@ var clear = function() {
 	World.map.clear();
 };
 
-module.exports.clear = clear;
 module.exports = function(done) {
 	clear();
 	insertProducts();

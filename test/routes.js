@@ -19,9 +19,15 @@ describe('Routes', function() {
 	describe('GET Routes', function() {
 		var app;
 		before(function(done) {
-			populate(done);
-			serverTest.startServer();
-			app = serverTest.app;
+			populate(function() {
+				serverTest.startServer(function() {
+					app = serverTest.app;
+					done();
+				});
+			});
+		});
+		after(function() {
+			serverTest.stopServer();
 		});
 		it('/map', function(done) {
 			request(app)
@@ -107,12 +113,11 @@ describe('Routes', function() {
 							assert.ok(res.body);
 							assert.ok(res.body.err);
 							done();
-
 						});
 				});
 		});
-		it('/user/data', function() {
-			var userData=data.users.arthur;
+		it('/user/data', function(done) {
+			var userData = data.users.arthur;
 			var token = userData.token;
 			request(app)
 				.get('/user/data')
@@ -122,8 +127,8 @@ describe('Routes', function() {
 					assert.notOk(err);
 					assert.ok(res);
 					assert.ok(res.body);
-					assert.strictEqual(res.id,userData.id);
-					assert.strictEqual(res.money,userData.money);
+					assert.strictEqual(res.body.id, userData.id);
+					assert.isNumber(res.body.money);
 					request(app)
 						.get('/user/data')
 						.expect(401)
@@ -132,13 +137,23 @@ describe('Routes', function() {
 							assert.ok(res.body);
 							assert.ok(res.body.err);
 							done();
-
 						});
 				});
 		});
 	});
-
 	describe('POST Routes', function() {
+		var app;
+		beforeEach(function(done) {
+			populate(function() {
+				serverTest.startServer(function() {
+					app = serverTest.app;
+					done();
+				});
+			});
+		});
+		afterEach(function() {
+			serverTest.stopServer();
+		});
 		it.skip('/user/signup', function() {
 			throw new Error("not implemented");
 		});
