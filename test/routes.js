@@ -111,8 +111,30 @@ describe('Routes', function() {
 						});
 				});
 		});
-		it.skip('/user/data', function() {
-			throw new Error("not implemented");
+		it('/user/data', function() {
+			var userData=data.users.arthur;
+			var token = userData.token;
+			request(app)
+				.get('/user/data')
+				.set('Authorization', "Bearer " + token)
+				.expect(200)
+				.end(function(err, res) {
+					assert.notOk(err);
+					assert.ok(res);
+					assert.ok(res.body);
+					assert.strictEqual(res.id,userData.id);
+					assert.strictEqual(res.money,userData.money);
+					request(app)
+						.get('/user/data')
+						.expect(401)
+						.end(function(err, res) {
+							assert.notOk(err);
+							assert.ok(res.body);
+							assert.ok(res.body.err);
+							done();
+
+						});
+				});
 		});
 	});
 
