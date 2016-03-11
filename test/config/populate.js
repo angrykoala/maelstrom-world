@@ -14,13 +14,16 @@ var clear = function() {
 	World.map.clear();
 };
 
-module.exports = function(done) {
+
+var populate = function(done) {
 	clear();
 	insertProducts();
 	insertShipModels();
 	insertCities();
 	insertUsers(done);
 };
+populate.clear=clear;
+module.exports=populate;
 
 
 function insertProducts() {

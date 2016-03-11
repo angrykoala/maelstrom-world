@@ -86,7 +86,6 @@ module.exports = function(app) {
 	});
 	app.post('/user/signup', function(req, response) {
 		var userId = req.user.id;
-		console.log("Create user " + userId);
 		World.users.addUser(userId, function(err, res) {
 			if (err) return response.status(500).json({
 				error: err.toString()

@@ -10,6 +10,7 @@ var request = require('supertest');
 var async = require('async');
 
 var map = require('../app/map');
+var World = require('../app/world');
 
 var serverTest = require('./config/server');
 var populate = require('./config/populate');
@@ -28,6 +29,7 @@ describe('Routes', function() {
 		});
 		after(function() {
 			serverTest.stopServer();
+			populate.clear();
 		});
 		it('/map', function(done) {
 			request(app)
@@ -144,18 +146,38 @@ describe('Routes', function() {
 	describe('POST Routes', function() {
 		var app;
 		beforeEach(function(done) {
-			populate(function() {
-				serverTest.startServer(function() {
-					app = serverTest.app;
-					done();
-				});
+			serverTest.startServer(function() {
+				app = serverTest.app;
+				done();
 			});
 		});
 		afterEach(function() {
 			serverTest.stopServer();
+			populate.clear();
 		});
-		it.skip('/user/signup', function() {
-			throw new Error("not implemented");
+		it('/user/signup', function(done) {
+			var userData = data.users.arthur;
+			var token = userData.token;
+			World.users.getUser(userData.id, function(err, res) {
+				assert.ok(err);
+				assert.notOk(res);
+				request(app)
+					.post('/user/signup')
+					.set('Authorization', "Bearer " + token)
+					.expect(201)
+					.end(function(err, res) {
+						assert.notOk(err);
+						assert.ok(res.body);
+						assert.strictEqual(res.body.id, userData.id);
+						assert.strictEqual(res.body.money, 0);
+						World.users.getUser(userData.id, function(err, res) {
+							assert.notOk(err);
+							assert.ok(res);
+							assert.strictEqual(res.id, userData.id);
+							done();
+						});
+					});
+			});
 		});
 	});
 	describe('PUT Routes', function() {
