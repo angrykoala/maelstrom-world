@@ -68,10 +68,10 @@ module.exports = {
 		arthur: {
 			id: "arthur",
 			money: 101,
-			token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOjE0NTc1NDI1NjgsImV4cCI6NjMxNzI4MzM4OCwiYXVkIjoiIiwic3ViIjoiIiwiaWQiOiJhcnRodXIiLCJuYW1lIjoiQXJ0aHVyIn0.mvmInFnt7Gl0mokJqw61qnemHsBGpzswwxYbbfq1Vjk"
+			token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOjE0NTc2OTQwMTcsImV4cCI6MTQ4OTIzMDAxNywiYXVkIjoiIiwic3ViIjoiIiwiaWQiOiJhcnRodXIiLCJuYW1lIjoiQXJ0aHVyIn0.4RQId_u4ggnjJCwwTmpqz11qfvFRNmBz8cCWZeQaJHc"
 		},
 		ford: {
-			id: 2,
+			id: "ford",
 			money: 12000,
 			token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOjE0NTc1NDI1NjgsImV4cCI6NjMxNzI4MzM4OCwiYXVkIjoiIiwic3ViIjoiIiwiaWQiOiJmb3JkIiwibmFtZSI6IkZvcmQifQ.djMHKgjQ5zpxmCqZqJdH2wArs7mNcuq7KpKD_lX8Z8I"
 		}

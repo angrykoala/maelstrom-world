@@ -16,6 +16,7 @@ var Product = require('./product');
 var ShipModel = require('./ship');
 var World = require('./world');
 
+var serverConfig = require('../config/server');
 
 module.exports = function(app) {
 
@@ -24,7 +25,7 @@ module.exports = function(app) {
 	//all urls under user can only be accesed having a jwt in the header
 	//auth header must be: Bearer (jwt token)
 	app.use('/user/*', expressjwt({
-		secret: "dontpanic",
+		secret: serverConfig.secret,
 		credentialsRequired: true
 	}));
 	//middleware to return status 401 if jwt is not valid

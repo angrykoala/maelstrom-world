@@ -75,21 +75,41 @@ describe('Routes', function() {
 					assert.notOk(err);
 					assert.ok(res.body);
 					var body = res.body;
-					assert.typeOf(body,'array');
-					for(var i=0;i<body.length;i++){
-							var s=body[i];
-							assert.ok(s.name);
-							assert.ok(s.life);
-							assert.ok(s.speed);
-							assert.ok(s.price);
-							assert.ok(s.cargo);
-							assert.ok(s.slug);					
+					assert.typeOf(body, 'array');
+					for (var i = 0; i < body.length; i++) {
+						var s = body[i];
+						assert.ok(s.name);
+						assert.ok(s.life);
+						assert.ok(s.speed);
+						assert.ok(s.price);
+						assert.ok(s.cargo);
+						assert.ok(s.slug);
 					}
 					done();
 				});
 		});
-		it.skip('/user/ships', function() {
-			throw new Error("not implemented");
+		it('/user/ships', function(done) {
+			var token = data.users.arthur.token;
+			request(app)
+				.get('/user/ships')
+				.set('Authorization', "Bearer " + token)
+				.expect(200)
+				.end(function(err, res) {
+					assert.notOk(err);
+					assert.ok(res);
+					assert.ok(res.body);
+					assert.strictEqual(res.body.length, 1);
+					request(app)
+						.get('/user/ships')
+						.expect(401)
+						.end(function(err, res) {
+							assert.notOk(err);
+							assert.ok(res.body);
+							assert.ok(res.body.err);
+							done();
+
+						});
+				});
 		});
 		it.skip('/user/data', function() {
 			throw new Error("not implemented");
