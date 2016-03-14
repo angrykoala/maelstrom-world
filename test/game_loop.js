@@ -12,6 +12,7 @@ var serverTest = require('./config/server');
 var populate = require('./config/populate');
 var data = require('./config/data');
 var map = require('../app/map');
+var users=require('../app/world').users;
 var gu = serverTest.gu;
 
 
@@ -19,10 +20,7 @@ describe('Game Loop', function() {
 	//var app;
 	beforeEach(function(done) {
 		populate(function() {
-			serverTest.startServer(function() {
-				//app = serverTest.app;
-				done();
-			});
+			serverTest.startServer(done);
 		});
 	});
 	afterEach(function() {
@@ -63,8 +61,5 @@ describe('Game Loop', function() {
 		});
 	});
 	it.skip('Update ships', function(done) {
-		var ticks = 0;
-
-
 	});
 });

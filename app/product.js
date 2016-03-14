@@ -6,7 +6,7 @@ Description:
 */
 var product = function(name, price) {
 	this.name = name;
-	this.price = price;
+	this.price=price>=0 ? price : 0;
 };
 
 module.exports = product;
