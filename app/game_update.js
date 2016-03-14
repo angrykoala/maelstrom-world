@@ -14,12 +14,14 @@ var timer = null;
 var GameUpdate = {
 	startLoop: function(time, tick) {
 		var gu = this;
+		var tickValue = -1;
 		if (!time || time <= 0) time = config.refreshTime;
 		timer = setInterval(function() {
+			tickValue++;
 			gu.cityProductsUpdate(function(err, res) {
-				if (err) return tick(err);
+				if (err) return tick(err, tickValue);
 				gu.shipsUpdate(function(err, res) {
-					return tick(err);
+					return tick(err, tickValue);
 				});
 			});
 		}, time);

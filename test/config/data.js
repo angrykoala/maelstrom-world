@@ -20,15 +20,15 @@ module.exports = {
 	products: {
 		bread: {
 			name: "Bread",
-			basePrice: 50
+			price: 50
 		},
 		redmeat: {
 			name: "Red meat",
-			basePrice: 50.2
+			price: 50.2
 		},
 		stone: {
 			name: "Stone",
-			basePrice: 10.2
+			price: 10.2
 		}
 	},
 	cities: {

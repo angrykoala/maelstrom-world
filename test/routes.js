@@ -74,6 +74,9 @@ describe('Routes', function() {
 				});
 			});
 		});
+		it.skip('/city/products/:city_name', function(done) {
+			return done(new Error("not implemented"));
+		});
 		it('/ship_models', function(done) {
 			request(app)
 				.get('/ship_models')
@@ -181,6 +184,22 @@ describe('Routes', function() {
 		});
 	});
 	describe('PUT Routes', function() {
+		var app;
+		beforeEach(function(done) {
+			var app;
+			before(function(done) {
+				populate(function() {
+					serverTest.startServer(function() {
+						app = serverTest.app;
+						done();
+					});
+				});
+			});
+		});
+		afterEach(function() {
+			serverTest.stopServer();
+			populate.clear();
+		});
 		it.skip('/user/build/ship', function() {
 			throw new Error("not implemented");
 		});

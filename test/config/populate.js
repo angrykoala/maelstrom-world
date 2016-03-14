@@ -22,14 +22,14 @@ var populate = function(done) {
 	insertCities();
 	insertUsers(done);
 };
-populate.clear=clear;
-module.exports=populate;
+populate.clear = clear;
+module.exports = populate;
 
 
 function insertProducts() {
 	var products = [];
 	for (var p in data.products) products.push(new Product(data.products[p].name, data.products[p].price));
-	for (var i = 0; i < products; i++) World.products.addProduct(products[i]);
+	for (var i = 0; i < products.length; i++) World.products.addProduct(products[i]);
 }
 
 function insertShipModels() {
@@ -45,8 +45,8 @@ function insertCities() {
 		var cdata = data.cities[c];
 		var l = cities.push(new City(cdata.name, [cdata.positionX, cdata.positionY]));
 		var newcity = cities[l - 1];
-		for (var p in productList) newcity.addProduct(p, 10, 1);
-		for (var i = 0; i < cities.length; i++) World.map.addCity(cities[i]);
+		for (var i = 0; i < productList.length; i++) newcity.addProduct(productList[i], 10, 1);
+		for (i = 0; i < cities.length; i++) World.map.addCity(cities[i]);
 	}
 }
 

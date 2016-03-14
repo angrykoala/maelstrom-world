@@ -14,7 +14,7 @@ var city = function(name, position, products) {
 	this.products = products || {};
 	this.slug = utils.slugify(this.name);
 };
-city.prototype.addProduct = function(productName, quantity, productionRate) {
+city.prototype.addProduct = function(productName, quantity, production) {
 	this.products[productName] = {
 		"quantity": quantity,
 		"production": production,
@@ -41,12 +41,15 @@ city.prototype.getPrice = function(productId, quantity, done) {
 	if (!p) return done(new Error("not product found"));
 	return done(p.price * quantity);
 };
+city.prototype.getProducts = function(done) {
+	return done(null, this.products);
+};
 city.prototype.update = function() {
 	var prods = this.products;
 	for (var prod in prods) {
-		if (!prods.hasOwnProperty(key)) continue;
+		if (!prods.hasOwnProperty(prod)) continue;
 		var obj = prods[prod];
-		obj.quantity += obj.productionRate;
+		obj.quantity += obj.production;
 		if (obj.quantity < 0) obj.quantity = 0;
 	}
 };
