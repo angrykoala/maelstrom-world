@@ -33,6 +33,5 @@ describe('Product', function() {
 		assert.instanceOf(p3,Product);
 		assert.strictEqual(p3.name,"prodName3");
 		assert.strictEqual(p3.price,0);
-		
 	});
 });

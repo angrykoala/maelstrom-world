@@ -64,6 +64,7 @@ Ship.prototype.update = function() {
 };
 var ShipModel = function(name, data) {
 	this.name = name;
+	data=data || {};
 	this.life = data.life || 0;
 	this.speed = data.speed || 0;
 	this.price = data.price || 0;
