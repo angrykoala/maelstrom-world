@@ -136,5 +136,36 @@ describe('Ship', function() {
 			});
 		});
 	});
-	it.skip('Ship Update', function() {});
+	it('Ship Update', function(done) {
+		assert.strictEqual(testShip.city, "isengard");
+		assert.strictEqual(testShip.status.value, "docked");
+		testShip.update();
+		assert.strictEqual(testShip.city, "isengard");
+		assert.strictEqual(testShip.status.value, "docked");
+		var dis = 259.548;
+		var rem = dis / testShip.model.speed;
+		testShip.move("rohan", function(err) {
+			assert.notOk(err);
+			assert.strictEqual(testShip.status.value, "traveling");
+			assert.strictEqual(testShip.status.destiny, "rohan");
+			assert.closeTo(testShip.status.remaining, rem, 0.5);
+			testShip.update();
+			assert.strictEqual(testShip.status.value, "traveling");
+			assert.strictEqual(testShip.status.destiny, "rohan");
+			assert.closeTo(testShip.status.remaining, rem-1, 0.5);
+			while(testShip.status.remaining>2) testShip.update();
+			assert.strictEqual(testShip.status.value, "traveling");
+			assert.strictEqual(testShip.status.destiny, "rohan");
+			assert.closeTo(testShip.status.remaining, 1.5, 0.5);
+			testShip.update();
+			assert.strictEqual(testShip.status.value, "traveling");
+			assert.strictEqual(testShip.status.destiny, "rohan");
+			assert.closeTo(testShip.status.remaining, 0.5, 0.5);
+			assert.strictEqual(testShip.city, "isengard");
+			testShip.update();
+			assert.strictEqual(testShip.status.value, "docked");
+			assert.strictEqual(testShip.city, "rohan");
+			done();
+		});
+	});
 });
