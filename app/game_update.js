@@ -14,7 +14,7 @@ var timer = null;
 var GameUpdate = {
 	startLoop: function(time, tick) {
 		var gu = this;
-		var tickValue = -1;
+		var tickValue = 0;
 		if (!time || time <= 0) time = config.refreshTime;
 		timer = setInterval(function() {
 			tickValue++;
