@@ -52,6 +52,15 @@ module.exports = function(app) {
 			else return response.status(200).json(res);
 		});
 	});
+	app.get('/city/products/:city_name', function(req, response) {
+		var cityName = req.params.city_name;
+		World.map.getCity(cityName, function(err, res) {
+			if (err) return response.status(500).json({
+				error: err.toString()
+			});
+			else return response.status(200).json(res.products);
+		});
+	});
 	app.get('/ship_models', function(req, response) {
 		World.ships.getShipList(function(err, res) {
 			if (err) return response.status(500).json({
@@ -99,8 +108,7 @@ module.exports = function(app) {
 		var userId = req.user.id;
 		var shipModelId = req.body.model;
 		var shipName = req.body.ship_name;
-		var cityId = req.body.city; //USE THIS TOO!
-		console.log("Build ship " + userId);
+		var cityId = req.body.city;
 		if (shipModelId === undefined || !shipName || cityId === undefined || !userId) return response.status(500).json({
 			error: "Not valid data"
 		});

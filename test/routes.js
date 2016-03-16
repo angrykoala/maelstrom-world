@@ -74,8 +74,32 @@ describe('Routes', function() {
 				});
 			});
 		});
-		it.skip('/city/products/:city_name', function(done) {
-			return done(new Error("not implemented"));
+		it('/city/products/:city_name', function(done) {
+			map.getAllCities(function(err, cities) {
+				assert.notOk(err);
+				assert.ok(cities);
+				async.each(cities, function(cityName, cb) {
+					request(app)
+						.get('/city/products/' + cityName)
+						.expect('Content-Type', /json/)
+						.expect(200)
+						.end(function(err, res) {
+							assert.notOk(err);
+							assert.ok(res);
+							var body = res.body;
+							for (var p in data.products) {
+								var pname=data.products[p].name;
+								assert.ok(body[pname]);
+								assert.strictEqual(body[pname].quantity, 10);
+								assert.strictEqual(body[pname].production, 1);
+							}
+							cb();
+						});
+				}, function(err) {
+					assert.notOk(err);
+					done();
+				});
+			});
 		});
 		it('/ship_models', function(done) {
 			request(app)

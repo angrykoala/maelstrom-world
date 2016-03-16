@@ -152,8 +152,8 @@ describe('Ship', function() {
 			testShip.update();
 			assert.strictEqual(testShip.status.value, "traveling");
 			assert.strictEqual(testShip.status.destiny, "rohan");
-			assert.closeTo(testShip.status.remaining, rem-1, 0.5);
-			while(testShip.status.remaining>2) testShip.update();
+			assert.closeTo(testShip.status.remaining, rem - 1, 0.5);
+			while (testShip.status.remaining > 2) testShip.update();
 			assert.strictEqual(testShip.status.value, "traveling");
 			assert.strictEqual(testShip.status.destiny, "rohan");
 			assert.closeTo(testShip.status.remaining, 1.5, 0.5);

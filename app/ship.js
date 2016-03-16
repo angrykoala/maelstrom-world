@@ -38,7 +38,7 @@ Ship.prototype.addProduct = function(product, quantity) {
 };
 Ship.prototype.move = function(destiny, done) {
 	if (this.status.value !== "docked") return done(new Error("Ship is not docked"));
-	if(destiny===this.city) return done(new Error("Already in city"));
+	if (destiny === this.city) return done(new Error("Already in city"));
 	var thisShip = this;
 	map.getDistance(this.city, destiny, function(err, res) {
 		if (err) return done(err);
