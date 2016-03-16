@@ -63,18 +63,18 @@ describe('Game Loop', function() {
 	it('Update ships', function(done) {
 		this.timeout(3000);
 		var ticks = 0;
-		var userShip1=users.users.arthur.ships["Black Pearl"];
-		var userShip2=users.users.ford.ships["Black Pearl"];
+		var userShip1 = users.users.arthur.ships["Black Pearl"];
+		var userShip2 = users.users.ford.ships["Black Pearl"];
 		var dis = 259.548;
 		var rem = dis / userShip1.model.speed;
-		userShip1.move("rohan",function(err){
+		userShip1.move("rohan", function(err) {
 			assert.notOk(err);
 			assert.strictEqual(userShip2.city, "isengard");
 			assert.strictEqual(userShip2.status.value, "docked");
 			assert.strictEqual(userShip1.status.value, "traveling");
 			assert.strictEqual(userShip1.status.destiny, "rohan");
 			assert.closeTo(userShip1.status.remaining, rem, 0.5);
-			
+
 			gu.startLoop(120, function(err, tickValue) {
 				assert.notOk(err);
 				if (tickValue >= 5) {
@@ -85,8 +85,8 @@ describe('Game Loop', function() {
 				assert.strictEqual(userShip2.status.value, "docked");
 				assert.strictEqual(userShip1.status.value, "traveling");
 				assert.strictEqual(userShip1.status.destiny, "rohan");
-				assert.closeTo(userShip1.status.remaining, rem-tickValue, 0.5);
+				assert.closeTo(userShip1.status.remaining, rem - tickValue, 0.5);
 			});
-		});		
+		});
 	});
 });

@@ -88,7 +88,7 @@ describe('Routes', function() {
 							assert.ok(res);
 							var body = res.body;
 							for (var p in data.products) {
-								var pname=data.products[p].name;
+								var pname = data.products[p].name;
 								assert.ok(body[pname]);
 								assert.strictEqual(body[pname].quantity, 10);
 								assert.strictEqual(body[pname].production, 1);
