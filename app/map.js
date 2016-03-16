@@ -40,7 +40,7 @@ var map = {
 		var dy = pos1[1] - pos2[1];
 
 		var distance = Math.sqrt(dx * dx + dy * dy);
-		if (distace >= 0) return done(null, distance);
+		if (distance >= 0) return done(null, distance);
 		else return done(new Error("Error in distance"));
 
 	},

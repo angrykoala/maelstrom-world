@@ -23,7 +23,7 @@ Ship.prototype.setStatus = function(status, data) { //TODO: make this private
 };
 Ship.prototype.getCurrentCargo = function() {
 	var cargo = 0;
-	var prods=this.cargo;
+	var prods = this.cargo;
 	for (var p in prods) {
 		if (!prods.hasOwnProperty(p)) continue;
 		cargo += this.cargo[p];
@@ -38,21 +38,24 @@ Ship.prototype.addProduct = function(product, quantity) {
 };
 Ship.prototype.move = function(destiny, done) {
 	if (this.status.value !== "docked") return done(new Error("Ship is not docked"));
+	if(destiny===this.city) return done(new Error("Already in city"));
+	var thisShip = this;
 	map.getDistance(this.city, destiny, function(err, res) {
 		if (err) return done(err);
-		var spd = this.model.speed;
+		var spd = thisShip.model.speed;
 		var time = res / spd;
-		this.setStatus("traveling", {
+		thisShip.setStatus("traveling", {
 			remaining: time,
 			destiny: destiny
 		});
-		done();
+		done(null);
 	});
 };
 Ship.prototype.removeProduct = function(product, quantity) {
 	if (this.cargo[product] >= quantity) {
 		this.cargo[product] -= quantity;
-		if (this.cargo[product] === 0) delete this.product[product];
+		if (this.cargo[product] === 0) delete this.cargo[product];
+		return true;
 	} else return false;
 };
 Ship.prototype.update = function() {
@@ -66,7 +69,7 @@ Ship.prototype.update = function() {
 };
 var ShipModel = function(name, data) {
 	this.name = name;
-	data=data || {};
+	data = data || {};
 	this.life = data.life || 0;
 	this.speed = data.speed || 0;
 	this.price = data.price || 0;
