@@ -14,23 +14,25 @@ var Ship = function(name, user, shipModel, city) {
 	this.life = shipModel.life;
 	this.city = city;
 	this.setStatus("docked");
-	this.products = {};
+	this.cargo = {};
 	this.slug = utils.slugify(name);
 };
-Ship.prototype.setStatus = function(status, data) {
+Ship.prototype.setStatus = function(status, data) { //TODO: make this private
 	this.status = data || {};
 	this.status.value = status;
 };
 Ship.prototype.getCurrentCargo = function() {
 	var cargo = 0;
-	for (var p in this.products) {
-		if (!p.hasOwnProperty(key)) continue;
-		cargo += this.products[p];
+	var prods=this.cargo;
+	for (var p in prods) {
+		if (!prods.hasOwnProperty(p)) continue;
+		cargo += this.cargo[p];
 	}
+	return cargo;
 };
 Ship.prototype.addProduct = function(product, quantity) {
-	if ((quantity + this.getCurrentCargo()) < this.model.cargo && quantity >= 0) {
-		this.products[product] = this.products[product] + quantity || quantity;
+	if ((quantity + this.getCurrentCargo()) <= this.model.cargo && quantity >= 0) {
+		this.cargo[product] = this.cargo[product] + quantity || quantity;
 		return true;
 	} else return false;
 };
@@ -48,9 +50,9 @@ Ship.prototype.move = function(destiny, done) {
 	});
 };
 Ship.prototype.removeProduct = function(product, quantity) {
-	if (this.products[product] >= quantity) {
-		this.products[product] -= quantity;
-		if (this.products[product] === 0) delete this.product[product];
+	if (this.cargo[product] >= quantity) {
+		this.cargo[product] -= quantity;
+		if (this.cargo[product] === 0) delete this.product[product];
 	} else return false;
 };
 Ship.prototype.update = function() {
