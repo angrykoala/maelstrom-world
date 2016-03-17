@@ -10,7 +10,8 @@ var utils = require('./utils');
 var map = {
 	cities: {},
 	addCity: function(city) {
-		if (city && city.slug) {
+		if (city && city.name) {
+			city.slug=utils.slugify(city.name);
 			this.cities[city.slug] = city;
 		}
 	},

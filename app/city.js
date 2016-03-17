@@ -39,7 +39,7 @@ city.prototype.getPrice = function(productId, quantity, done) {
 	if (!productId || quantity < 0) return done(new Error("Bad data"));
 	var p = productList.getProduct(productId);
 	if (!p) return done(new Error("not product found"));
-	return done(null,p.price * quantity);
+	return done(null, p.price * quantity);
 };
 city.prototype.getProducts = function(done) {
 	return done(null, this.products);

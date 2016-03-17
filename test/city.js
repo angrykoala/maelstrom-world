@@ -12,10 +12,10 @@ var populate = require('./config/populate');
 
 describe('City', function() {
 	var testCity;
-	before(function(done){
+	before(function(done) {
 		populate(done);
 	});
-	
+
 	beforeEach(function() {
 		testCity = new City("TestCity", [2, 4]);
 		assert.ok(testCity);
