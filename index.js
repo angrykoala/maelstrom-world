@@ -35,7 +35,7 @@ app.listen(8080, function() {
 		console.log(sec);
 		if (err)
 			console.log("Tick: Error - " + err);
-		else
-			console.log("Tick: No Error");
+	//	else
+	//		console.log("Tick: No Error");
 	});
 });
