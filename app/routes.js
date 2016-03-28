@@ -34,9 +34,14 @@ module.exports = function(app) {
 			err: "invalid token"
 		});
 	});
+	
+	app.use('/', function(req, res, next) {
+	 	res.setHeader('Access-Control-Allow-Origin', '*');
+	  	next();
+	});
 
 	app.get('/map', function(req, response) {
-		World.map.getAllCities(function(err, res) {
+		World.map.getAllCities(function(err, res) {	
 			if (err) return response.status(500).json({
 				error: err.toString()
 			});

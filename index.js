@@ -32,7 +32,6 @@ app.listen(8080, function() {
 	gu.startLoop(null, function(err) {
 		var date = new Date();
 		var sec = date.getSeconds();
-		console.log(sec);
 		if (err)
 			console.log("Tick: Error - " + err);
 	//	else
