@@ -6,26 +6,33 @@ Description:
 */
 
 var map = require('./map');
+var Utils=require('./utils');
 
 var User = function(id) {
 	this.id = id;
 	this.ships = {};
-	this.money = 0;
+	this.money = 1000;
 };
 User.prototype.buildShip = function(name, model, city, done) {
-	if (this.ships[name] === undefined) {
+	if (this.ships[Utils.slugify(name)] === undefined) {
 		if (this.money > model.price) this.money -= model.price;
 		else return done(new Error("Not enough money"));
 		var ship = model.createShip(name, this, city);
-		this.ships[name] = ship;
+		this.ships[ship.slug] = ship;
 		return done(null, this.ships[name]);
 	} else return done(new Error("Ship already exists"));
 };
 User.prototype.getAllShips = function() {
-	return Object.keys(this.ships);
+	var res=[];
+	for(var i in this.ships){
+		var s=this.ships[i];
+		res.push({name:s.name,model:s.model.name,id:s.id,slug:s.slug,life:s.life,status:s.status.value});
+	}
+	return res;
+	//return Object.keys(this.ships);
 };
-User.prototype.getShip = function(shipName) {
-	return this.ships[shipName];
+User.prototype.getShip = function(shipSlug) {
+	return this.ships[shipSlug];
 };
 User.prototype.updateShips = function() {
 	for (var i in this.ships) {

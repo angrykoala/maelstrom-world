@@ -37,6 +37,7 @@ module.exports = function(app) {
 	
 	app.use('/', function(req, res, next) {
 	 	res.setHeader('Access-Control-Allow-Origin', '*');
+	 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 	  	next();
 	});
 
@@ -81,6 +82,16 @@ module.exports = function(app) {
 				error: err.toString()
 			});
 			else return response.status(200).json(res.getAllShips());
+		});
+	});
+	app.get('/user/ship/:ship_id',function(req,response){
+	var userId = req.user.id;
+	var shipId = req.params.ship_id;
+		World.users.getUser(userId, function(err, res) {
+			if (err) return response.status(500).json({
+				error: err.toString()
+			});
+			else return response.status(200).json(res.getShip(shipId));
 		});
 	});
 	app.get('/user/data', function(req, response) {
