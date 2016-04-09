@@ -8,6 +8,7 @@ var City = require('./app/city');
 var Ship = require('./app/ship');
 var gu = require('./app/game_update');
 
+var version = process.env.npm_package_version;
 
 //token for testing: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU3MDYxOTc1MjkzZTNlMWYyM2M1YTBlOCIsInVzZXJuYW1lIjoiYXJ0aHVyIiwiaWF0IjoxNDYwMDE3NTI1LCJleHAiOjE0NjAwMjExMjV9.J7tiTx6U9lwCIfQxe9cDIhyt4N4yJFYZcdfJguXWJ0Q
 var c1 = new City("Granada", [-2, 6]);
@@ -28,8 +29,11 @@ world.users.addUser("57061975293e3e1f23c5a0e8", function(err, u1) {
 
 });
 
+console.log("Maelström - World");
+if (version) console.log("Version " + version);
+
 app.listen(8080, function() {
-	console.log("Server running on 8080");
+console.log("Server listening on port 8080");
 	gu.startLoop(null, function(err) {
 		var date = new Date();
 		var sec = date.getSeconds();
