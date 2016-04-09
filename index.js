@@ -23,7 +23,9 @@ world.users.addUser("57061975293e3e1f23c5a0e8", function(err, u1) {
 		world.map.addCity(c1);
 		world.map.addCity(c2);
 		world.ships.addShip(s1);
+		u1.buildShip("flying dutchman", s1, "Madrid", function() {});
 	});
+
 });
 
 app.listen(8080, function() {
@@ -33,8 +35,8 @@ app.listen(8080, function() {
 		var sec = date.getSeconds();
 		if (err)
 			console.log("Tick: Error - " + err);
-	//	else
-	//		console.log("Tick: No Error");
+		//	else
+		//		console.log("Tick: No Error");
 	});
 	//console.log(JSON.stringify(world.users));
 });

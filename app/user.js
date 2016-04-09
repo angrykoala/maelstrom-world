@@ -6,7 +6,7 @@ Description:
 */
 
 var map = require('./map');
-var Utils=require('./utils');
+var Utils = require('./utils');
 
 var User = function(id) {
 	this.id = id;
@@ -23,10 +23,17 @@ User.prototype.buildShip = function(name, model, city, done) {
 	} else return done(new Error("Ship already exists"));
 };
 User.prototype.getAllShips = function() {
-	var res=[];
-	for(var i in this.ships){
-		var s=this.ships[i];
-		res.push({name:s.name,model:s.model.name,id:s.id,slug:s.slug,life:s.life,status:s.status.value});
+	var res = [];
+	for (var i in this.ships) {
+		var s = this.ships[i];
+		res.push({
+			name: s.name,
+			model: s.model.name,
+			id: s.id,
+			slug: s.slug,
+			life: s.life,
+			status: s.status.value
+		});
 	}
 	return res;
 	//return Object.keys(this.ships);
