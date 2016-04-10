@@ -19,7 +19,7 @@ User.prototype.buildShip = function(name, model, city, done) {
 		else return done(new Error("Not enough money"));
 		var ship = model.createShip(name, this, city);
 		this.ships[ship.slug] = ship;
-		return done(null, this.ships[name]);
+		return done(null, this.ships[ship.slug]);
 	} else return done(new Error("Ship already exists"));
 };
 User.prototype.getAllShips = function() {
