@@ -20,12 +20,13 @@ var s1 = new Ship("Galleon", {
 	cargo: 2000
 });
 world.users.addUser("57061975293e3e1f23c5a0e8", function(err, u1) {
-	u1.buildShip("black pearl", s1, "Granada", function(err,blackpearl) {
+	u1.buildShip("Black Pearl", s1, "Granada", function(err,blackpearl) {
 		world.map.addCity(c1);
 		world.map.addCity(c2);
 		world.ships.addShip(s1);
-		blackpearl.addProduct("Rice",100);		
-		u1.buildShip("flying dutchman", s1, "Madrid", function() {});
+		blackpearl.addProduct("Rice",100);	
+		blackpearl.addProduct("Bread",20);	
+		u1.buildShip("Flying Dutchman", s1, "Madrid", function() {});
 	});
 
 });
