@@ -145,6 +145,9 @@ describe('Routes', function() {
 						});
 				});
 		});
+		it.skip('user/ship/:ship_id',function(done){
+			return done(new Error("not implemented"));	
+		});
 		it('/user/data', function(done) {
 			var userData = data.users.arthur;
 			var token = userData.token;
