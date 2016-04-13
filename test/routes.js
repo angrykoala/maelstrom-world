@@ -196,7 +196,7 @@ describe('Routes', function() {
 						assert.notOk(err);
 						assert.ok(res.body);
 						assert.strictEqual(res.body.id, userData.id);
-						assert.strictEqual(res.body.money, 0);
+						assert.strictEqual(res.body.money, 1000); //default money value
 						World.users.getUser(userData.id, function(err, res) {
 							assert.notOk(err);
 							assert.ok(res);

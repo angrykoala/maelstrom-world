@@ -63,8 +63,8 @@ describe('Game Loop', function() {
 	it('Update ships', function(done) {
 		this.timeout(3000);
 		var ticks = 0;
-		var userShip1 = users.users.arthur.ships["Black Pearl"];
-		var userShip2 = users.users.ford.ships["Black Pearl"];
+		var userShip1 = users.users.arthur.ships["black-pearl"];
+		var userShip2 = users.users.ford.ships["black-pearl"];
 		var dis = 259.548;
 		var rem = dis / userShip1.model.speed;
 		userShip1.move("rohan", function(err) {

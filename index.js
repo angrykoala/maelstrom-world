@@ -25,7 +25,7 @@ world.users.addUser("57061975293e3e1f23c5a0e8", function(err, u1) {
 		world.map.addCity(c2);
 		world.ships.addShip(s1);
 		blackpearl.addProduct("Rice",100);	
-		blackpearl.addProduct("Bread",20);	
+		blackpearl.addProduct("Bread",20);		
 		u1.buildShip("Flying Dutchman", s1, "Madrid", function() {});
 	});
 
