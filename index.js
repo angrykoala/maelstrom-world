@@ -1,7 +1,13 @@
 //ONLY FOR BASIC TESTING
 
+
 var app = require('express')();
-require('./app/routes.js')(app); //loads routes
+var http = require('http').createServer(app);
+
+require('./app/routes')(app); //loads routes
+require('./app/websockets')(http); //load websockets
+
+
 
 var world = require('./app/world');
 var City = require('./app/city');
@@ -34,7 +40,7 @@ world.users.addUser("57061975293e3e1f23c5a0e8", function(err, u1) {
 console.log("Maelström - World");
 if (version) console.log("Version " + version);
 
-app.listen(8080, function() {
+http.listen(8080, function() {
 console.log("Server listening on port 8080");
 	gu.startLoop(null, function(err) {
 		var date = new Date();
