@@ -62,7 +62,7 @@ function insertUsers(done) {
 }
 
 function insertShip(user, cb) {
-	var modelName = data.ships.caravel.name;
+	var modelName = data.ships.caravel.slug;
 	var shipModel = World.ships.getShip(modelName);
 	user.buildShip("Black Pearl", shipModel, 'isengard', cb);
 }

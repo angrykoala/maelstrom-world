@@ -7,14 +7,16 @@ module.exports = {
 			life: 1000,
 			price: 1200,
 			speed: 4.5,
-			cargo: 1200
+			cargo: 1200,
+			slug: "galleon"
 		},
 		caravel: {
-			name: "caravel",
+			name: "Caravel",
 			life: 30,
 			price: 10,
 			speed: 8,
-			cargo: 100
+			cargo: 100,
+			slug: "caravel"
 		}
 	},
 	products: {

@@ -7,8 +7,6 @@ var http = require('http').createServer(app);
 require('./app/routes')(app); //loads routes
 require('./app/websockets')(http); //load websockets
 
-
-
 var world = require('./app/world');
 var City = require('./app/city');
 var Ship = require('./app/ship');
@@ -26,12 +24,12 @@ var s1 = new Ship("Galleon", {
 	cargo: 2000
 });
 world.users.addUser("57061975293e3e1f23c5a0e8", function(err, u1) {
-	u1.buildShip("Black Pearl", s1, "Granada", function(err,blackpearl) {
+	u1.buildShip("Black Pearl", s1, "Granada", function(err, blackpearl) {
 		world.map.addCity(c1);
 		world.map.addCity(c2);
 		world.ships.addShip(s1);
-		blackpearl.addProduct("Rice",100);	
-		blackpearl.addProduct("Bread",20);		
+		blackpearl.addProduct("Rice", 100);
+		blackpearl.addProduct("Bread", 20);
 		u1.buildShip("Flying Dutchman", s1, "Madrid", function() {});
 	});
 
@@ -41,7 +39,7 @@ console.log("Maelström - World");
 if (version) console.log("Version " + version);
 
 http.listen(8080, function() {
-console.log("Server listening on port 8080");
+	console.log("Server listening on port 8080");
 	gu.startLoop(null, function(err) {
 		var date = new Date();
 		var sec = date.getSeconds();

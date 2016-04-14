@@ -127,6 +127,7 @@ describe('Routes', function() {
 			var token = data.users.arthur.token;
 			request(app)
 				.get('/user/ships')
+				.expect('Content-Type', /json/)
 				.set('Authorization', "Bearer " + token)
 				.expect(200)
 				.end(function(err, res) {
@@ -145,8 +146,51 @@ describe('Routes', function() {
 						});
 				});
 		});
-		it.skip('user/ship/:ship_id',function(done){
-			return done(new Error("not implemented"));	
+		it('user/ship/:ship_id', function(done) {
+			var userData = data.users.arthur;
+			var token = userData.token;
+			var shipData = data.userShips.blackPearl;
+			var modelData = data.ships.caravel;
+			request(app)
+				.get('/user/ships')
+				.set('Authorization', "Bearer " + token)
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end(function(err, res) {
+					assert.notOk(err);
+					assert.ok(res);
+					assert.ok(res.body);
+					assert.strictEqual(res.body.length, 1);
+					var shipSlug=res.body[0].slug;
+					request(app)
+						.get('/user/ship/' + shipSlug)
+						.set('Authorization', "Bearer " + token)
+						.expect('Content-Type', /json/)
+						.expect(200)
+						.end(function(err, res) {
+							assert.notOk(err);
+							assert.ok(res);
+							assert.ok(res.body);
+							var ship = res.body;
+							assert.strictEqual(ship.name, shipData.name);
+							assert.strictEqual(ship.model.name, modelData.name);
+							assert.strictEqual(ship.life, modelData.life);
+							assert.strictEqual(ship.life, ship.model.life);
+							assert.ok(ship.city);
+							assert.ok(ship.status);
+							assert.ok(ship.slug);
+							request(app)
+								.get('/user/ship/' + shipSlug)
+								.expect('Content-Type', /json/)
+								.expect(401)
+								.end(function(err, res) {
+									assert.ok(res.body);
+									assert.ok(res.body.err);
+									done();
+								});
+						});
+				});
+
 		});
 		it('/user/data', function(done) {
 			var userData = data.users.arthur;
