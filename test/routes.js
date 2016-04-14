@@ -161,7 +161,7 @@ describe('Routes', function() {
 					assert.ok(res);
 					assert.ok(res.body);
 					assert.strictEqual(res.body.length, 1);
-					var shipSlug=res.body[0].slug;
+					var shipSlug = res.body[0].slug;
 					request(app)
 						.get('/user/ship/' + shipSlug)
 						.set('Authorization', "Bearer " + token)

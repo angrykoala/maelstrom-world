@@ -32,7 +32,7 @@ city.prototype.buyProduct = function(productName, quantity, done) {
 	var p = this.products[productName];
 	if (!p) return done(new Error("Not product in city"));
 	if (p.quantity < quantity) return done(new Error("Not enough quantity"));
-	p.quantity += quantity;
+	p.quantity -= quantity;
 	return done();
 };
 city.prototype.getPrice = function(productId, quantity, done) {

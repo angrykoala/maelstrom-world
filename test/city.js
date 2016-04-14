@@ -24,7 +24,6 @@ describe('City', function() {
 		testCity = undefined;
 	});
 
-
 	it('New City', function() {
 		var city = new City("My City", [2, 3]);
 		assert.strictEqual(city.name, "My City");
@@ -32,6 +31,7 @@ describe('City', function() {
 		assert.strictEqual(city.position[1], 3);
 		assert.strictEqual(city.slug, "my-city");
 	});
+
 	it('City Products', function(done) {
 		testCity.addProduct("Bread", 10, 4);
 		assert.ok(testCity.products.Bread);
@@ -66,7 +66,48 @@ describe('City', function() {
 			});
 		});
 	});
-	it.skip('Buy/Sell', function() {
-		throw new Error("not implemented");
+	it('Sell Product', function(done) {
+		testCity.addProduct("Bread", 10, 4);
+		assert.ok(testCity.products.Bread);
+		assert.strictEqual(testCity.products.Bread.quantity, 10);
+		testCity.sellProduct("Bread", 5, function(err) {
+			assert.notOk(err);
+			assert.strictEqual(testCity.products.Bread.quantity, 15);
+			testCity.sellProduct("bad_bread", 10, function(err) {
+				assert.ok(err);
+				assert.strictEqual(testCity.products.Bread.quantity, 15);
+				testCity.sellProduct("", -2, function(err) {
+					assert.ok(err);
+					done();
+				});
+			});
+		});
+	});
+	it("Buy Product", function(done) {
+		testCity.addProduct("Bread", 10, 4);
+		assert.ok(testCity.products.Bread);
+		assert.strictEqual(testCity.products.Bread.quantity, 10);
+		testCity.buyProduct("Bread", 5, function(err) {
+			assert.notOk(err);
+			assert.strictEqual(testCity.products.Bread.quantity, 5);
+			testCity.buyProduct("bad_bread", 10, function(err) {
+				assert.ok(err);
+				testCity.buyProduct("", -2, function(err) {
+					assert.ok(err);
+					assert.strictEqual(testCity.products.Bread.quantity, 5);
+					testCity.buyProduct("Bread", 6, function(err) {
+						assert.ok(err);
+						assert.strictEqual(testCity.products.Bread.quantity, 5);
+						testCity.buyProduct("Bread", 5, function(err) {
+							assert.notOk(err);
+							assert.strictEqual(testCity.products.Bread.quantity, 0);
+							done();
+						});
+					});
+				});
+			});
+		});
+
+
 	});
 });
