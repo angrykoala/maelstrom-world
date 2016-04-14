@@ -107,7 +107,5 @@ describe('City', function() {
 				});
 			});
 		});
-
-
 	});
 });

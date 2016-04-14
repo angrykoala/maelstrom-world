@@ -69,6 +69,11 @@ User.prototype.buyProduct = function(shipId, product, quantity, done) {
 		});
 	});
 };
+User.prototype.sellProduct=function(shipId,product,quantity,done){
+	
+	
+	
+};
 User.prototype.moveShip = function(shipId, destiny, done) {
 	var s = this.getShip(shipId);
 	if (!s) done(new Error("Not ship found"));
