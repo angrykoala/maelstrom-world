@@ -189,7 +189,7 @@ module.exports = function(app) {
 			});
 		});
 	});
-	app.put('/user/sell',function(req,response){
+	app.put('/user/sell', function(req, response) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;
 		var productId = req.body.product;

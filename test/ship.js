@@ -77,6 +77,7 @@ describe('Ship', function() {
 		//Add products
 		assert.strictEqual(testShip.getCurrentCargo(), 0);
 		assert.ok(testShip.addProduct("testProduct", 10));
+		assert.ok(testShip.checkCargo(10));
 		assert.strictEqual(testShip.getCurrentCargo(), 10);
 		assert.strictEqual(testShip.cargo.testProduct, 10);
 		assert.ok(testShip.addProduct("testProduct2", 10));
@@ -88,6 +89,7 @@ describe('Ship', function() {
 		assert.strictEqual(testShip.cargo.testProduct, 1010);
 		assert.strictEqual(testShip.cargo.testProduct2, 10);
 		assert.notOk(testShip.addProduct("testProduct3", 2000));
+		assert.notOk(testShip.checkCargo(2000));
 		assert.notOk(testShip.cargo.testProduct3);
 		assert.strictEqual(testShip.getCurrentCargo(), 1020);
 		assert.notOk(testShip.addProduct("testProduct", 181));
@@ -167,8 +169,5 @@ describe('Ship', function() {
 			assert.strictEqual(testShip.city, "rohan");
 			done();
 		});
-	});
-	it.skip('Ship Cargo', function(done) {
-		return done(new Error("Not implemented"));
 	});
 });
