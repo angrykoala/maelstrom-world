@@ -8,11 +8,20 @@ Description:
 var map = require('./map');
 var Utils = require('./utils');
 
+
 var User = function(id) {
 	this.id = id;
 	this.ships = {};
 	this.money = 1000;
+	//this.sockets={};
 };
+
+/*User.prototype.addConnection=function(socket){
+	if(!this.sockets[socket.id]){
+		this.sockets[socket.id]=socket;
+		socket.on('disconnect',this.removeConnection);
+	}	
+};*/
 User.prototype.buildShip = function(name, model, city, done) {
 	if (this.ships[Utils.slugify(name)] === undefined) {
 		if (this.money > model.price) this.money -= model.price;
@@ -50,6 +59,7 @@ User.prototype.updateShips = function() {
 User.prototype.buyProduct = function(shipId, product, quantity, done) {
 	var ship = this.getShip(shipId);
 	if (ship.status != "DOCKED") return done(new Error("Ship not docked"));
+	if (!ship.checkCargo(quantity)) return done(new Error("Not enough space in ship"));
 	var city = ship.city;
 	map.getCity(city, function(err, res) {
 		if (err) return done(new Error("City not valid"));
@@ -63,16 +73,32 @@ User.prototype.buyProduct = function(shipId, product, quantity, done) {
 					user.money += price;
 					return done(err);
 				}
-				ship.addProduct(product, quantity);
+				if (!ship.addProduct(product, quantity)) return done(new Error("BuyProduct fatal error"));
 				return done();
 			});
 		});
 	});
 };
-User.prototype.sellProduct=function(shipId,product,quantity,done){
-	
-	
-	
+User.prototype.sellProduct = function(shipId, product, quantity, done) {
+	var ship = this.getShip(shipId);
+	if (ship.status != "DOCKED") return done(new Error("Ship not docked"));
+	if (ship.cargo[product] < quantity) return done(new Error("Not cargo in ship"));
+	var city = ship.city;
+	map.getCity(city, function(err, res) {
+		if (err) return done(new Error("City not valid"));
+		city.getPrice(product, quantity, function(err, price) {
+			if (err) return done(err);
+			user.money += price;
+			city.sellProduct(product, quantity, function(err, res) {
+				if (err) {
+					user.money -= price;
+					return done(err);
+				}
+				if (!ship.removeProduct(product, quantity)) return done(new Error("sellProduct: Fatal Error"));
+				return done();
+			});
+		});
+	});
 };
 User.prototype.moveShip = function(shipId, destiny, done) {
 	var s = this.getShip(shipId);

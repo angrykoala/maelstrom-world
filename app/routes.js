@@ -175,7 +175,6 @@ module.exports = function(app) {
 		var shipId = req.body.ship;
 		var productId = req.body.product;
 		var quantity = req.body.quantity;
-		console.log("Buy Product " + userId);
 		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(400).json({
 			error: "Not valid data"
 		});
@@ -190,11 +189,23 @@ module.exports = function(app) {
 			});
 		});
 	});
-	/*	app.put('/user/sell',function(req,response){
-		
-		
-		
+	app.put('/user/sell',function(req,response){
+		var userId = req.user.id;
+		var shipId = req.body.ship;
+		var productId = req.body.product;
+		var quantity = req.body.quantity;
+		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(400).json({
+			error: "Not valid data"
 		});
-		
-		*/
+		World.users.getUser(userId, function(err, res) {
+			if (err) return response.status(500).json({
+				error: "Not user found"
+			});
+			var user = res;
+			user.sellProduct(shipId, productId, quantity, function(err) {
+				if (err) return response.status(500).json(err);
+				return response.status(200).end();
+			});
+		});
+	});
 };

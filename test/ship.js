@@ -168,4 +168,7 @@ describe('Ship', function() {
 			done();
 		});
 	});
+	it.skip('Ship Cargo', function(done) {
+		return done(new Error("Not implemented"));
+	});
 });

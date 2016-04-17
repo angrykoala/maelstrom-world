@@ -30,8 +30,11 @@ Ship.prototype.getCurrentCargo = function() {
 	}
 	return cargo;
 };
+Ship.prototype.checkCargo = function(quantity) {
+	return ((quantity + this.getCurrentCargo()) <= this.model.cargo && quantity>=0);
+};
 Ship.prototype.addProduct = function(product, quantity) {
-	if ((quantity + this.getCurrentCargo()) <= this.model.cargo && quantity >= 0) {
+	if (this.checkCargo(quantity)) {
 		this.cargo[product] = this.cargo[product] + quantity || quantity;
 		return true;
 	} else return false;

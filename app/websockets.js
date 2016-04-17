@@ -8,20 +8,16 @@ Description:
 var socketioJwt = require('socketio-jwt');
 var config = require('../config/server');
 
+var soc;
 
 function onDisconnect() {
-	console.log('User disconnected');
+	console.log('User disconnected ' + this.id);
+	console.log(soc.connected);
 }
 
 function setSockets(http) {
 	var io = require('socket.io')(http);
 
-	/*io.use(jwtAuth.authenticate({
-	    secret: config.secret,    // required, used to verify the token's signature 
-	    algorithm: 'HS256'        // optional, default to be HS256 
-	}, function(payload, done) {
-	    return done(null,payload.id);    
-	}));*/
 	io.use(socketioJwt.authorize({
 		secret: config.secret,
 		handshake: true
@@ -31,11 +27,9 @@ function setSockets(http) {
 	io.on('connection', function(socket) {
 		console.log("User " + socket.decoded_token.id + " connected");
 		//will fire when socket disconnects
+		soc = socket;
 		socket.on('disconnect', onDisconnect);
 	});
-
-
-
 }
 
 module.exports = setSockets;
