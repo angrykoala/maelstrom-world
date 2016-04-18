@@ -38,7 +38,7 @@ User.prototype.getAllShips = function() {
 		res.push({
 			name: s.name,
 			model: s.model.name,
-			id: s.id,
+			//id: s.id,
 			slug: s.slug,
 			life: s.life,
 			status: s.status.value
