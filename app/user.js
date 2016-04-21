@@ -8,20 +8,27 @@ Description:
 var map = require('./map');
 var Utils = require('./utils');
 
-
 var User = function(id) {
 	this.id = id;
 	this.ships = {};
 	this.money = 1000;
-	//this.sockets={};
+	this.sockets = {};
 };
 
-/*User.prototype.addConnection=function(socket){
-	if(!this.sockets[socket.id]){
-		this.sockets[socket.id]=socket;
-		socket.on('disconnect',this.removeConnection);
-	}	
-};*/
+var logged = false;
+User.prototype.addSocket = function(socket) {
+	var socks = this.sockets;
+	if (!socks[socket.id]) {
+		socks[socket.id] = socket;
+		socket.on('disconnect', function() {
+			delete socks[this.id];
+		});
+	}
+	if (!logged) {
+		setInterval(this.reportMoney, 2000);
+		logged = true;
+	}
+};
 User.prototype.buildShip = function(name, model, city, done) {
 	if (this.ships[Utils.slugify(name)] === undefined) {
 		if (this.money > model.price) this.money -= model.price;
@@ -105,4 +112,12 @@ User.prototype.moveShip = function(shipId, destiny, done) {
 	if (!s) done(new Error("Not ship found"));
 	s.move(destiny, done);
 };
+
+User.prototype.reportMoney = function() {
+	console.log("Report Money" + this.id);
+	ws.emit(this.id, 'money', this.money);
+};
+
+
+
 module.exports = User;

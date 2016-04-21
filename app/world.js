@@ -71,7 +71,9 @@ var products = {
 	}
 };
 
-module.exports.products = products;
-module.exports.ships = ships;
-module.exports.users = users;
-module.exports.map = map;
+module.exports={
+	products: products,
+	ships: ships,
+	users: users,
+	map: map
+};
