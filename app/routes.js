@@ -21,6 +21,9 @@ var serverConfig = require('../config/server');
 module.exports = function(app) {
 
 	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({
+	extended: true
+	}));
 
 	//all urls under user can only be accesed having a jwt in the header
 	//auth header must be: Bearer (jwt token)
@@ -33,13 +36,15 @@ module.exports = function(app) {
 		if (err.name === 'UnauthorizedError') res.status(401).json({
 			err: "invalid token"
 		});
+		next();
 	});
 
 	//CORS
 	app.use('/', function(req, res, next) {
 		res.setHeader('Access-Control-Allow-Origin', '*');
-		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-		res.header('Access-Control-Allow-Credentials', true);
+		res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE');
+		res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+		res.setHeader('Access-Control-Allow-Credentials', true);
 		next();
 	});
 
@@ -176,15 +181,19 @@ module.exports = function(app) {
 		var productId = req.body.product;
 		var quantity = req.body.quantity;
 		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(400).json({
-			error: "Not valid data"
+			error: "Not valid data",
+			data: req.body,
+			expected: ["shipId","userId","productId","quantity"]
 		});
 		World.users.getUser(userId, function(err, res) {
 			if (err) return response.status(500).json({
-				error: "Not user found"
+				error: "Not user found",
+				user: userId
 			});
 			var user = res;
 			user.buyProduct(shipId, productId, quantity, function(err) {
-				if (err) return response.status(500).json(err);
+				console.log(err);
+				if (err) return response.status(500).json({error:err.message});
 				return response.status(200).end();
 			});
 		});

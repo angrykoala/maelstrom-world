@@ -62,23 +62,24 @@ User.prototype.updateShips = function() {
 };
 User.prototype.buyProduct = function(shipId, product, quantity, done) {
 	var ship = this.getShip(shipId);
-	if (ship.status != "DOCKED") return done(new Error("Ship not docked"));
+	if (ship.status.value != "docked") return done(new Error("Ship not docked"));
 	if (!ship.checkCargo(quantity)) return done(new Error("Not enough space in ship"));
-	var city = ship.city;
-	map.getCity(city, function(err, res) {
+	var cityId = ship.city;
+	var user=this;
+	map.getCity(cityId, function(err, res) {
 		if (err) return done(new Error("City not valid"));
+		var city=res;
 		city.getPrice(product, quantity, function(err, price) {
 			if (err) return done(err);
-
 			if (user.money < price) return done(new Error("Not enough money"));
 			user.money -= price;
-			city.buyProduct(product, quantity, function(err, res) {
+			city.buyProduct(product, quantity, function(err, res) {				
 				if (err) {
 					user.money += price;
 					return done(err);
 				}
 				if (!ship.addProduct(product, quantity)) return done(new Error("BuyProduct fatal error"));
-				reportMoney();
+				user.reportMoney();
 				return done();
 			});
 		});
@@ -86,7 +87,7 @@ User.prototype.buyProduct = function(shipId, product, quantity, done) {
 };
 User.prototype.sellProduct = function(shipId, product, quantity, done) {
 	var ship = this.getShip(shipId);
-	if (ship.status != "DOCKED") return done(new Error("Ship not docked"));
+	if (ship.status != "docked") return done(new Error("Ship not docked"));
 	if (ship.cargo[product] < quantity) return done(new Error("Not cargo in ship"));
 	var city = ship.city;
 	map.getCity(city, function(err, res) {

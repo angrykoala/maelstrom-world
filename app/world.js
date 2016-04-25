@@ -5,9 +5,27 @@ Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: Game World, defining all necessary elements
 */
 
+
+
+
 var User = require('./user');
 var map = require('./map');
 var ws=require('./websockets');
+
+var Products = {
+	list: {},
+	addProduct: function(product) {
+		if (product && product.name) {
+			this.list[product.name] = product;
+		}
+	},
+	getProduct: function(name) {
+		return this.list[name] || null;
+	},
+	getProductList: function() {
+		return Object.keys(this.list);
+	}
+};
 
 var Users = {
 	users: {},
@@ -57,21 +75,6 @@ var Ships = {
 	}
 };
 
-var Products = {
-	list: {},
-	addProduct: function(product) {
-		if (product && product.name) {
-			this.list[product.name] = product;
-		}
-	},
-	getProduct: function(name) {
-		return this.list[name] || null;
-	},
-	getProductList: function() {
-		return Object.keys(this.list);
-	}
-};
-
 function setSockets(io,done){
 	io.on('connection',function(socket){
 		Users.getUser(socket.decoded_token.id,function(err,res){
@@ -80,15 +83,10 @@ function setSockets(io,done){
 			}
 		});
 	});
-	
-	
 	done(null);
 }
-
-module.exports={
-	products: Products,
-	ships: Ships,
-	users: Users,
-	map: map,
-	setSockets: setSockets
-};
+module.exports.products=Products;
+module.exports.ships=Ships;
+module.exports.users=Users;
+module.exports.map=map;
+module.exports.setSockets=setSockets;

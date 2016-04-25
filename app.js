@@ -8,6 +8,7 @@ ws = require('./app/websockets');
 
 var world = require('./app/world');
 var City = require('./app/city');
+var Product=require('./app/product');
 var Ship = require('./app/ship');
 var gu = require('./app/game_update');
 
@@ -25,13 +26,19 @@ var s1 = new Ship("Galleon", {
     cargo: 2000
 });
 world.users.addUser("57061975293e3e1f23c5a0e8", function(err, u1) {
-    u1.buildShip("Black Pearl", s1, "Granada", function(err, blackpearl) {
+    world.products.addProduct(new Product("Rice",2));
+    world.products.addProduct(new Product("Bread",1));
+    u1.buildShip("Black Pearl", s1, "granada", function(err, blackpearl) {
         world.map.addCity(c1);
         world.map.addCity(c2);
+        c1.addProduct("Rice", 50, 1); 
+        c2.addProduct("Rice", 50, 2); 
+        c1.addProduct("Bread", 10, 1); 
+        c2.addProduct("Bread", 50, -1); 
         world.ships.addShip(s1);
         blackpearl.addProduct("Rice", 100);
         blackpearl.addProduct("Bread", 20);
-        u1.buildShip("Flying Dutchman", s1, "Madrid", function() {});
+        u1.buildShip("Flying Dutchman", s1, "madrid", function() {});
     });
 });
 
