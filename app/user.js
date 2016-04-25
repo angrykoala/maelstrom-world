@@ -15,7 +15,6 @@ var User = function(id) {
 	this.sockets = {};
 };
 
-var logged = false;
 User.prototype.addSocket = function(socket) {
 	var socks = this.sockets;
 	if (!socks[socket.id]) {
@@ -24,10 +23,7 @@ User.prototype.addSocket = function(socket) {
 			delete socks[this.id];
 		});
 	}
-	if (!logged) {
-		setInterval(this.reportMoney, 2000);
-		logged = true;
-	}
+	this.reportMoney();
 };
 User.prototype.buildShip = function(name, model, city, done) {
 	if (this.ships[Utils.slugify(name)] === undefined) {
@@ -35,6 +31,7 @@ User.prototype.buildShip = function(name, model, city, done) {
 		else return done(new Error("Not enough money"));
 		var ship = model.createShip(name, this, city);
 		this.ships[ship.slug] = ship;
+		this.reportMoney();
 		return done(null, this.ships[ship.slug]);
 	} else return done(new Error("Ship already exists"));
 };
@@ -81,6 +78,7 @@ User.prototype.buyProduct = function(shipId, product, quantity, done) {
 					return done(err);
 				}
 				if (!ship.addProduct(product, quantity)) return done(new Error("BuyProduct fatal error"));
+				reportMoney();
 				return done();
 			});
 		});
@@ -102,6 +100,7 @@ User.prototype.sellProduct = function(shipId, product, quantity, done) {
 					return done(err);
 				}
 				if (!ship.removeProduct(product, quantity)) return done(new Error("sellProduct: Fatal Error"));
+				reportMoney();
 				return done();
 			});
 		});
@@ -114,10 +113,9 @@ User.prototype.moveShip = function(shipId, destiny, done) {
 };
 
 User.prototype.reportMoney = function() {
-	console.log("Report Money" + this.id);
-	ws.emit(this.id, 'money', this.money);
+	for(var s in this.sockets){
+		this.sockets[s].emit('money',this.money);
+	}
 };
-
-
 
 module.exports = User;

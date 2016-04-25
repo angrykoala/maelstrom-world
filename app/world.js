@@ -7,8 +7,9 @@ Description: Game World, defining all necessary elements
 
 var User = require('./user');
 var map = require('./map');
+var ws=require('./websockets');
 
-var users = {
+var Users = {
 	users: {},
 	getUser: function(id, done) {
 		var res = this.users[id];
@@ -34,7 +35,7 @@ var users = {
 	}
 };
 
-var ships = {
+var Ships = {
 	list: {},
 	addShip: function(model) {
 		if (model && model.name) {
@@ -56,7 +57,7 @@ var ships = {
 	}
 };
 
-var products = {
+var Products = {
 	list: {},
 	addProduct: function(product) {
 		if (product && product.name) {
@@ -71,9 +72,23 @@ var products = {
 	}
 };
 
+function setSockets(io,done){
+	io.on('connection',function(socket){
+		Users.getUser(socket.decoded_token.id,function(err,res){
+			if(!err){
+				res.addSocket(socket);
+			}
+		});
+	});
+	
+	
+	done(null);
+}
+
 module.exports={
-	products: products,
-	ships: ships,
-	users: users,
-	map: map
+	products: Products,
+	ships: Ships,
+	users: Users,
+	map: map,
+	setSockets: setSockets
 };

@@ -2,10 +2,10 @@
 	"name": "maelstrom-world",
 	"version": "0.3.6",
 	"description": "Game server to handle maelstrom dynamic world",
-	"main": "server.js",
+	"main": "app.js",
 	"scripts": {
 		"test": "istanbul cover _mocha",
-		"start": "node index.js",
+		"start": "node app.js",
 		"beautify": "js-beautify --indent-with-tabs --brace-style collapse -r *.js app/*.js config/*.js test/*.js test/*/*.js package.json",
 		"coveralls": "cat ./coverage/lcov.info | coveralls"
 	},
