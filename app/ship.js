@@ -77,6 +77,10 @@ Ship.prototype.reportShip=function(){
 		this.sockets[s].emit('ship_update',{name:this.name,status:this.status,city:this.city,slug:this.slug});
 	}
 };
+Ship.prototype.toJSON=function(){
+	return {name:this.name,owner:this.owner,model:this.model,life:this.life,city:this.city,status:this.status,cargo:this.cargo,slug:this.slug};
+	
+};
 var ShipModel = function(name, data) {
 	this.name = name;
 	data = data || {};

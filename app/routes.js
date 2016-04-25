@@ -93,7 +93,7 @@ module.exports = function(app) {
 			if (err) return response.status(500).json({
 				error: err.toString()
 			});
-			else return response.status(200).json(res.getShip(shipId));
+			else return response.status(200).json(res.getShip(shipId).toJSON());
 		});
 	});
 	app.get('/user/data', function(req, response) {
