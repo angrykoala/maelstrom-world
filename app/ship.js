@@ -10,6 +10,7 @@ var utils = require('./utils');
 var Ship = function(name, user, shipModel, city) {
 	this.name = name;
 	this.owner = user.id;
+	this.sockets=user.sockets;
 	this.model = shipModel;
 	this.life = shipModel.life;
 	this.city = city;
@@ -65,9 +66,15 @@ Ship.prototype.update = function() {
 	if (this.status.value === "traveling") {
 		this.status.remaining--;
 		if (this.status.remaining <= 0) {
+			this.reportShip();
 			this.status.value = "docked";
 			this.city = this.status.destiny;
 		}
+	}
+};
+Ship.prototype.reportShip=function(){
+	for(var s in this.sockets){
+		this.sockets[s].emit('ship_update',{name:this.name,status:this.status,city:this.city,slug:this.slug});
 	}
 };
 var ShipModel = function(name, data) {
