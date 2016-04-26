@@ -87,11 +87,12 @@ User.prototype.buyProduct = function(shipId, product, quantity, done) {
 };
 User.prototype.sellProduct = function(shipId, product, quantity, done) {
 	var ship = this.getShip(shipId);
-	if (ship.status != "docked") return done(new Error("Ship not docked"));
+	var user=this;
+	if (ship.status.value != "docked") return done(new Error("Ship not docked"));
 	if (ship.cargo[product] < quantity) return done(new Error("Not cargo in ship"));
-	var city = ship.city;
-	map.getCity(city, function(err, res) {
+	map.getCity(ship.city, function(err, res) {
 		if (err) return done(new Error("City not valid"));
+		var city=res;
 		city.getPrice(product, quantity, function(err, price) {
 			if (err) return done(err);
 			user.money += price;
@@ -101,7 +102,7 @@ User.prototype.sellProduct = function(shipId, product, quantity, done) {
 					return done(err);
 				}
 				if (!ship.removeProduct(product, quantity)) return done(new Error("sellProduct: Fatal Error"));
-				reportMoney();
+				user.reportMoney();
 				return done();
 			});
 		});

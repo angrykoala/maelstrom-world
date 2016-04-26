@@ -179,7 +179,7 @@ module.exports = function(app) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;
 		var productId = req.body.product;
-		var quantity = req.body.quantity;
+		var quantity = parseInt(req.body.quantity);
 		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(400).json({
 			error: "Not valid data",
 			data: req.body,
@@ -192,9 +192,8 @@ module.exports = function(app) {
 			});
 			var user = res;
 			user.buyProduct(shipId, productId, quantity, function(err) {
-				console.log(err);
 				if (err) return response.status(500).json({error:err.message});
-				return response.status(200).end();
+				return response.status(200).json({status:"OK",statusCode:200});
 			});
 		});
 	});
@@ -202,7 +201,7 @@ module.exports = function(app) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;
 		var productId = req.body.product;
-		var quantity = req.body.quantity;
+		var quantity = parseInt(req.body.quantity);
 		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(400).json({
 			error: "Not valid data"
 		});
@@ -212,8 +211,8 @@ module.exports = function(app) {
 			});
 			var user = res;
 			user.sellProduct(shipId, productId, quantity, function(err) {
-				if (err) return response.status(500).json(err);
-				return response.status(200).end();
+				if (err) return response.status(500).json({error:err.message});
+				return response.status(200).json({status:"OK",statusCode:200});
 			});
 		});
 	});
