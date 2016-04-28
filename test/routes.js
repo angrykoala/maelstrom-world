@@ -123,6 +123,9 @@ describe('Routes', function() {
 					done();
 				});
 		});
+		it.skip('/products',function(done){
+			return done(new Error("Not implemented"));			
+		});
 		it('/user/ships', function(done) {
 			var token = data.users.arthur.token;
 			request(app)

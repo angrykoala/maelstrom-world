@@ -82,6 +82,9 @@ module.exports = function(app) {
 			else return response.status(200).json(res);
 		});
 	});
+	app.get('/products',function(req,response){
+		return response.status(200).json(World.products.getProductList());
+	});
 	app.get('/user/ships', function(req, response) {
 		var userId = req.user.id;
 		World.users.getUser(userId, function(err, res) {
