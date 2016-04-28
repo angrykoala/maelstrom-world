@@ -10,7 +10,7 @@ var utils = require('./utils');
 var Ship = function(name, user, shipModel, city) {
 	this.name = name;
 	this.owner = user.id;
-	this.sockets=user.sockets;
+	this.sockets = user.sockets;
 	this.model = shipModel;
 	this.life = shipModel.life;
 	this.city = city;
@@ -35,8 +35,8 @@ Ship.prototype.checkCargo = function(quantity) {
 	return ((quantity + this.getCurrentCargo()) <= this.model.cargo && quantity >= 0);
 };
 Ship.prototype.addProduct = function(product, quantity) {
-	var q=parseInt(quantity);
-	if(!q) return false;
+	var q = parseInt(quantity);
+	if (!q) return false;
 	if (this.checkCargo(q)) {
 		this.cargo[product] = this.cargo[product] + q || q;
 		return true;
@@ -74,14 +74,28 @@ Ship.prototype.update = function() {
 		}
 	}
 };
-Ship.prototype.reportShip=function(){
-	for(var s in this.sockets){
-		this.sockets[s].emit('ship_update',{name:this.name,status:this.status,city:this.city,slug:this.slug});
+Ship.prototype.reportShip = function() {
+	for (var s in this.sockets) {
+		this.sockets[s].emit('ship_update', {
+			name: this.name,
+			status: this.status,
+			city: this.city,
+			slug: this.slug
+		});
 	}
 };
-Ship.prototype.toJSON=function(){
-	return {name:this.name,owner:this.owner,model:this.model,life:this.life,city:this.city,status:this.status,cargo:this.cargo,slug:this.slug};
-	
+Ship.prototype.toJSON = function() {
+	return {
+		name: this.name,
+		owner: this.owner,
+		model: this.model,
+		life: this.life,
+		city: this.city,
+		status: this.status,
+		cargo: this.cargo,
+		slug: this.slug
+	};
+
 };
 var ShipModel = function(name, data) {
 	this.name = name;

@@ -22,7 +22,7 @@ module.exports = function(app) {
 
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({
-	extended: true
+		extended: true
 	}));
 
 	//all urls under user can only be accesed having a jwt in the header
@@ -183,7 +183,7 @@ module.exports = function(app) {
 		if (shipId === undefined || userId === undefined || productId === undefined || quantity === undefined) return response.status(400).json({
 			error: "Not valid data",
 			data: req.body,
-			expected: ["shipId","userId","productId","quantity"]
+			expected: ["shipId", "userId", "productId", "quantity"]
 		});
 		World.users.getUser(userId, function(err, res) {
 			if (err) return response.status(500).json({
@@ -192,8 +192,13 @@ module.exports = function(app) {
 			});
 			var user = res;
 			user.buyProduct(shipId, productId, quantity, function(err) {
-				if (err) return response.status(500).json({error:err.message});
-				return response.status(200).json({status:"OK",statusCode:200});
+				if (err) return response.status(500).json({
+					error: err.message
+				});
+				return response.status(200).json({
+					status: "OK",
+					statusCode: 200
+				});
 			});
 		});
 	});
@@ -211,8 +216,13 @@ module.exports = function(app) {
 			});
 			var user = res;
 			user.sellProduct(shipId, productId, quantity, function(err) {
-				if (err) return response.status(500).json({error:err.message});
-				return response.status(200).json({status:"OK",statusCode:200});
+				if (err) return response.status(500).json({
+					error: err.message
+				});
+				return response.status(200).json({
+					status: "OK",
+					statusCode: 200
+				});
 			});
 		});
 	});

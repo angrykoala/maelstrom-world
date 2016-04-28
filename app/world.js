@@ -10,7 +10,7 @@ Description: Game World, defining all necessary elements
 
 var User = require('./user');
 var map = require('./map');
-var ws=require('./websockets');
+var ws = require('./websockets');
 
 var Products = {
 	list: {},
@@ -75,18 +75,18 @@ var Ships = {
 	}
 };
 
-function setSockets(io,done){
-	io.on('connection',function(socket){
-		Users.getUser(socket.decoded_token.id,function(err,res){
-			if(!err){
+function setSockets(io, done) {
+	io.on('connection', function(socket) {
+		Users.getUser(socket.decoded_token.id, function(err, res) {
+			if (!err) {
 				res.addSocket(socket);
 			}
 		});
 	});
 	done(null);
 }
-module.exports.products=Products;
-module.exports.ships=Ships;
-module.exports.users=Users;
-module.exports.map=map;
-module.exports.setSockets=setSockets;
+module.exports.products = Products;
+module.exports.ships = Ships;
+module.exports.users = Users;
+module.exports.map = map;
+module.exports.setSockets = setSockets;

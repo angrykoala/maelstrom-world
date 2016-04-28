@@ -12,7 +12,7 @@ function onDisconnect() {
 	console.log('User disconnected ' + this.id);
 }
 
-module.exports.set=function(http, done) {
+module.exports.set = function(http, done) {
 	var io = require('socket.io')(http);
 	io.use(socketioJwt.authorize({
 		secret: config.secret,
@@ -31,5 +31,5 @@ module.exports.set=function(http, done) {
 			}
 		});*/
 	});
-	done(null,io);
+	done(null, io);
 };
