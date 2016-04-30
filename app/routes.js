@@ -172,7 +172,7 @@ module.exports = function(app) {
 			});
 			res.moveShip(shipId, cityId, function(err, res) {
 				if (err) return response.status(500).json({error:err.toString()});
-				return response.status(200).end();
+				return response.status(200).json({status:"OK"});
 			});
 		});
 	});
