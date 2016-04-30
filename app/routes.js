@@ -163,17 +163,15 @@ module.exports = function(app) {
 		var userId = req.user.id;
 		var shipId = req.body.ship;
 		var cityId = req.body.city;
-		console.log("Move ship " + userId);
-		if (shipModelId === undefined || shipId === undefined || cityId === undefined) return response.status(500).json({
+		if (shipId === undefined || cityId === undefined) return response.status(500).json({
 			error: "Not valid data"
 		});
-
 		World.users.getUser(userId, function(err, res) {
 			if (err) return response.status(500).json({
 				error: err.toString()
 			});
 			res.moveShip(shipId, cityId, function(err, res) {
-				if (err) return response.status(500).json(err);
+				if (err) return response.status(500).json({error:err.toString()});
 				return response.status(200).end();
 			});
 		});
