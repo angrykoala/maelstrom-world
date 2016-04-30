@@ -1,0 +1,25 @@
+[{
+    "name": "Rice",
+    "price": 20
+}, {
+    "name": "Beer",
+    "price": 30
+}, {
+    "name": "Timber",
+    "price": 15
+}, {
+    "name": "Wheat",
+    "price": 18
+}, {
+    "name": "Bread",
+    "price": 23
+}, {
+    "name": "Clothes",
+    "price": 68
+}, {
+    "name": "Gold",
+    "price": 180
+}, {
+    "name": "Spices",
+    "price": 80
+}]
