@@ -1,0 +1,19 @@
+[{
+    "name": "Schooner",
+    "life": 40,
+    "speed": 5,
+    "cargo": 70,
+    "price": 1800
+}, {
+    "name": "Caravel",
+    "life": 60,
+    "speed": 6,
+    "cargo": 150,
+    "price": 3000
+}, {
+    "name": "Galleon",
+    "life": 120,
+    "speed": 3,
+    "cargo": 400,
+    "price": 8000,
+}]

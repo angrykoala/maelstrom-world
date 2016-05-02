@@ -1,0 +1,207 @@
+[{
+    "name": "Cadiz",
+    "position": [0, 0],
+    "products": {
+        "rice": {
+            "production": 1
+        },
+        "beer": {
+            "production": -0.5
+        },
+        "timber": {
+            "production": -2
+        },
+        "wheat": {
+            "production": 1
+        },
+        "bread": {
+
+            "production": 2
+        },
+        "clothes": {
+            "production": 3
+        },
+        "gold": {
+            "production": 4
+        },
+        "spices": {
+            "production": -3
+        }
+    }
+}, {
+    "name": "Lisbon",
+    "position": [0, -10000],
+    "products": {
+        "rice": {
+            "production": -1
+        },
+        "beer": {
+            "production": -2
+        },
+        "timber": {
+            "production": -3
+        },
+        "wheat": {
+            "production": 1
+        },
+        "bread": {
+            "production": 1
+        },
+        "clothes": {
+            "production": 0
+        },
+        "gold": {
+            "production": 1
+        },
+        "spices": {
+            "production": -3
+        }
+    }
+}, {
+    "name": "Barcelona",
+    "position": [2000, -16000],
+    "products": {
+        "rice": {
+            "production": 5
+        },
+        "beer": {
+            "production": -3
+        },
+        "timber": {
+            "production": -2
+        },
+        "wheat": {
+            "production": -5
+        },
+        "bread": {
+            "production": 8
+        },
+        "clothes": {
+            "production": 1
+        },
+        "gold": {
+            "production": 2
+        },
+        "spices": {
+            "production": -4
+        }
+    }
+}, {
+    "name": "Rome",
+    "position": [8000, -35000],
+    "products": {
+        "rice": {
+            "production": -1
+        },
+        "beer": {
+            "production": 0
+        },
+        "timber": {
+            "production": -1
+        },
+        "wheat": {
+            "production": 2
+        },
+        "bread": {
+            "production": 6
+        },
+        "clothes": {
+            "production": 1
+        },
+        "gold": {
+            "production": 1
+        },
+        "spices": {
+            "production": 4
+        }
+    }
+}, {
+    "name": "Algiers",
+    "position": [-8000, -20000],
+    "products": {
+        "rice": {
+            "production": -2
+        },
+        "beer": {
+            "production": -2
+        },
+        "timber": {
+            "production": 4
+        },
+        "wheat": {
+            "production": -3
+        },
+        "bread": {
+            "production": 1
+        },
+        "clothes": {
+
+            "production": 3
+        },
+        "gold": {
+            "production": -1
+        },
+        "spices": {
+            "production": 3
+        }
+    }
+}, {
+    "name": "london",
+    "position": [0, 50000],
+    "products": {
+        "rice": {
+            "production": -3
+        },
+        "beer": {
+            "production": 1
+        },
+        "timber": {
+            "production": 1
+        },
+        "wheat": {
+            "production": -2
+        },
+        "bread": {
+            "production": 1
+        },
+        "clothes": {
+            "production": 1
+        },
+        "gold": {
+            "production": -2
+        },
+        "spices": {
+            "production": -4
+        }
+    }
+},
+{
+   "name": "Riga",
+   "position": [4000, 80000],
+   "products": {
+       "rice": {
+           "production": -5
+       },
+       "beer": {
+           "production": 4
+       },
+       "timber": {
+           "production": 6
+       },
+       "wheat": {
+           "production": -4
+       },
+       "bread": {
+           "production": -2
+       },
+       "clothes": {
+           "production": 5
+       },
+       "gold": {
+           "production": -6
+       },
+       "spices": {
+           "production": -3
+       }
+   }
+}]

@@ -16,7 +16,7 @@ var gu = require('./app/game_update');
 
 var version = process.env.npm_package_version;
 
-//token for testing: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU3MDYxOTc1MjkzZTNlMWYyM2M1YTBlOCIsInVzZXJuYW1lIjoiYXJ0aHVyIiwiaWF0IjoxNDYwMDE3NTI1LCJleHAiOjE0NjAwMjExMjV9.J7tiTx6U9lwCIfQxe9cDIhyt4N4yJFYZcdfJguXWJ0Q
+//token for testing: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU3Mjc0MGI4ZjA4Nzg5MGQwZDM3NjAyMiIsInVzZXJuYW1lIjoiYXJ0aHVyIiwiaWF0IjoxNDYyMTkwNDEwLCJleHAiOjE0NjQ3ODI0MTB9.4XSx2yJDhY9V2ptUT0I_r1bQqfJIkfZ3brJRtPrAx7I
 var c1 = new City("Granada", [-2, 6]);
 var c2 = new City("Madrid", [1, 321]);
 var s1 = new Ship("Galleon", {
@@ -25,7 +25,7 @@ var s1 = new Ship("Galleon", {
 	price: 43,
 	cargo: 2000
 });
-world.users.addUser("57061975293e3e1f23c5a0e8", function(err, u1) {
+world.users.addUser("572740b8f087890d0d376022", function(err, u1) {
 	world.products.addProduct(new Product("Rice", 2));
 	world.products.addProduct(new Product("Bread", 1));
 	u1.buildShip("Black Pearl", s1, "granada", function(err, blackpearl) {
