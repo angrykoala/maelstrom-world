@@ -42,8 +42,6 @@ world.users.addUser("572740b8f087890d0d376022", function(err, u1) {
 	});*/
 });
 loadData();
-console.log(JSON.stringify(world));
-
 
 console.log("Maelström - World");
 if (version) console.log("Version " + version);
