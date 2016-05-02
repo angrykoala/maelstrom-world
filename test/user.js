@@ -22,7 +22,7 @@ describe('User', function() {
 		var myUser = new User("myUser");
 		assert.ok(myUser);
 		assert.strictEqual(myUser.id, "myUser");
-		assert.strictEqual(myUser.money, 1000);
+		assert.strictEqual(myUser.money, 3000);
 		assert.ok(myUser.ships);
 	});
 	it('Get Ships', function() {

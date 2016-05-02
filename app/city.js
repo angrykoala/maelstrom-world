@@ -2,7 +2,7 @@
 Name: City
 Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
-Description: 
+Description:
 */
 
 var productList = require('./world').products;
@@ -37,7 +37,7 @@ city.prototype.buyProduct = function(productName, quantity, done) {
 };
 city.prototype.getPrice = function(productId, quantity, done) {
 	if (!productId || quantity < 0) return done(new Error("Bad data"));
-	var p = productList.getProduct(productId);
+	var p = productList.getProduct(utils.slugify(productId));
 	if (!p) return done(new Error("not product found"));
 	return done(null, p.price * quantity);
 };
