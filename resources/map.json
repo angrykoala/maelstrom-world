@@ -146,7 +146,7 @@
         }
     }
 }, {
-    "name": "london",
+    "name": "London",
     "position": [0, 50000],
     "products": {
         "rice": {

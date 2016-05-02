@@ -14,7 +14,7 @@ var Products = {
 	list: {},
 	addProduct: function(product) {
 		if (product && product.name) {
-			this.list[product.name] = product;
+			this.list[product.slug] = product;
 		}
 	},
 	getProduct: function(name) {

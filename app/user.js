@@ -11,7 +11,7 @@ var Utils = require('./utils');
 var User = function(id) {
 	this.id = id;
 	this.ships = {};
-	this.money = 1000;
+	this.money = 3000;
 	this.sockets = {};
 };
 
