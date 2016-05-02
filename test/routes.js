@@ -124,14 +124,14 @@ describe('Routes', function() {
 				});
 		});
 		it.skip('/products',function(done){
-			return done(new Error("Not implemented"));			
+			return done(new Error("Not implemented"));
 		});
 		it('/user/ships', function(done) {
 			var token = data.users.arthur.token;
 			request(app)
 				.get('/user/ships')
-				.expect('Content-Type', /json/)
 				.set('Authorization', "Bearer " + token)
+				.expect('Content-Type', /json/)
 				.expect(200)
 				.end(function(err, res) {
 					assert.notOk(err);
@@ -141,6 +141,7 @@ describe('Routes', function() {
 					request(app)
 						.get('/user/ships')
 						.expect(401)
+						.expect('Content-Type', /json/)
 						.end(function(err, res) {
 							assert.notOk(err);
 							assert.ok(res.body);

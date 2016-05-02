@@ -36,7 +36,6 @@ module.exports = function(app) {
 		if (err.name === 'UnauthorizedError') res.status(401).json({
 			err: "invalid token"
 		});
-		next();
 	});
 
 	//CORS
