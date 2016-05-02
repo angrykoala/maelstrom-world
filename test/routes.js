@@ -123,8 +123,19 @@ describe('Routes', function() {
 					done();
 				});
 		});
-		it.skip('/products',function(done){
-			return done(new Error("Not implemented"));
+		it('/products',function(done){
+			request(app)
+				.get('/products')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end(function(err, res) {
+					assert.notOk(err);
+					assert.ok(res);
+					assert.ok(res.body);
+					assert.strictEqual(res.body.length,3);
+					assert.ok(res.body[0]);
+					done();
+				});
 		});
 		it('/user/ships', function(done) {
 			var token = data.users.arthur.token;
