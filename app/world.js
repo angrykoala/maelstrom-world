@@ -6,8 +6,6 @@ Description: Game World, defining all necessary elements
 */
 
 
-
-
 var User = require('./user');
 var map = require('./map');
 var ws = require('./websockets');
@@ -85,6 +83,8 @@ function setSockets(io, done) {
 	});
 	done(null);
 }
+
+
 module.exports.products = Products;
 module.exports.ships = Ships;
 module.exports.users = Users;
