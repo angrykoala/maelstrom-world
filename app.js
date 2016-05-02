@@ -12,7 +12,7 @@ var Product = require('./app/product');
 var Ship = require('./app/ship');
 var gu = require('./app/game_update');
 
-var loadData=require('./app/data_loader');
+var loadData = require('./app/data_loader');
 
 var version = process.env.npm_package_version;
 

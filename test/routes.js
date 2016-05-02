@@ -123,7 +123,7 @@ describe('Routes', function() {
 					done();
 				});
 		});
-		it('/products',function(done){
+		it('/products', function(done) {
 			request(app)
 				.get('/products')
 				.expect('Content-Type', /json/)
@@ -132,7 +132,7 @@ describe('Routes', function() {
 					assert.notOk(err);
 					assert.ok(res);
 					assert.ok(res.body);
-					assert.strictEqual(res.body.length,3);
+					assert.strictEqual(res.body.length, 3);
 					assert.ok(res.body[0]);
 					done();
 				});
@@ -205,7 +205,6 @@ describe('Routes', function() {
 								});
 						});
 				});
-
 		});
 		it('/user/data', function(done) {
 			var userData = data.users.arthur;

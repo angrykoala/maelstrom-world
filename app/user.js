@@ -2,7 +2,7 @@
 Name: User
 Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
-Description: 
+Description:
 */
 
 var map = require('./map');
@@ -49,7 +49,6 @@ User.prototype.getAllShips = function() {
 		});
 	}
 	return res;
-	//return Object.keys(this.ships);
 };
 User.prototype.getShip = function(shipSlug) {
 	return this.ships[shipSlug];

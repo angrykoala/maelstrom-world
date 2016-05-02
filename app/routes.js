@@ -81,7 +81,7 @@ module.exports = function(app) {
 			else return response.status(200).json(res);
 		});
 	});
-	app.get('/products',function(req,response){
+	app.get('/products', function(req, response) {
 		return response.status(200).json(World.products.getProductList());
 	});
 	app.get('/user/ships', function(req, response) {
@@ -170,8 +170,12 @@ module.exports = function(app) {
 				error: err.toString()
 			});
 			res.moveShip(shipId, cityId, function(err, res) {
-				if (err) return response.status(500).json({error:err.toString()});
-				return response.status(200).json({status:"OK"});
+				if (err) return response.status(500).json({
+					error: err.toString()
+				});
+				return response.status(200).json({
+					status: "OK"
+				});
 			});
 		});
 	});
