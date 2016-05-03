@@ -33,8 +33,8 @@ ws.set(http, function(err, io) { //load websockets
 	if (err) console.log(err);
 	World.setSockets(io, function(err) {
 		if (err) console.log(err);
-		http.listen(serverConfig.port, serverConfig.address, function() {
-			console.log("Server listening at " + serverConfig.address + " on port " + serverConfig.port);
+		http.listen(serverConfig.port, function() {
+			console.log("Server listening on port " + serverConfig.port);
 			gu.startLoop(null, function(err) {
 				var date = new Date();
 				var sec = date.getSeconds();
