@@ -22,7 +22,7 @@ describe('Product', function() {
 		assert.instanceOf(p, Product);
 		assert.strictEqual(p.name, "productName");
 		assert.strictEqual(p.price, 18);
-		assert.strictEqual(p.slug,"productname");
+		assert.strictEqual(p.slug, "productname");
 		assert.ok(p2);
 		assert.property(p2, "name");
 		assert.property(p2, "price");

@@ -6,6 +6,8 @@ var http = require('http').createServer(app);
 require('./app/routes')(app); //loads routes
 ws = require('./app/websockets');
 
+var serverConfig = require('./config/server');
+
 var World = require('./app/world');
 var City = require('./app/city');
 var Product = require('./app/product');
@@ -21,9 +23,8 @@ var version = process.env.npm_package_version;
 
 loadData();
 World.users.addUser("572740b8f087890d0d376022", function(err, u1) {
-	var s1=World.ships.getShip("schooner");
-	u1.buildShip("Black Pearl", s1, "london", function(err, blackpearl) {
-	});
+	var s1 = World.ships.getShip("schooner");
+	u1.buildShip("Black Pearl", s1, "london", function(err, blackpearl) {});
 });
 
 console.log("Maelström - World");
@@ -32,15 +33,13 @@ ws.set(http, function(err, io) { //load websockets
 	if (err) console.log(err);
 	World.setSockets(io, function(err) {
 		if (err) console.log(err);
-		http.listen(8080, function() {
-			console.log("Server listening on port 8080");
+		http.listen(serverConfig.port, serverConfig.address, function() {
+			console.log("Server listening at " + serverConfig.address + " on port " + serverConfig.port);
 			gu.startLoop(null, function(err) {
 				var date = new Date();
 				var sec = date.getSeconds();
 				if (err)
 					console.log("Tick: Error - " + err);
-				//	else
-				//		console.log("Tick: No Error");
 			});
 		});
 	});
