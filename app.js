@@ -22,10 +22,10 @@ var version = process.env.npm_package_version;
 
 
 loadData();
-World.users.addUser("5728f55b143b3e8639eed3b4", function(err, u1) {
+/*World.users.addUser("5728f55b143b3e8639eed3b4", function(err, u1) {
 	var s1 = World.ships.getShip("schooner");
 	u1.buildShip("Black Pearl", s1, "london", function(err, blackpearl) {});
-});
+});*/
 
 console.log("Maelström - World");
 if (version) console.log("Version " + version);

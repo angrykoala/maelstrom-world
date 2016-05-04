@@ -33,7 +33,7 @@ var Users = {
 			console.log("User "+id+" not found, creating new one");
 			this.addUser(id,function(err,res){
 				if(err) return done(new Error(err));
-				return done(res);
+				return done(null,res);
 			});
 			//return done(new Error("Not user"));
 		}else return done(null, res);
