@@ -30,9 +30,13 @@ var Users = {
 	getUser: function(id, done) {
 		var res = this.users[id];
 		if (!res) {
-			return done(new Error("Not user"));
-		}
-		return done(null, res);
+			console.log("User "+id+" not found, creating new one");
+			this.addUser(id,function(err,res){
+				if(err) return done(new Error(err));
+				return done(res);
+			});
+			//return done(new Error("Not user"));
+		}else return done(null, res);
 	},
 	addUser: function(id, done) {
 		if (this.users[id]) return done(new Error("User already exists"));
