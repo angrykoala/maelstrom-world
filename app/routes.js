@@ -47,6 +47,9 @@ module.exports = function(app) {
 		next();
 	});
 
+	app.get('/',function(req,res){
+		res.send("maelstrom-world API");
+	});
 	app.get('/map', function(req, response) {
 		World.map.getAllCities(function(err, res) {
 			if (err) return response.status(500).json({
