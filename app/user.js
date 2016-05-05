@@ -70,6 +70,7 @@ User.prototype.buyProduct = function(shipId, product, quantity, done) {
 		var city = res;
 		city.getPrice(product, quantity, function(err, price) {
 			if (err) return done(err);
+			price*=1.2;
 			if (user.money < price) return done(new Error("Not enough money"));
 			user.money -= price;
 			city.buyProduct(product, quantity, function(err, res) {
@@ -94,6 +95,7 @@ User.prototype.sellProduct = function(shipId, product, quantity, done) {
 		var city = res;
 		city.getPrice(product, quantity, function(err, price) {
 			if (err) return done(err);
+			price*=0.8;
 			user.money += price;
 			city.sellProduct(product, quantity, function(err, res) {
 				if (err) {
