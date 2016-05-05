@@ -9,6 +9,7 @@ Description: Game World, defining all necessary elements
 var User = require('./user');
 var map = require('./map');
 var ws = require('./websockets');
+var dbBackup=require('./database');
 
 var Products = {
 	list: {},
@@ -26,7 +27,7 @@ var Products = {
 };
 
 var Users = {
-	users: {},
+	users: {arthur:new User("arthur")},
 	getUser: function(id, done) {
 		var res = this.users[id];
 		if (!res) {
@@ -52,6 +53,13 @@ var Users = {
 			this.users[i].updateShips();
 		}
 		done(null);
+		//this.backup(done);
+	},
+	backup: function(done){
+		dbBackup("users",this.users,function(err){
+			return done(err);
+
+		});
 	}
 };
 
