@@ -246,26 +246,26 @@ describe('Routes', function() {
 		it('/user/signup', function(done) {
 			var userData = data.users.arthur;
 			var token = userData.token;
-		//	World.users.getUser(userData.id, function(err, res) {
-				//assert.ok(err);
-				//assert.notOk(res);
-				request(app)
-					.post('/user/signup')
-					.set('Authorization', "Bearer " + token)
-					.expect(201)
-					.end(function(err, res) {
+			//	World.users.getUser(userData.id, function(err, res) {
+			//assert.ok(err);
+			//assert.notOk(res);
+			request(app)
+				.post('/user/signup')
+				.set('Authorization', "Bearer " + token)
+				.expect(201)
+				.end(function(err, res) {
+					assert.notOk(err);
+					assert.ok(res.body);
+					assert.strictEqual(res.body.id, userData.id);
+					assert.strictEqual(res.body.money, 3000); //default money value
+					World.users.getUser(userData.id, function(err, res) {
 						assert.notOk(err);
-						assert.ok(res.body);
-						assert.strictEqual(res.body.id, userData.id);
-						assert.strictEqual(res.body.money, 3000); //default money value
-						World.users.getUser(userData.id, function(err, res) {
-							assert.notOk(err);
-							assert.ok(res);
-							assert.strictEqual(res.id, userData.id);
-							done();
-						});
-				//	});
-			});
+						assert.ok(res);
+						assert.strictEqual(res.id, userData.id);
+						done();
+					});
+					//	});
+				});
 		});
 	});
 	describe('PUT Routes', function() {
