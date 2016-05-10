@@ -6,7 +6,7 @@ Description:
 */
 
 var utils = require('./utils');
-var dbBackup = require('./database');
+var dbBackup = require('./database').backup;
 
 
 var map = {
