@@ -8,7 +8,7 @@ var config = require('../config/config.js');
 var async = require('async');
 var map = require('./map');
 var userList = require('./world').users;
-var worldBackup=require('./world').backup;
+var worldBackup = require('./world').backup;
 
 var timer = null;
 
@@ -16,7 +16,7 @@ var GameUpdate = {
 	startLoop: function(time, tick) {
 		var gu = this;
 		var tickValue = 0;
-		var backupTime=config.backupTime || 100;
+		var backupTime = config.backupTime || 100;
 		if (!time || time <= 0) time = config.refreshTime;
 		timer = setInterval(function() {
 			tickValue++;
@@ -26,16 +26,16 @@ var GameUpdate = {
 					return tick(err, tickValue);
 				});
 			});
-			if(tickValue%backupTime===0 && config.backup) worldBackup(function(err){
-				if(err) console.log(err);
+			if (tickValue % backupTime === 0 && config.backup) worldBackup(function(err) {
+				if (err) console.log(err);
 			});
 		}, time);
 	},
 	cancelLoop: function() {
 		if (timer) clearInterval(timer);
 		timer = null;
-		worldBackup(function(err){
-			if(err) console.log(err);
+		worldBackup(function(err) {
+			if (err) console.log(err);
 		});
 	},
 	cityProductsUpdate: function(done) {

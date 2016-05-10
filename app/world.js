@@ -9,7 +9,7 @@ Description: Game World, defining all necessary elements
 var User = require('./user');
 var map = require('./map');
 var ws = require('./websockets');
-var dbBackup = require('./database');
+var dbBackup = require('./database').backup;
 
 var Products = {
 	list: {},
@@ -60,8 +60,8 @@ var Users = {
 		var l = [];
 		for (var k in this.users) {
 			var u = this.users[k];
-			var ships=[];
-			for(var s in u.ships)
+			var ships = [];
+			for (var s in u.ships)
 				ships.push(u.ships[s].toJSON());
 
 			l.push({
@@ -110,12 +110,13 @@ function setSockets(io, done) {
 	});
 	done(null);
 }
-function backup(done){
+
+function backup(done) {
 	var err1;
-	map.backup(function(err){
-		err1=err;
-		Users.backup(function(err){
-			if(err || err1) return done(new Error("Backup Error:"+err1+"    "+err2));
+	map.backup(function(err) {
+		err1 = err;
+		Users.backup(function(err) {
+			if (err || err1) return done(new Error("Backup Error:" + err1 + "    " + err2));
 			return done(null);
 		});
 	});
@@ -126,4 +127,4 @@ module.exports.ships = Ships;
 module.exports.users = Users;
 module.exports.map = map;
 module.exports.setSockets = setSockets;
-module.exports.backup=backup;
+module.exports.backup = backup;
