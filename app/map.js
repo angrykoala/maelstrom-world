@@ -2,10 +2,12 @@
 Name: Map
 Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
-Description: 
+Description:
 */
 
 var utils = require('./utils');
+var dbBackup = require('./database');
+
 
 var map = {
 	cities: {},
@@ -51,6 +53,16 @@ var map = {
 	},
 	clear: function() {
 		this.cities = {};
+	},
+	backup: function(done) {
+		var l = [];
+		for (var k in this.cities) {
+			l.push(this.cities[k]);
+		}
+		dbBackup("map", l, function(err) {
+			return done(err);
+
+		});
 	}
 };
 

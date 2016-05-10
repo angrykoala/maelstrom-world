@@ -9,7 +9,7 @@ Description: Game World, defining all necessary elements
 var User = require('./user');
 var map = require('./map');
 var ws = require('./websockets');
-var dbBackup=require('./database');
+var dbBackup = require('./database');
 
 var Products = {
 	list: {},
@@ -27,7 +27,9 @@ var Products = {
 };
 
 var Users = {
-	users: {arthur:new User("arthur")},
+	users: {
+		arthur: new User("arthur")
+	},
 	getUser: function(id, done) {
 		var res = this.users[id];
 		if (!res) {
@@ -53,14 +55,27 @@ var Users = {
 			this.users[i].updateShips();
 		}
 		done(null);
-		//this.backup(done);
 	},
-	backup: function(done){
-		dbBackup("users",this.users,function(err){
+	backup: function(done) {
+		var l = [];
+		for (var k in this.users) {
+			var u = this.users[k];
+			var ships=[];
+			for(var s in u.ships)
+				ships.push(u.ships[s].toJSON());
+
+			l.push({
+				id: u.id,
+				ships: ships,
+				money: u.money
+			});
+		}
+		dbBackup("users", l, function(err) {
 			return done(err);
 
 		});
 	}
+
 };
 
 var Ships = {
@@ -95,10 +110,20 @@ function setSockets(io, done) {
 	});
 	done(null);
 }
-
+function backup(done){
+	var err1;
+	map.backup(function(err){
+		err1=err;
+		Users.backup(function(err){
+			if(err || err1) return done(new Error("Backup Error:"+err1+"    "+err2));
+			return done(null);
+		});
+	});
+}
 
 module.exports.products = Products;
 module.exports.ships = Ships;
 module.exports.users = Users;
 module.exports.map = map;
 module.exports.setSockets = setSockets;
+module.exports.backup=backup;

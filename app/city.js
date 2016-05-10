@@ -43,7 +43,7 @@ city.prototype.getPrice = function(productId, quantity, done) {
 	if (!cityp) return done(new Error("Not product in city"));
 	var price = -p.price / 100 * cityp.quantity + (p.price * 2);
 	if (price < p.price / 2.0) price = p.price / 2;
-	//calculate singular price and average*quantity	
+	//calculate singular price and average*quantity
 	return done(null, price * quantity);
 };
 city.prototype.getProducts = function(done) {
@@ -59,7 +59,7 @@ city.prototype.getProductsPrice = function(done) {
 				quantity: prod.quantity,
 				production: prod.production,
 				price: price
-			}
+			};
 		});
 	}
 	return done(null, res);
