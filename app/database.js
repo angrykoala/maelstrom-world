@@ -8,10 +8,7 @@ database = {
 	backup: function(name, list, done) {
 		var nameback = name + "Back";
 		MongoClient.connect(url, function(err, db) {
-			if (err) {
-				db.close();
-				return done(err);
-			}
+			if (err) return done(err);
 			db.collection(nameback).insert({}, function(err, res) {
 				if (err) {
 					db.close();
@@ -39,10 +36,7 @@ database = {
 	},
 	restore: function(name, done) {
 		MongoClient.connect(url, function(err, db) {
-			if (err) {
-				db.close();
-				return done(err);
-			}
+			if (err) return done(err);
 			db.collection(name).find().toArray(function(err, res) {
 				return done(err, res);
 			});
