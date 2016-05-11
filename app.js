@@ -7,6 +7,7 @@ require('./app/routes')(app); //loads routes
 ws = require('./app/websockets');
 
 var serverConfig = require('./config/server');
+var config = require('./config/config');
 
 var World = require('./app/world');
 var City = require('./app/city');
@@ -30,8 +31,9 @@ loadData();
 console.log("Maelström - World");
 World.restore(function(err) {
 	if (err) console.log(err);
-	console.log(JSON.stringify(World.users.users));
 	if (version) console.log("Version " + version);
+	if(config.backup) console.log("Backup ON");
+	else console.log("Backup OFF");
 	ws.set(http, function(err, io) { //load websockets
 		if (err) console.log(err);
 		World.setSockets(io, function(err) {

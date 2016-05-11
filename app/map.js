@@ -65,13 +65,13 @@ var map = {
 		});
 	},
 	restore: function(done) {
-		var cities=this.cities;
+		var cities = this.cities;
 		dbHandler.restore("map", function(err, res) {
 			if (err) return done(err);
-			for(var i=0;i<res.length;i++){
-				if(!cities[res[i].slug]) console.log("City not found");
-				else{
-					cities[res[i].slug].products=res[i].products;
+			for (var i = 0; i < res.length; i++) {
+				if (!cities[res[i].slug]) console.log("City not found" + res[i].slug);
+				else {
+					cities[res[i].slug].products = res[i].products;
 				}
 			}
 		});
