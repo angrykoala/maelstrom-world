@@ -6,7 +6,7 @@ Description:
 */
 
 var utils = require('./utils');
-var dbBackup = require('./database').backup;
+var dbHandler = require('./database');
 
 
 var map = {
@@ -59,10 +59,23 @@ var map = {
 		for (var k in this.cities) {
 			l.push(this.cities[k]);
 		}
-		dbBackup("map", l, function(err) {
+		dbHandler.backup("map", l, function(err) {
 			return done(err);
 
 		});
+	},
+	restore: function(done) {
+		var cities=this.cities;
+		dbHandler.restore("map", function(err, res) {
+			if (err) return done(err);
+			for(var i=0;i<res.length;i++){
+				if(!cities[res[i].slug]) console.log("City not found");
+				else{
+					cities[res[i].slug].products=res[i].products;
+				}
+			}
+		});
+		return done();
 	}
 };
 

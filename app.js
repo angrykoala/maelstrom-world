@@ -28,18 +28,22 @@ loadData();
 });*/
 
 console.log("Maelström - World");
-if (version) console.log("Version " + version);
-ws.set(http, function(err, io) { //load websockets
+World.restore(function(err) {
 	if (err) console.log(err);
-	World.setSockets(io, function(err) {
+	console.log(JSON.stringify(World.users.users));
+	if (version) console.log("Version " + version);
+	ws.set(http, function(err, io) { //load websockets
 		if (err) console.log(err);
-		http.listen(serverConfig.port, function() {
-			console.log("Server listening on port " + serverConfig.port);
-			gu.startLoop(null, function(err) {
-				var date = new Date();
-				var sec = date.getSeconds();
-				if (err)
-					console.log("Tick: Error - " + err);
+		World.setSockets(io, function(err) {
+			if (err) console.log(err);
+			http.listen(serverConfig.port, function() {
+				console.log("Server listening on port " + serverConfig.port);
+				gu.startLoop(null, function(err) {
+					var date = new Date();
+					var sec = date.getSeconds();
+					if (err)
+						console.log("Tick: Error - " + err);
+				});
 			});
 		});
 	});

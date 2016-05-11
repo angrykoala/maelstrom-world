@@ -9,7 +9,7 @@ Description: Game World, defining all necessary elements
 var User = require('./user');
 var map = require('./map');
 var ws = require('./websockets');
-var dbBackup = require('./database').backup;
+var dbHandler = require('./database');
 
 var Products = {
 	list: {},
@@ -27,9 +27,7 @@ var Products = {
 };
 
 var Users = {
-	users: {
-		arthur: new User("arthur")
-	},
+	users: {},
 	getUser: function(id, done) {
 		var res = this.users[id];
 		if (!res) {
@@ -61,8 +59,11 @@ var Users = {
 		for (var k in this.users) {
 			var u = this.users[k];
 			var ships = [];
-			for (var s in u.ships)
-				ships.push(u.ships[s].toJSON());
+			for (var s in u.ships) {
+				var myship = u.ships[s].toJSON();
+				myship.model = myship.model.slug;
+				ships.push(myship);
+			}
 
 			l.push({
 				id: u.id,
@@ -70,12 +71,33 @@ var Users = {
 				money: u.money
 			});
 		}
-		dbBackup("users", l, function(err) {
+		dbHandler.backup("users", l, function(err) {
 			return done(err);
-
+		});
+	},
+	restore: function(done) {
+		var userList = this.users;
+		dbHandler.restore("users", function(err, res) {
+			if (err) return done(err);
+			for (var i = 0; i < res.length; i++) {
+				var uInfo = res[i];
+				var u = new User(uInfo.id);
+				u.money = uInfo.money;
+				for (var j = 0; j < uInfo.ships.length; j++) {
+					var shipInfo = uInfo.ships[j];
+					var model = Ships.getShip(shipInfo.model);
+					if (!model) console.log("Error loading");
+					var s = model.createShip(shipInfo.name, u, shipInfo.city);
+					s.status = shipInfo.status;
+					s.life = shipInfo.life;
+					s.cargo = shipInfo.cargo;
+					u.ships[s.slug] = s;
+				}
+				userList[u.id] = u;
+			}
+			return done(null);
 		});
 	}
-
 };
 
 var Ships = {
@@ -122,9 +144,21 @@ function backup(done) {
 	});
 }
 
+function restore(done) {
+	var err1;
+	map.restore(function(err) {
+		err1 = err;
+		Users.restore(function(err) {
+			if (err || err1) return done(new Error("Restore Error:" + err1 + "    " + err2));
+			return done(null);
+		});
+	});
+}
+
 module.exports.products = Products;
 module.exports.ships = Ships;
 module.exports.users = Users;
 module.exports.map = map;
 module.exports.setSockets = setSockets;
 module.exports.backup = backup;
+module.exports.restore = restore;

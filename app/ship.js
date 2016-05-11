@@ -2,7 +2,7 @@
 Name:Ship Model
 Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
-Description: 
+Description:
 */
 var map = require('./map');
 var utils = require('./utils');
