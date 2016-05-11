@@ -117,7 +117,7 @@ User.prototype.moveShip = function(shipId, destiny, done) {
 
 User.prototype.reportMoney = function() {
 	for (var s in this.sockets) {
-		this.sockets[s].emit('money', this.money);
+		this.sockets[s].emit('money', parseInt(this.money));
 	}
 };
 
