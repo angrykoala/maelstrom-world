@@ -1,6 +1,6 @@
 {
 	"name": "maelstrom-world",
-	"version": "0.4.4",
+	"version": "0.5.1",
 	"description": "Game server to handle maelstrom dynamic world",
 	"main": "app.js",
 	"scripts": {
@@ -32,6 +32,7 @@
 		"express": "^4.13.3",
 		"express-jwt": "^3.3.0",
 		"jsonwebtoken": "^6.2.0",
+		"mongodb": "^2.1.18",
 		"socket.io": "^1.4.5",
 		"socketio-jwt": "^4.3.4"
 	},

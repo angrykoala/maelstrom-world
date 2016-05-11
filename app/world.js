@@ -9,6 +9,7 @@ Description: Game World, defining all necessary elements
 var User = require('./user');
 var map = require('./map');
 var ws = require('./websockets');
+var dbHandler = require('./database');
 
 var Products = {
 	list: {},
@@ -30,13 +31,13 @@ var Users = {
 	getUser: function(id, done) {
 		var res = this.users[id];
 		if (!res) {
-			console.log("User "+id+" not found, creating new one");
-			this.addUser(id,function(err,res){
-				if(err) return done(new Error(err));
-				return done(null,res);
+			console.log("User " + id + " not found, creating new one");
+			this.addUser(id, function(err, res) {
+				if (err) return done(new Error(err));
+				return done(null, res);
 			});
 			//return done(new Error("Not user"));
-		}else return done(null, res);
+		} else return done(null, res);
 	},
 	addUser: function(id, done) {
 		if (this.users[id]) return done(new Error("User already exists"));
@@ -52,6 +53,50 @@ var Users = {
 			this.users[i].updateShips();
 		}
 		done(null);
+	},
+	backup: function(done) {
+		var l = [];
+		for (var k in this.users) {
+			var u = this.users[k];
+			var ships = [];
+			for (var s in u.ships) {
+				var myship = u.ships[s].toJSON();
+				myship.model = myship.model.slug;
+				ships.push(myship);
+			}
+
+			l.push({
+				id: u.id,
+				ships: ships,
+				money: u.money
+			});
+		}
+		dbHandler.backup("users", l, function(err) {
+			return done(err);
+		});
+	},
+	restore: function(done) {
+		var userList = this.users;
+		dbHandler.restore("users", function(err, res) {
+			if (err) return done(err);
+			for (var i = 0; i < res.length; i++) {
+				var uInfo = res[i];
+				var u = new User(uInfo.id);
+				u.money = uInfo.money;
+				for (var j = 0; j < uInfo.ships.length; j++) {
+					var shipInfo = uInfo.ships[j];
+					var model = Ships.getShip(shipInfo.model);
+					if (!model) console.log("Error loading");
+					var s = model.createShip(shipInfo.name, u, shipInfo.city);
+					s.status = shipInfo.status;
+					s.life = shipInfo.life;
+					s.cargo = shipInfo.cargo;
+					u.ships[s.slug] = s;
+				}
+				userList[u.id] = u;
+			}
+			return done(null);
+		});
 	}
 };
 
@@ -88,9 +133,32 @@ function setSockets(io, done) {
 	done(null);
 }
 
+function backup(done) {
+	var err1;
+	map.backup(function(err) {
+		err1 = err;
+		Users.backup(function(err) {
+			if (err || err1) return done(new Error("Backup Error:" + err1 + "    " + err2));
+			return done(null);
+		});
+	});
+}
+
+function restore(done) {
+	var err1;
+	map.restore(function(err) {
+		err1 = err;
+		Users.restore(function(err) {
+			if (err || err1) return done(new Error("Restore Error:" + err1 + "    " + err2));
+			return done(null);
+		});
+	});
+}
 
 module.exports.products = Products;
 module.exports.ships = Ships;
 module.exports.users = Users;
 module.exports.map = map;
 module.exports.setSockets = setSockets;
+module.exports.backup = backup;
+module.exports.restore = restore;
