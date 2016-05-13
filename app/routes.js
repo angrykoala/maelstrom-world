@@ -34,7 +34,7 @@ module.exports = function(app) {
 	//middleware to return status 401 if jwt is not valid
 	app.use(function(err, req, res, next) {
 		if (err.name === 'UnauthorizedError') res.status(401).json({
-			err: "invalid token"
+			error: "invalid token"
 		});
 	});
 
