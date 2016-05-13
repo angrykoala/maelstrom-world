@@ -32,6 +32,7 @@ User.prototype.buildShip = function(name, model, city, done) {
 		var ship = model.createShip(name, this, city);
 		this.ships[ship.slug] = ship;
 		this.reportMoney();
+		this.reportShipBuilt(name);
 		return done(null, this.ships[ship.slug]);
 	} else return done(new Error("Ship already exists"));
 };
@@ -120,5 +121,11 @@ User.prototype.reportMoney = function() {
 		this.sockets[s].emit('money', parseInt(this.money));
 	}
 };
+User.prototype.reportShipBuilt = function(shipName) {
+	for (var s in this.sockets) {
+		this.sockets[s].emit('ship_built', shipName);
+	}
+};
+
 
 module.exports = User;

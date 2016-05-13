@@ -9,14 +9,14 @@ var assert = require('chai').assert;
 var async = require('async');
 
 
-var dbHandler=require('../app/database');
+var dbHandler = require('../app/database');
 
 
 describe('Database Backup', function() {
-    it.skip('Backup',function(done){
+	it.skip('Backup', function(done) {
 
-    });
-    it.skip('Restore',function(done){
+	});
+	it.skip('Restore', function(done) {
 
-    });
+	});
 });
