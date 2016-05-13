@@ -199,6 +199,7 @@ describe('Routes', function() {
 								.expect('Content-Type', /json/)
 								.expect(401)
 								.end(function(err, res) {
+									assert.notOk(err);
 									assert.ok(res.body);
 									assert.ok(res.body.err);
 									done();
@@ -267,13 +268,10 @@ describe('Routes', function() {
 	describe('PUT Routes', function() {
 		var app;
 		beforeEach(function(done) {
-			var app;
-			before(function(done) {
-				populate(function() {
-					serverTest.startServer(function() {
-						app = serverTest.app;
-						done();
-					});
+			populate(function() {
+				serverTest.startServer(function() {
+					app = serverTest.app;
+					done();
 				});
 			});
 		});
@@ -281,17 +279,77 @@ describe('Routes', function() {
 			serverTest.stopServer();
 			populate.clear();
 		});
-		it.skip('/user/build/ship', function(done) {
-			var userData = data.users.ford;
+		it('/user/build/ship', function(done) {
+			var userData = data.users.arthur;
 			var token = userData.token;
 			request(app)
 				.put('/user/build/ship')
 				.set('Authorization', "Bearer " + token)
-				.expect(200)
-				//.send({})
+				.expect(201)
+				.send({
+					model: "caravel",
+					ship_name: "testShip",
+					city: "rohan"
+				})
 				.end(function(err, res) {
 					assert.notOk(err);
-					console.log(res);
+					assert.ok(res.body);
+					var s = res.body;
+					assert.propertyVal(s, 'name', 'testShip');
+					assert.propertyVal(s, 'owner', userData.id);
+					assert.ok(s.model);
+					assert.strictEqual(s.model.name, 'Caravel');
+					assert.propertyVal(s, 'city', 'rohan');
+					request(app)
+						.put('/user/build/ship')
+						.set('Authorization', "Bearer " + token)
+						.expect(500)
+						.send({
+							model: "caravel",
+							ship_name: "testShip",
+							city: "rohan"
+						})
+						.end(function(err, res) {
+							assert.notOk(err);
+							assert.ok(res.body.error);
+							request(app)
+								.put('/user/build/ship')
+								.set('Authorization', "Bearer " + token)
+								.expect(500)
+								.send({
+									model: "galleon",
+									ship_name: "testShip2",
+									city: "rohan"
+								})
+								.end(function(err, res) {
+									assert.notOk(err);
+									assert.ok(res.body.error);
+									request(app)
+										.put('/user/build/ship')
+										.set('Authorization', "Bearer " + token)
+										.expect(500)
+										.send({
+											model: "caravel",
+											ship_name: "testShip3",
+											city: "foo"
+										})
+										.end(function(err, res) {
+											assert.ok(res.body.error);
+											request(app)
+												.put('/user/build/ship')
+												.expect(401)
+												.send({
+													model: "caravel",
+													ship_name: "testShip4",
+													city: "rohan"
+												})
+												.end(function(err, res) {
+													assert.notOk(err);
+													done();
+												});
+										});
+								});
+						});
 
 				});
 		});
