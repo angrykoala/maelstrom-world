@@ -22,16 +22,16 @@ module.exports = {
 	products: {
 		bread: {
 			name: "Bread",
-			price: 50
+			price: 50,
 		},
 		redmeat: {
 			name: "Red meat",
-			price: 50.2
+			price: 50.2,
 		},
 		stone: {
 			name: "Stone",
 			price: 10.2
-		}
+		},
 	},
 	cities: {
 		minasTirith: {

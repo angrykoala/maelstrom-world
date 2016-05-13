@@ -31,9 +31,9 @@ The actions are performed through a RESTful API with plain http request and json
 |GET   |`/user/data`|Returns id and money of authenticated user, code 200|
 |POST  |`/user/signup`|Will create new user in world if don't exists, code 201|
 |PUT   |`/user/build/ship`|Will build new user ship if possible, with the given data `{model,ship_name,city}`, return 201 and ship data if success|
-|PUT   |`/user/move/ship`|Move ship to given city if possible `{shipId,cityId}`, return 200 if successful|
-|PUT   |`/user/buy`|Buy a product from a city to a ship with data `{shipId,productId,quantity}`, returns 200 if successful|
-|PUT   |`/user/sell`|Sell product from ship to city `{shipId,productId,quantity}`|
+|PUT   |`/user/move/ship`|Move ship to given city if possible `{ship,city}`, return 200 if successful|
+|PUT   |`/user/buy`|Buy a product from a city to a ship with data `{ship,product,quantity}`, returns 200 if successful|
+|PUT   |`/user/sell`|Sell product from ship to city `{ship,product,quantity}`|
 
 >All urls under `restricted/*` requires a valid token, auth header must be `Bearer [token]` to get access. Code 401 otherwise
 
