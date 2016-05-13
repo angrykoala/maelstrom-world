@@ -76,7 +76,7 @@ Ship.prototype.update = function() {
 };
 Ship.prototype.reportShip = function() {
 	for (var s in this.sockets) {
-		this.sockets[s].emit('ship_update', {
+		this.sockets[s].emit('ship_arrive', {
 			name: this.name,
 			status: this.status,
 			city: this.city,
