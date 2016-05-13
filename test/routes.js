@@ -433,8 +433,72 @@ describe('Routes', function() {
 				});
 			});
 		});
-		it.skip('/user/sell', function() {
-			throw new Error("not implemented");
+		it('/user/sell', function(done) {
+			var userData = data.users.arthur;
+			var token = userData.token;
+			var shipData = data.ships.caravel;
+			var product = data.products.stone;
+
+			World.users.getUser(userData.id, function(err, res) {
+				assert.notOk(err);
+				assert.ok(res);
+				var usr = res;
+				var mon = usr.money;
+				usr.ships['black-pearl'].cargo.stone = 1;
+				World.map.getCity(usr.ships['black-pearl'].city, function(err, res) {
+					assert.notOk(err);
+					assert.ok(res);
+					var cit = res;
+					var citq = cit.products.stone.quantity;
+					request(app)
+						.put('/user/sell')
+						.set('Authorization', "Bearer " + token)
+						.expect(200)
+						.send({
+							ship: "black-pearl",
+							product: "stone",
+							quantity: 1
+						})
+						.end(function(err, res) {
+							assert.notOk(err);
+							//TODO: check price
+							assert.notOk(usr.ships['black-pearl'].cargo.stone);
+							assert.strictEqual(cit.products.stone.quantity, citq + 1);
+							request(app)
+								.put('/user/sell')
+								.set('Authorization', "Bearer " + token)
+								.expect(500)
+								.send({
+									ship: "black-pearl",
+									product: "stone",
+									quantity: 100
+								})
+								.end(function(err, res) {
+									assert.notOk(err);
+									assert.ok(res.body.error);
+									request(app)
+										.put('/user/sell')
+										.set('Authorization', "Bearer " + token)
+										.expect(400)
+										.end(function(err, res) {
+											assert.notOk(err);
+											assert.ok(res.body.error);
+											request(app)
+												.put('/user/sell')
+												.expect(401)
+												.send({
+													ship: "black-pearl",
+													product: "stone",
+													quantity: 100
+												})
+												.end(function(err, res) {
+													done();
+												});
+										});
+								});
+						});
+				});
+			});
 		});
 	});
 });
