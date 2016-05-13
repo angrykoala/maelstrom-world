@@ -123,7 +123,7 @@ User.prototype.reportMoney = function() {
 };
 User.prototype.reportShipBuilt = function(shipName) {
 	for (var s in this.sockets) {
-		this.sockets[s].emit('ship_built',shipName);
+		this.sockets[s].emit('ship_built', shipName);
 	}
 };
 

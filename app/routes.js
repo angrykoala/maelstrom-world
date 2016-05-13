@@ -48,7 +48,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/', function(req, res) {
-		res.send("maelstrom-world API - version "+process.env.npm_package_version);
+		res.send("maelstrom-world API - version " + process.env.npm_package_version);
 	});
 	app.get('/map', function(req, response) {
 		World.map.getAllCities(function(err, res) {

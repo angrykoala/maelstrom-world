@@ -11,7 +11,7 @@ var map = require('./map');
 var ws = require('./websockets');
 var dbHandler = require('./database');
 
-var config=require('../config/config');
+var config = require('../config/config');
 
 var Products = {
 	list: {},
@@ -137,7 +137,7 @@ function setSockets(io, done) {
 
 function backup(done) {
 	var err1;
-	if(!config.backup) return done(null);
+	if (!config.backup) return done(null);
 	map.backup(function(err) {
 		err1 = err;
 		Users.backup(function(err) {
@@ -149,7 +149,7 @@ function backup(done) {
 
 function restore(done) {
 	var err1;
-	if(!config.backup) return done(null);
+	if (!config.backup) return done(null);
 	map.restore(function(err) {
 		err1 = err;
 		Users.restore(function(err) {

@@ -246,9 +246,6 @@ describe('Routes', function() {
 		it('/user/signup', function(done) {
 			var userData = data.users.arthur;
 			var token = userData.token;
-			//	World.users.getUser(userData.id, function(err, res) {
-			//assert.ok(err);
-			//assert.notOk(res);
 			request(app)
 				.post('/user/signup')
 				.set('Authorization', "Bearer " + token)
@@ -264,7 +261,6 @@ describe('Routes', function() {
 						assert.strictEqual(res.id, userData.id);
 						done();
 					});
-					//	});
 				});
 		});
 	});
@@ -285,8 +281,19 @@ describe('Routes', function() {
 			serverTest.stopServer();
 			populate.clear();
 		});
-		it.skip('/user/build/ship', function() {
-			throw new Error("not implemented");
+		it.skip('/user/build/ship', function(done) {
+			var userData = data.users.ford;
+			var token = userData.token;
+			request(app)
+				.put('/user/build/ship')
+				.set('Authorization', "Bearer " + token)
+				.expect(200)
+				//.send({})
+				.end(function(err, res) {
+					assert.notOk(err);
+					console.log(res);
+
+				});
 		});
 		it.skip('/user/move/ship', function() {
 			throw new Error("not implemented");

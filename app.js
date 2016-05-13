@@ -32,7 +32,7 @@ console.log("Maelström - World");
 World.restore(function(err) {
 	if (err) console.log(err);
 	if (version) console.log("Version " + version);
-	if(config.backup) console.log("Backup ON");
+	if (config.backup) console.log("Backup ON");
 	else console.log("Backup OFF");
 	ws.set(http, function(err, io) { //load websockets
 		if (err) console.log(err);
