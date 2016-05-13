@@ -282,43 +282,41 @@ describe('Routes', function() {
 		it('/user/build/ship', function(done) {
 			var userData = data.users.arthur;
 			var token = userData.token;
-			request(app)
-				.put('/user/build/ship')
-				.set('Authorization', "Bearer " + token)
-				.expect(201)
-				.send({
-					model: "caravel",
-					ship_name: "testShip",
-					city: "rohan"
-				})
-				.end(function(err, res) {
-					assert.notOk(err);
-					assert.ok(res.body);
-					var s = res.body;
-					assert.propertyVal(s, 'name', 'testShip');
-					assert.propertyVal(s, 'owner', userData.id);
-					assert.ok(s.model);
-					assert.strictEqual(s.model.name, 'Caravel');
-					assert.propertyVal(s, 'city', 'rohan');
-					request(app)
-						.put('/user/build/ship')
-						.set('Authorization', "Bearer " + token)
-						.expect(500)
-						.send({
-							model: "caravel",
-							ship_name: "testShip",
-							city: "rohan"
-						})
-						.end(function(err, res) {
+			var shipData = data.ships.caravel;
+
+			World.users.getUser(userData.id, function(err, res) {
+				assert.notOk(err);
+				assert.ok(res);
+				var mon = res.money;
+				request(app)
+					.put('/user/build/ship')
+					.set('Authorization', "Bearer " + token)
+					.expect(201)
+					.send({
+						model: shipData.slug,
+						ship_name: "testShip",
+						city: "rohan"
+					})
+					.end(function(err, res) {
+						assert.notOk(err);
+						assert.ok(res.body);
+						var s = res.body;
+						assert.propertyVal(s, 'name', 'testShip');
+						assert.propertyVal(s, 'owner', userData.id);
+						assert.ok(s.model);
+						assert.strictEqual(s.model.name, shipData.name);
+						assert.propertyVal(s, 'city', 'rohan');
+						World.users.getUser(userData.id, function(err, res) {
 							assert.notOk(err);
-							assert.ok(res.body.error);
+							assert.ok(res);
+							assert.propertyVal(res, 'money', mon - shipData.price);
 							request(app)
 								.put('/user/build/ship')
 								.set('Authorization', "Bearer " + token)
 								.expect(500)
 								.send({
-									model: "galleon",
-									ship_name: "testShip2",
+									model: shipData.slug,
+									ship_name: "testShip",
 									city: "rohan"
 								})
 								.end(function(err, res) {
@@ -329,35 +327,111 @@ describe('Routes', function() {
 										.set('Authorization', "Bearer " + token)
 										.expect(500)
 										.send({
-											model: "caravel",
-											ship_name: "testShip3",
-											city: "foo"
+											model: "galleon",
+											ship_name: "testShip2",
+											city: "rohan"
 										})
 										.end(function(err, res) {
+											assert.notOk(err);
 											assert.ok(res.body.error);
 											request(app)
 												.put('/user/build/ship')
-												.expect(401)
+												.set('Authorization', "Bearer " + token)
+												.expect(500)
 												.send({
-													model: "caravel",
-													ship_name: "testShip4",
-													city: "rohan"
+													model: shipData.slug,
+													ship_name: "testShip3",
+													city: "foo"
 												})
 												.end(function(err, res) {
-													assert.notOk(err);
+													assert.ok(res.body.error);
+													request(app)
+														.put('/user/build/ship')
+														.expect(401)
+														.send({
+															model: shipData.slug,
+															ship_name: "testShip4",
+															city: "rohan"
+														})
+														.end(function(err, res) {
+															assert.notOk(err);
+															done();
+														});
+												});
+										});
+								});
+						});
+					});
+			});
+		});
+		it.skip('/user/move/ship', function() {
+			throw new Error("not implemented");
+		});
+		it('/user/buy', function(done) {
+			var userData = data.users.arthur;
+			var token = userData.token;
+			var shipData = data.ships.caravel;
+			var product = data.products.stone;
+
+			World.users.getUser(userData.id, function(err, res) {
+				assert.notOk(err);
+				assert.ok(res);
+				var usr = res;
+				var mon = usr.money;
+				World.map.getCity(usr.ships['black-pearl'].city, function(err, res) {
+					assert.notOk(err);
+					assert.ok(res);
+					var cit = res;
+					var citq = cit.products.stone.quantity;
+					request(app)
+						.put('/user/buy')
+						.set('Authorization', "Bearer " + token)
+						.expect(200)
+						.send({
+							ship: "black-pearl",
+							product: "stone",
+							quantity: 1
+						})
+						.end(function(err, res) {
+							assert.notOk(err);
+							//TODO: check price
+							assert.strictEqual(usr.ships['black-pearl'].cargo.stone, 1);
+							assert.strictEqual(cit.products.stone.quantity, citq - 1);
+							request(app)
+								.put('/user/buy')
+								.set('Authorization', "Bearer " + token)
+								.expect(500)
+								.send({
+									ship: "black-pearl",
+									product: "stone",
+									quantity: 100
+								})
+								.end(function(err, res) {
+									assert.notOk(err);
+									assert.ok(res.body.error);
+									request(app)
+										.put('/user/buy')
+										.set('Authorization', "Bearer " + token)
+										.expect(400)
+										.end(function(err, res) {
+											assert.notOk(err);
+											assert.ok(res.body.error);
+											request(app)
+												.put('/user/buy')
+												.expect(401)
+												.send({
+													ship: "black-pearl",
+													product: "stone",
+													quantity: 100
+												})
+												.end(function(err, res) {
 													done();
 												});
 										});
 								});
 						});
-
 				});
-		});
-		it.skip('/user/move/ship', function() {
-			throw new Error("not implemented");
-		});
-		it.skip('/user/buy', function() {
-			throw new Error("not implemented");
+			});
 		});
 		it.skip('/user/sell', function() {
 			throw new Error("not implemented");
