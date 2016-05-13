@@ -28,7 +28,7 @@ The actions are performed through a RESTful API with plain http request and json
 |GET   |`/products`|Returns the full list of products on the game and basic prices with code 200|
 |GET   |`/user/ships`|Returns the full list of ships of the authenticated user, code 200|
 |GET   |`/user/ship/:ship_id`|Returns the full information of given ship of the authenticated user `{name,owner,model,life,city,status,cargo,slug}`, code 200|
-|GET   |`/user`/data`|Returns id and money of authenticated user, code 200|
+|GET   |`/user/data`|Returns id and money of authenticated user, code 200|
 |POST  |`/user/signup`|Will create new user in world if don't exists, code 201|
 |PUT   |`/user/build/ship`|Will build new user ship if possible, with the given data `{model,ship_name,city}`, return 201 and ship data if success|
 |PUT   |`/user/move/ship`|Move ship to given city if possible `{shipId,cityId}`, return 200 if successful|
