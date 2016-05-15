@@ -39,7 +39,7 @@ var map = {
 		if (!city1 || !city2) return done(new Error("Invalid values"));
 		var c1 = this.cities[city1];
 		var c2 = this.cities[city2];
-		if (!c1 || !c2) return done(new Error("Invalid citie"));
+		if (!c1 || !c2) return done(new Error("Invalid cities"));
 		var pos1 = c1.position;
 		var pos2 = c2.position;
 		if (!pos1 || !pos2) return done(new Error("Invalid positions"));
