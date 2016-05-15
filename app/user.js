@@ -26,7 +26,7 @@ User.prototype.addSocket = function(socket) {
 	this.reportMoney();
 };
 User.prototype.buildShip = function(name, model, city, done) {
-	if(!name || !model || !city) return done("Not valid data");
+	if (!name || !model || !city) return done("Not valid data");
 	if (this.ships[Utils.slugify(name)] === undefined) {
 		if (this.money > model.price) this.money -= model.price;
 		else return done("Not enough money");
