@@ -208,7 +208,7 @@ module.exports = function(app) {
 			var user = res;
 			user.buyProduct(shipId, productId, quantity, function(err) {
 				if (err) return response.status(500).json({
-					error: err.message
+					error: err
 				});
 				return response.status(200).json({
 					status: "OK",
@@ -232,7 +232,7 @@ module.exports = function(app) {
 			var user = res;
 			user.sellProduct(shipId, productId, quantity, function(err) {
 				if (err) return response.status(500).json({
-					error: err.message
+					error: err
 				});
 				return response.status(200).json({
 					status: "OK",

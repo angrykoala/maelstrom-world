@@ -438,7 +438,7 @@ describe('Routes', function() {
 
 			});
 		});
-		it('/user/buy', function(done) {
+		it.only('/user/buy', function(done) {
 			var userData = data.users.arthur;
 			var token = userData.token;
 			var shipData = data.ships.caravel;
