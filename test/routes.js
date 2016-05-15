@@ -155,13 +155,12 @@ describe('Routes', function() {
 						.expect('Content-Type', /json/)
 						.end(function(err, res) {
 							assert.notOk(err);
-							assert.ok(res.body);
-							assert.ok(res.body.err);
+							assert.ok(res.body.error);
 							done();
 						});
 				});
 		});
-		it('user/ship/:ship_id', function(done) {
+		it('/user/ship/:ship_id', function(done) {
 			var userData = data.users.arthur;
 			var token = userData.token;
 			var shipData = data.userShips.blackPearl;
@@ -200,8 +199,7 @@ describe('Routes', function() {
 								.expect(401)
 								.end(function(err, res) {
 									assert.notOk(err);
-									assert.ok(res.body);
-									assert.ok(res.body.err);
+									assert.ok(res.body.error);
 									done();
 								});
 						});
@@ -225,8 +223,7 @@ describe('Routes', function() {
 						.expect(401)
 						.end(function(err, res) {
 							assert.notOk(err);
-							assert.ok(res.body);
-							assert.ok(res.body.err);
+							assert.ok(res.body.error);
 							done();
 						});
 				});
@@ -355,6 +352,7 @@ describe('Routes', function() {
 														})
 														.end(function(err, res) {
 															assert.notOk(err);
+															assert.ok(res.body.error);
 															done();
 														});
 												});
@@ -364,8 +362,81 @@ describe('Routes', function() {
 					});
 			});
 		});
-		it.skip('/user/move/ship', function() {
-			throw new Error("not implemented");
+		it('/user/move/ship', function(done) {
+			var userData = data.users.arthur;
+			var token = userData.token;
+			var shipData = data.ships.caravel;
+			var product = data.products.stone;
+
+			World.users.getUser(userData.id, function(err, res) {
+				assert.notOk(err);
+				assert.ok(res);
+				var ship = res.ships['black-pearl'];
+				assert.strictEqual(ship.status.value, 'docked');
+				request(app)
+					.put('/user/move/ship')
+					.set('Authorization', "Bearer " + token)
+					.expect(500)
+					.send({
+						ship: "black-pearl",
+						city: "isengard"
+					})
+					.end(function(err, res) {
+						assert.notOk(err);
+						assert.ok(res.body.error);
+						assert.strictEqual(ship.status.value, 'docked');
+						request(app)
+							.put('/user/move/ship')
+							.set('Authorization', "Bearer " + token)
+							.expect(200)
+							.send({
+								ship: "black-pearl",
+								city: "rohan"
+							})
+							.end(function(err, res) {
+								assert.notOk(err);
+								assert.strictEqual(ship.status.value, 'traveling');
+								assert.strictEqual(ship.status.destiny, 'rohan');
+								request(app)
+									.put('/user/move/ship')
+									.set('Authorization', "Bearer " + token)
+									.expect(500)
+									.send({
+										ship: "black-pearl",
+										city: "rohan"
+									})
+									.end(function(err, res) {
+										assert.notOk(err);
+										assert.ok(res.body.error);
+										request(app)
+											.put('/user/move/ship')
+											.expect(401)
+											.send({
+												ship: "black-pearl",
+												city: "rohan"
+											})
+											.end(function(err, res) {
+												assert.notOk(err);
+												assert.ok(res.body.error);
+												request(app)
+													.put('/user/move/ship')
+													.set('Authorization', "Bearer " + token)
+													.expect(500)
+													.send({
+														ship: "black-pearl"
+													})
+													.end(function(err, res) {
+														assert.notOk(err);
+														assert.ok(res.body.error);
+														done();
+													});
+											});
+									});
+
+							});
+					});
+
+			});
 		});
 		it('/user/buy', function(done) {
 			var userData = data.users.arthur;
@@ -425,6 +496,8 @@ describe('Routes', function() {
 													quantity: 100
 												})
 												.end(function(err, res) {
+													assert.notOk(err);
+													assert.ok(res.body.error);
 													done();
 												});
 										});
@@ -492,6 +565,8 @@ describe('Routes', function() {
 													quantity: 100
 												})
 												.end(function(err, res) {
+													assert.notOk(err);
+													assert.ok(res.body.error);
 													done();
 												});
 										});

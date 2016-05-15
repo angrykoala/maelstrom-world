@@ -10,6 +10,7 @@ var assert = require('chai').assert;
 
 var User = require('../app/user');
 var data = require('./config/data');
+var ShipModel = require('../app/ship');
 
 describe('User', function() {
 	var testUser;
@@ -69,8 +70,41 @@ describe('User', function() {
 		res = testUser.getShip("Black Pearl");
 		assert.notOk(res);
 	});
-	it.skip('Build Ship', function() {
-		throw new Error("not implemented");
+	it('Build Ship', function(done) {
+		var res = testUser.getAllShips();
+		assert.strictEqual(res.length, 0);
+		var model = new ShipModel("Galleon", data.ships.galleon);
+		assert.ok(model);
+		testUser.buildShip("TShip", model, "testcity", function(err, res) {
+			assert.notOk(err);
+			assert.ok(res);
+			assert.ok(res.name);
+			assert.strictEqual(res.name, "TShip");
+			assert.strictEqual(testUser.money, 3000 - model.price);
+			var s = testUser.getAllShips();
+			assert.strictEqual(s.length, 1);
+			testUser.buildShip("TShip", model, "testcity", function(err, res) {
+				assert.ok(err);
+				testUser.buildShip("", model, "testcity", function(err, res) {
+					assert.ok(err);
+					var s = testUser.getAllShips();
+					assert.strictEqual(s.length, 1);
+					testUser.buildShip("TShip2", model, "testcity", function(err, res) {
+						assert.notOk(err);
+						assert.ok(res);
+						assert.strictEqual(res.name, "TShip2");
+						var s = testUser.getAllShips();
+						assert.strictEqual(s.length, 2);
+						assert.strictEqual(testUser.money, 3000 - model.price * 2);
+						testUser.buildShip("TShip3", model, "testcity", function(err, res) {
+							assert.ok(err);
+
+							done();
+						});
+					});
+				});
+			});
+		});
 	});
 	it.skip('Buy Product', function() {
 		throw new Error("not implemented");

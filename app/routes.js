@@ -34,7 +34,7 @@ module.exports = function(app) {
 	//middleware to return status 401 if jwt is not valid
 	app.use(function(err, req, res, next) {
 		if (err.name === 'UnauthorizedError') res.status(401).json({
-			err: "invalid token"
+			error: "invalid token"
 		});
 	});
 
@@ -208,7 +208,7 @@ module.exports = function(app) {
 			var user = res;
 			user.buyProduct(shipId, productId, quantity, function(err) {
 				if (err) return response.status(500).json({
-					error: err.message
+					error: err
 				});
 				return response.status(200).json({
 					status: "OK",
@@ -232,7 +232,7 @@ module.exports = function(app) {
 			var user = res;
 			user.sellProduct(shipId, productId, quantity, function(err) {
 				if (err) return response.status(500).json({
-					error: err.message
+					error: err
 				});
 				return response.status(200).json({
 					status: "OK",

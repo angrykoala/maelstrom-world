@@ -23,6 +23,9 @@ describe('Map', function() {
 			assert.notOk(err);
 			assert.strictEqual(res.length, 0);
 			Map.addCity(cityTest);
+			Map.addCity({
+				a: "foo"
+			});
 			Map.getAllCities(function(err, res) {
 				assert.notOk(err);
 				assert.strictEqual(res.length, 1);
@@ -31,7 +34,15 @@ describe('Map', function() {
 				Map.getAllCities(function(err, res) {
 					assert.notOk(err);
 					assert.strictEqual(res.length, 1);
-					done();
+					Map.getCity('isengard', function(err, res) {
+						assert.notOk(err);
+						assert.ok(res);
+						assert.strictEqual(res.name, "Isengard");
+						Map.getCity('foo', function(err, res) {
+							assert.ok(err);
+							done();
+						});
+					});
 				});
 			});
 		});
@@ -60,7 +71,10 @@ describe('Map', function() {
 						Map.getDistance(allCities[0], allCities[0], function(err, res) {
 							assert.notOk(err);
 							assert.equal(res, 0);
-							done();
+							Map.getDistance({}, null, function(err, res) {
+								assert.ok(err);
+								done();
+							});
 						});
 					});
 				});
