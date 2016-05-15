@@ -1,6 +1,6 @@
 {
 	"name": "maelstrom-world",
-	"version": "0.5.3",
+	"version": "0.5.4",
 	"description": "Game server to handle maelstrom dynamic world",
 	"main": "app.js",
 	"scripts": {
