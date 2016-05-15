@@ -112,7 +112,27 @@ describe('User', function() {
 	it.skip('Sell Product', function() {
 		throw new Error("not implemented");
 	});
-	it.skip('Move Ship', function() {
-		throw new Error("not implemented");
+	it('Move Ship', function(done) {
+		var dummy_ship={
+			name: "dummy",
+			destiny: "dest",
+			move: function(destiny, done){
+				this.destiny=destiny;
+				if(!destiny) return done("err");
+				else return done();
+			}
+		};
+		testUser.ships.dummy=dummy_ship;
+		testUser.moveShip('dummy','cityTest',function(err){
+			assert.notOk(err);
+			assert.strictEqual(testUser.ships.dummy.destiny,'cityTest');
+			testUser.moveShip('dummmy','',function(err){
+				assert.ok(err);
+				testUser.moveShip('notdummy','cityTest',function(err){
+					assert.ok(err);
+					done();
+				});
+			});
+		});
 	});
 });

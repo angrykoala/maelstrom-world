@@ -113,7 +113,7 @@ User.prototype.sellProduct = function(shipId, product, quantity, done) {
 };
 User.prototype.moveShip = function(shipId, destiny, done) {
 	var s = this.getShip(shipId);
-	if (!s) done("Not ship found");
+	if (!s) return done("Not ship found");
 	s.move(destiny, done);
 };
 
