@@ -136,7 +136,7 @@ module.exports = function(app) {
 				error: err.toString()
 			});
 			else {
-				return response.status(201).json(res);
+				return response.status(201).json({id:res.id,money:res.money});
 			}
 		});
 	});
@@ -164,7 +164,7 @@ module.exports = function(app) {
 					if (err) return response.status(500).json({
 						error: err.toString()
 					});
-					else return response.status(201).json(res);
+					else return response.status(201).json(res.toJSON());
 				});
 			}
 		});
