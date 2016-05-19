@@ -44,7 +44,10 @@ describe('Routes', function() {
 					assert.equal(body.length, Object.keys(data.cities).length);
 					for (var i = 0; i < body.length; i++) {
 						assert.ok(body[i]);
-						assert.ok(map.isCity(body[i]));
+						assert.ok(body[i].name);
+						assert.ok(body[i].slug);
+						assert.ok(body[i].position);
+						assert.ok(map.isCity(body[i].slug));
 					}
 					done();
 				});
@@ -53,9 +56,9 @@ describe('Routes', function() {
 			map.getAllCities(function(err, cities) {
 				assert.notOk(err);
 				assert.ok(cities);
-				async.each(cities, function(cityName, cb) {
+				async.each(cities, function(city, cb) {
 					request(app)
-						.get('/city/' + cityName)
+						.get('/city/' + city.slug)
 						.expect('Content-Type', /json/)
 						.expect(200)
 						.end(function(err, res) {
@@ -78,9 +81,9 @@ describe('Routes', function() {
 			map.getAllCities(function(err, cities) {
 				assert.notOk(err);
 				assert.ok(cities);
-				async.each(cities, function(cityName, cb) {
+				async.each(cities, function(city, cb) {
 					request(app)
-						.get('/city/products/' + cityName)
+						.get('/city/products/' + city.slug)
 						.expect('Content-Type', /json/)
 						.expect(200)
 						.end(function(err, res) {

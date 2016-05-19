@@ -29,7 +29,10 @@ describe('Map', function() {
 			Map.getAllCities(function(err, res) {
 				assert.notOk(err);
 				assert.strictEqual(res.length, 1);
-				assert.strictEqual(res[0], 'isengard');
+				assert.strictEqual(res[0].slug, 'isengard');
+				assert.strictEqual(res[0].name, 'Isengard');
+				assert.strictEqual(res[0].position[0], -5);
+				assert.strictEqual(res[0].position[1], -259.5);
 				Map.addCity(cityTest);
 				Map.getAllCities(function(err, res) {
 					assert.notOk(err);
@@ -60,15 +63,15 @@ describe('Map', function() {
 			assert.notOk(err);
 			assert.ok(res.length, 2);
 			var allCities = res;
-			Map.getDistance(allCities[0], allCities[1], function(err, res) {
+			Map.getDistance(allCities[0].slug, allCities[1].slug, function(err, res) {
 				assert.notOk(err);
 				assert.closeTo(res, 299.87, 0.01);
-				Map.getDistance(allCities[1], allCities[0], function(err, res) {
+				Map.getDistance(allCities[1].slug, allCities[0].slug, function(err, res) {
 					assert.notOk(err);
 					assert.closeTo(res, 299.87, 0.01);
 					Map.getDistance("foo", city2, function(err, res) {
 						assert.ok(err);
-						Map.getDistance(allCities[0], allCities[0], function(err, res) {
+						Map.getDistance(allCities[0].slug, allCities[0].slug, function(err, res) {
 							assert.notOk(err);
 							assert.equal(res, 0);
 							Map.getDistance({}, null, function(err, res) {

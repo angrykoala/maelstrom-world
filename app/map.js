@@ -23,7 +23,16 @@ var map = {
 		return done(null, c);
 	},
 	getAllCities: function(done) {
-		return done(null, Object.keys(this.cities));
+		var res = [];
+		var l = this.cities;
+		for (var k in l) {
+			if (l.hasOwnProperty(k)) {
+				var c=l[k];
+				res.push({name:c.name,slug:c.slug,position:c.position});
+			}
+		}
+		return done(null, res);
+		//return done(null, Object.keys(this.cities));
 	},
 	isCity: function(name) {
 		if (this.cities[name]) return true;
