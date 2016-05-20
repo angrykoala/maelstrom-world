@@ -33,7 +33,7 @@ describe('Game Loop', function() {
 		map.getAllCities(function(err, res) {
 			assert.notOk(err);
 			assert.ok(res);
-			var cityId = res[0];
+			var cityId = res[0].slug;
 			var city = map.cities[cityId];
 			assert.ok(city);
 			city.getProducts(function(err, res) {
