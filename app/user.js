@@ -80,7 +80,7 @@ User.prototype.buyProduct = function(shipId, product, quantity, done) {
 					user.money += price;
 					return done(err);
 				}
-				if (!ship.addProduct(product, quantity)) return done("BuyProduct fatal error");
+				if (!ship.addProduct(product, quantity)) return done("Buy Product fatal error");
 				user.reportMoney();
 				return done();
 			});
