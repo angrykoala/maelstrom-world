@@ -7,11 +7,12 @@ Description:
 
 var map = require('./map');
 var Utils = require('./utils');
+var config=require('../config/config');
 
 var User = function(id) {
 	this.id = id;
 	this.ships = {};
-	this.money = 3000;
+	this.money = config.initialMoney || 3000;
 	this.sockets = {};
 };
 
