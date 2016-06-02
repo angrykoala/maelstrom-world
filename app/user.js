@@ -7,11 +7,12 @@ Description:
 
 var map = require('./map');
 var Utils = require('./utils');
+var config=require('../config/config');
 
 var User = function(id) {
 	this.id = id;
 	this.ships = {};
-	this.money = 3000;
+	this.money = config.initialMoney || 3000;
 	this.sockets = {};
 };
 
@@ -80,7 +81,7 @@ User.prototype.buyProduct = function(shipId, product, quantity, done) {
 					user.money += price;
 					return done(err);
 				}
-				if (!ship.addProduct(product, quantity)) return done("BuyProduct fatal error");
+				if (!ship.addProduct(product, quantity)) return done("Buy Product fatal error");
 				user.reportMoney();
 				return done();
 			});

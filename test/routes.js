@@ -15,6 +15,7 @@ var World = require('../app/world');
 var serverTest = require('./config/server');
 var populate = require('./config/populate');
 var data = require('./config/data');
+var config=require('../config/config');
 
 describe('Routes', function() {
 	describe('GET Routes', function() {
@@ -255,7 +256,7 @@ describe('Routes', function() {
 					assert.notOk(err);
 					assert.ok(res.body);
 					assert.strictEqual(res.body.id, userData.id);
-					assert.strictEqual(res.body.money, 3000); //default money value
+					assert.strictEqual(res.body.money, config.initialMoney); //default money value
 					World.users.getUser(userData.id, function(err, res) {
 						assert.notOk(err);
 						assert.ok(res);

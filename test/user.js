@@ -11,6 +11,7 @@ var assert = require('chai').assert;
 var User = require('../app/user');
 var data = require('./config/data');
 var ShipModel = require('../app/ship');
+var config=require('../config/config');
 
 describe('User', function() {
 	var testUser;
@@ -23,7 +24,7 @@ describe('User', function() {
 		var myUser = new User("myUser");
 		assert.ok(myUser);
 		assert.strictEqual(myUser.id, "myUser");
-		assert.strictEqual(myUser.money, 3000);
+		assert.strictEqual(myUser.money, config.initialMoney);
 		assert.ok(myUser.ships);
 	});
 	it('Get Ships', function() {
@@ -80,7 +81,7 @@ describe('User', function() {
 			assert.ok(res);
 			assert.ok(res.name);
 			assert.strictEqual(res.name, "TShip");
-			assert.strictEqual(testUser.money, 3000 - model.price);
+			assert.strictEqual(testUser.money, config.initialMoney - model.price);
 			var s = testUser.getAllShips();
 			assert.strictEqual(s.length, 1);
 			testUser.buildShip("TShip", model, "testcity", function(err, res) {
@@ -95,7 +96,8 @@ describe('User', function() {
 						assert.strictEqual(res.name, "TShip2");
 						var s = testUser.getAllShips();
 						assert.strictEqual(s.length, 2);
-						assert.strictEqual(testUser.money, 3000 - model.price * 2);
+						assert.strictEqual(testUser.money, config.initialMoney - model.price * 2);
+						model.price=20000;
 						testUser.buildShip("TShip3", model, "testcity", function(err, res) {
 							assert.ok(err);
 

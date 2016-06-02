@@ -23,24 +23,24 @@ city.prototype.addProduct = function(productName, quantity, production) {
 city.prototype.sellProduct = function(productName, quantity, done) {
 	if (!productName || quantity < 0) return done(new Error("Bad data"));
 	var p = this.products[productName];
-	if (!p) return done(new Error("Not product in city"));
+	if (!p) return done("Not product in city");
 	p.quantity += quantity;
 	return done();
 };
 city.prototype.buyProduct = function(productName, quantity, done) {
 	if (!productName || quantity < 0) return done(new Error("Bad data"));
 	var p = this.products[productName];
-	if (!p) return done(new Error("Not product in city"));
-	if (p.quantity < quantity) return done(new Error("Not enough quantity"));
+	if (!p) return done("Not product in city");
+	if (p.quantity < quantity) return done("Not enough quantity");
 	p.quantity -= quantity;
 	return done();
 };
 city.prototype.getPrice = function(productId, quantity, done) {
 	if (!productId || quantity < 0) return done(new Error("Bad data"));
 	var p = productList.getProduct(utils.slugify(productId));
-	if (!p) return done(new Error("not product found"));
+	if (!p) return done("not product found");
 	var cityp = this.products[productId];
-	if (!cityp) return done(new Error("Not product in city"));
+	if (!cityp) return done("Not product in city");
 	var price = -p.price / 100 * cityp.quantity + (p.price * 2);
 	if (price < p.price / 2.0) price = p.price / 2;
 	//calculate singular price and average*quantity
@@ -74,6 +74,5 @@ city.prototype.update = function() {
 		if (obj.quantity > 500) obj.quantity = 500;
 	}
 };
-
 
 module.exports = city;
