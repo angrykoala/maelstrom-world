@@ -43,7 +43,7 @@ var map = {
 			this.cities[i].update();
 			var price=this.cities[i].getProductsPrice(function(err,res){
 				if(err) console.log(err);
-				else io.to(i).emit('city-update',{city:i,products:res});
+				else if(io) io.to(i).emit('city-update',{city:i,products:res});
 			});
 		}
 		done(null);
