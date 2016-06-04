@@ -41,8 +41,10 @@ var map = {
 	updateCities: function(done) {
 		for (var i in this.cities) {
 			this.cities[i].update();
-			io.to(i).emit('city-update',{city:i,products:this.cities[i].products});
-			//TODO: check this
+			var price=this.cities[i].getProductsPrice(function(err,res){
+				if(err) console.log(err);
+				else io.to(i).emit('city-update',{city:i,products:res});
+			});
 		}
 		done(null);
 	},
