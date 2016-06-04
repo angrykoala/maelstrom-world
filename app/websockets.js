@@ -2,7 +2,7 @@
 Name: Map
 Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
-Description: 
+Description:
 */
 
 var socketioJwt = require('socketio-jwt');
@@ -22,8 +22,17 @@ module.exports.set = function(http, done) {
 	//When a socket connects
 	io.on('connection', function(socket) {
 		console.log("User " + socket.decoded_token.id + " connected");
-		socket.join(socket.decoded_token.id);
+		//socket.join(socket.decoded_token.id);
 		socket.on('disconnect', onDisconnect);
+		socket.on('bind-city',function(city){
+			console.log("socket bind to "+city);
+			socket.join(city);
+		});
+		socket.on('unbind-city',function(city){
+			console.log("socket unbind from "+city);
+			socket.leave(city);
+
+		});
 		//console.log(World);
 		/*Users.getUser(socket.decoded_token.id,function(err,res){
 			if(!err){

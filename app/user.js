@@ -20,6 +20,7 @@ User.prototype.addSocket = function(socket) {
 	var socks = this.sockets;
 	if (!socks[socket.id]) {
 		socks[socket.id] = socket;
+		//socket.join('city');
 		socket.on('disconnect', function() {
 			delete socks[this.id];
 		});

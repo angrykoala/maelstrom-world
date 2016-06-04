@@ -8,7 +8,7 @@ Description:
 var utils = require('./utils');
 var dbHandler = require('./database');
 
-
+var io;
 var map = {
 	cities: {},
 	addCity: function(city) {
@@ -41,6 +41,8 @@ var map = {
 	updateCities: function(done) {
 		for (var i in this.cities) {
 			this.cities[i].update();
+			io.to(i).emit('city-update',{city:i,products:this.cities[i].products});
+			//TODO: check this
 		}
 		done(null);
 	},
@@ -85,6 +87,10 @@ var map = {
 			}
 		});
 		return done();
+	},
+	setSockets: function(socketHandler,done){
+		io=socketHandler;
+		done();
 	}
 };
 
