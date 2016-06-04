@@ -40,7 +40,7 @@ World.restore(function(err) {
 			if (err) console.log(err);
 			http.listen(serverConfig.port, function() {
 				console.log("Server listening on port " + serverConfig.port);
-				gu.startLoop(null, function(err) {
+				gu.startLoop(null,io, function(err) {
 					var date = new Date();
 					var sec = date.getSeconds();
 					if (err)

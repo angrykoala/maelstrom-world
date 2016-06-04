@@ -13,7 +13,7 @@ var worldBackup = require('./world').backup;
 var timer = null;
 
 var GameUpdate = {
-	startLoop: function(time, tick) {
+	startLoop: function(time,io, tick) {
 		var gu = this;
 		var tickValue = 0;
 		var backupTime = config.backupTime || 100;
