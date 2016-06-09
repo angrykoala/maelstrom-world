@@ -35,15 +35,22 @@ city.prototype.buyProduct = function(productName, quantity, done) {
 	p.quantity -= quantity;
 	return done();
 };
-city.prototype.getPrice = function(productId, quantity, done) {
+city.prototype.getPrice = function(productId, quantity, done,selling) {
 	if (!productId || quantity < 0) return done(new Error("Bad data"));
 	var p = productList.getProduct(utils.slugify(productId));
 	if (!p) return done("not product found");
 	var cityp = this.products[productId];
 	if (!cityp) return done("Not product in city");
 	var price = -p.price / 100 * cityp.quantity + (p.price * 2);
-	if (price < p.price / 2.0) price = p.price / 2;
-	//calculate singular price and average*quantity
+	if (price < p.price / 4.0) price = p.price / 4;
+	if(quantity>1){
+		var price2;
+		if(selling) price2 = -p.price / 100 * (cityp.quantity+quantity) + (p.price * 2);
+		else price2 = -p.price / 100 * (cityp.quantity-quantity) + (p.price * 2);
+		if (price2 < p.price / 2.0) price2 = p.price / 2;
+		
+		price=(price+price2)/2;
+	}
 	return done(null, price * quantity);
 };
 city.prototype.getProducts = function(done) {

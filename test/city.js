@@ -55,7 +55,7 @@ describe('City', function() {
 			assert.strictEqual(Object.keys(res).length, 2);
 			testCity.getPrice("Bread", 10, function(err, res) {
 				assert.notOk(err);
-				assert.strictEqual(res, 900);
+				assert.strictEqual(res, 925);
 				testCity.getPrice("Bad Product", 10, function(err, res) {
 					assert.ok(err);
 					testCity.getPrice("Bread", -10, function(err, res) {

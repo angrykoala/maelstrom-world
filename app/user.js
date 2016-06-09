@@ -110,7 +110,7 @@ User.prototype.sellProduct = function(shipId, product, quantity, done) {
 				user.reportMoney();
 				return done();
 			});
-		});
+		},true);
 	});
 };
 User.prototype.moveShip = function(shipId, destiny, done) {
