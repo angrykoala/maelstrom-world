@@ -3,8 +3,9 @@ Maelström - World
 _by @demiurgosoft_     
 [![Build Status](https://travis-ci.org/demiurgosoft/maelstrom-world.svg?branch=master)](https://travis-ci.org/demiurgosoft/maelstrom-world)
 [![Coverage Status](https://coveralls.io/repos/github/demiurgosoft/maelstrom-world/badge.svg?branch=master)](https://coveralls.io/github/demiurgosoft/maelstrom-world?branch=master)
-[![Dependency Status](https://gemnasium.com/demiurgosoft/maelstrom-world.svg)](https://gemnasium.com/demiurgosoft/maelstrom-world)
-[![Code Climate](https://codeclimate.com/github/demiurgosoft/maelstrom-world/badges/gpa.svg)](https://codeclimate.com/github/demiurgosoft/maelstrom-world)
+[![bitHound Overall Score](https://www.bithound.io/github/demiurgosoft/maelstrom-world/badges/score.svg)](https://www.bithound.io/github/demiurgosoft/maelstrom-world)
+[![bitHound Dependencies](https://www.bithound.io/github/demiurgosoft/maelstrom-world/badges/dependencies.svg)](https://www.bithound.io/github/demiurgosoft/maelstrom-world/master/dependencies/npm)
+
 
 ![Maelström Logo](https://raw.githubusercontent.com/demiurgosoft/maelstrom/master/logo/logo.jpg)
 

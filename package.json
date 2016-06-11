@@ -27,7 +27,6 @@
 	},
 	"homepage": "https://github.com/demiurgosoft/maelstrom-world#readme",
 	"dependencies": {
-		"amqplib": "^0.4.0",
 		"body-parser": "^1.14.2",
 		"express": "^4.13.3",
 		"express-jwt": "^3.3.0",
