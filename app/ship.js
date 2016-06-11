@@ -4,6 +4,8 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description:
 */
+"use strict";
+
 var map = require('./map');
 var utils = require('./utils');
 

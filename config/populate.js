@@ -1,4 +1,5 @@
 //Data for database
+"use strict";
 
 var dbHandler = require('../app/dbhandler');
 var async = require('async');

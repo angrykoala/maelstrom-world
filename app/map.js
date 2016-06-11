@@ -4,6 +4,7 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description:
 */
+"use strict";
 
 var utils = require('./utils');
 var dbHandler = require('./database');

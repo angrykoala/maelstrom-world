@@ -1,10 +1,10 @@
-//ONLY FOR BASIC TESTING
+"use strict";
 
 
 var app = require('express')();
 var http = require('http').createServer(app);
 require('./app/routes')(app); //loads routes
-ws = require('./app/websockets');
+var ws = require('./app/websockets');
 
 var serverConfig = require('./config/server');
 var config = require('./config/config');

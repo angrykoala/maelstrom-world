@@ -1,4 +1,6 @@
 //Game configuration
+"use strict";
+
 module.exports = {
 	refreshTime: 1000, //1 seg
 	buyRatio: 1.2,

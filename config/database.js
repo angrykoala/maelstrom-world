@@ -1,4 +1,5 @@
 //database configuration
+"use strict";
 
 module.exports = {
 	url: process.env.DBSERVER || "mongodb://localhost:27017/maelstrom_world", //db url

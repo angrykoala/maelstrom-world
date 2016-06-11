@@ -4,6 +4,7 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description:
 */
+"use strict";
 
 var productList = require('./world').products;
 var utils = require('./utils');

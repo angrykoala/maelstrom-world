@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = {
 	port: process.env.PORT || 8080, //server
 	address: process.env.ADDRESS || '127.0.0.1',

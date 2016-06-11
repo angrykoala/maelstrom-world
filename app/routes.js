@@ -4,7 +4,7 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: api for world interaction
 */
-
+"use strict";
 
 var jwt = require('jsonwebtoken');
 var expressjwt = require('express-jwt');

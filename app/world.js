@@ -4,7 +4,7 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: Game World, defining all necessary elements
 */
-
+"use strict";
 
 var User = require('./user');
 var map = require('./map');
@@ -45,7 +45,7 @@ var Users = {
 		if (this.users[id]) return done(new Error("User already exists"));
 		else {
 			this.users[id] = new User(id);
-			res = this.users[id];
+			var res = this.users[id];
 			return done(null, res);
 		}
 	},
@@ -144,7 +144,7 @@ function backup(done) {
 	map.backup(function(err) {
 		err1 = err;
 		Users.backup(function(err) {
-			if (err || err1) return done(new Error("Backup Error:" + err1 + "    " + err2));
+			if (err || err1) return done(new Error("Backup Error:" + err1 + "    " + err));
 			return done(null);
 		});
 	});
@@ -156,7 +156,7 @@ function restore(done) {
 	map.restore(function(err) {
 		err1 = err;
 		Users.restore(function(err) {
-			if (err || err1) return done(new Error("Restore Error:" + err1 + "    " + err2));
+			if (err || err1) return done(new Error("Restore Error:" + err1 + "    " + err));
 			return done(null);
 		});
 	});

@@ -4,6 +4,8 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: Update logic for game event loop
 */
+"use strict";
+
 var config = require('../config/config.js');
 var async = require('async');
 var map = require('./map');

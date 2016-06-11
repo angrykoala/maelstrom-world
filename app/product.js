@@ -4,6 +4,8 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description:
 */
+"use strict";
+
 var Utils = require('./utils');
 var product = function(name, price) {
 	this.name = name;
