@@ -15,7 +15,7 @@ var World = require('../app/world');
 var serverTest = require('./config/server');
 var populate = require('./config/populate');
 var data = require('./config/data');
-var config=require('../config/config');
+var config = require('../config/config');
 
 describe('Routes', function() {
 	describe('GET Routes', function() {

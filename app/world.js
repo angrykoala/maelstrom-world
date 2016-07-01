@@ -125,17 +125,17 @@ var Ships = {
 };
 
 function setSockets(io, done) {
-	map.setSockets(io,function(err){
-		if(err) console.log("Fatal Error setting sockets in map");
-	io.on('connection', function(socket) {
-		Users.getUser(socket.decoded_token.id, function(err, res) {
-			if (!err) {
-				res.addSocket(socket);
-			}
+	map.setSockets(io, function(err) {
+		if (err) console.log("Fatal Error setting sockets in map");
+		io.on('connection', function(socket) {
+			Users.getUser(socket.decoded_token.id, function(err, res) {
+				if (!err) {
+					res.addSocket(socket);
+				}
+			});
 		});
+		done(null);
 	});
-	done(null);
-});
 }
 
 function backup(done) {

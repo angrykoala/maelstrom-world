@@ -7,5 +7,5 @@ module.exports = {
 	sellRatio: 0.8,
 	initialMoney: 10000,
 	backupTime: 10, //100 updates (100 seconds)
-	backup: (process.env.BACKUP=="true") || false
+	backup: (process.env.BACKUP == "true") || false
 };

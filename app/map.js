@@ -28,8 +28,12 @@ var map = {
 		var l = this.cities;
 		for (var k in l) {
 			if (l.hasOwnProperty(k)) {
-				var c=l[k];
-				res.push({name:c.name,slug:c.slug,position:c.position});
+				var c = l[k];
+				res.push({
+					name: c.name,
+					slug: c.slug,
+					position: c.position
+				});
 			}
 		}
 		return done(null, res);
@@ -42,9 +46,12 @@ var map = {
 	updateCities: function(done) {
 		for (var i in this.cities) {
 			this.cities[i].update();
-			var price=this.cities[i].getProductsPrice(function(err,res){
-				if(err) console.log(err);
-				else if(io) io.to(i).emit('city-update',{city:i,products:res});
+			var price = this.cities[i].getProductsPrice(function(err, res) {
+				if (err) console.log(err);
+				else if (io) io.to(i).emit('city-update', {
+					city: i,
+					products: res
+				});
 			});
 		}
 		done(null);
@@ -91,8 +98,8 @@ var map = {
 		});
 		return done();
 	},
-	setSockets: function(socketHandler,done){
-		io=socketHandler;
+	setSockets: function(socketHandler, done) {
+		io = socketHandler;
 		done();
 	}
 };

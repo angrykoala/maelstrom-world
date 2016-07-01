@@ -20,15 +20,15 @@ module.exports.set = function(http, done) {
 	io.on('connection', function(socket) {
 		console.log("User " + socket.decoded_token.id + " connected");
 		//socket.join(socket.decoded_token.id);
-		socket.on('disconnect', function(){
+		socket.on('disconnect', function() {
 			console.log('User disconnected ' + this.id);
 		});
-		socket.on('bind-city',function(city){
-			console.log("socket bind to "+city);
+		socket.on('bind-city', function(city) {
+			console.log("socket bind to " + city);
 			socket.join(city);
 		});
-		socket.on('unbind-city',function(city){
-			console.log("socket unbind from "+city);
+		socket.on('unbind-city', function(city) {
+			console.log("socket unbind from " + city);
 			socket.leave(city);
 
 		});

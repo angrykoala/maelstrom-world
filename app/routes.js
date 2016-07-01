@@ -136,7 +136,10 @@ module.exports = function(app) {
 				error: err.toString()
 			});
 			else {
-				return response.status(201).json({id:res.id,money:res.money});
+				return response.status(201).json({
+					id: res.id,
+					money: res.money
+				});
 			}
 		});
 	});
