@@ -1,3 +1,5 @@
+"use strict";
+
 var World = require('./world');
 var Product = require('./product');
 var ShipModel = require('./ship');

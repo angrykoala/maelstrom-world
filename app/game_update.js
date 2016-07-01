@@ -4,6 +4,8 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description: Update logic for game event loop
 */
+"use strict";
+
 var config = require('../config/config.js');
 var async = require('async');
 var map = require('./map');
@@ -13,7 +15,7 @@ var worldBackup = require('./world').backup;
 var timer = null;
 
 var GameUpdate = {
-	startLoop: function(time,io, tick) {
+	startLoop: function(time, io, tick) {
 		var gu = this;
 		var tickValue = 0;
 		var backupTime = config.backupTime || 100;

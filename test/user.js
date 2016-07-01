@@ -11,7 +11,7 @@ var assert = require('chai').assert;
 var User = require('../app/user');
 var data = require('./config/data');
 var ShipModel = require('../app/ship');
-var config=require('../config/config');
+var config = require('../config/config');
 
 describe('User', function() {
 	var testUser;
@@ -97,7 +97,7 @@ describe('User', function() {
 						var s = testUser.getAllShips();
 						assert.strictEqual(s.length, 2);
 						assert.strictEqual(testUser.money, config.initialMoney - model.price * 2);
-						model.price=20000;
+						model.price = 20000;
 						testUser.buildShip("TShip3", model, "testcity", function(err, res) {
 							assert.ok(err);
 
@@ -115,22 +115,22 @@ describe('User', function() {
 		throw new Error("not implemented");
 	});
 	it('Move Ship', function(done) {
-		var dummy_ship={
+		var dummy_ship = {
 			name: "dummy",
 			destiny: "dest",
-			move: function(destiny, done){
-				this.destiny=destiny;
-				if(!destiny) return done("err");
+			move: function(destiny, done) {
+				this.destiny = destiny;
+				if (!destiny) return done("err");
 				else return done();
 			}
 		};
-		testUser.ships.dummy=dummy_ship;
-		testUser.moveShip('dummy','cityTest',function(err){
+		testUser.ships.dummy = dummy_ship;
+		testUser.moveShip('dummy', 'cityTest', function(err) {
 			assert.notOk(err);
-			assert.strictEqual(testUser.ships.dummy.destiny,'cityTest');
-			testUser.moveShip('dummmy','',function(err){
+			assert.strictEqual(testUser.ships.dummy.destiny, 'cityTest');
+			testUser.moveShip('dummmy', '', function(err) {
 				assert.ok(err);
-				testUser.moveShip('notdummy','cityTest',function(err){
+				testUser.moveShip('notdummy', 'cityTest', function(err) {
 					assert.ok(err);
 					done();
 				});

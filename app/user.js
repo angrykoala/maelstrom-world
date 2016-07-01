@@ -4,10 +4,11 @@ Project: Maelström - World
 Author: demiurgosoft <demiurgosoft@hotmail.com>
 Description:
 */
+"use strict";
 
 var map = require('./map');
 var Utils = require('./utils');
-var config=require('../config/config');
+var config = require('../config/config');
 
 var User = function(id) {
 	this.id = id;
@@ -110,7 +111,7 @@ User.prototype.sellProduct = function(shipId, product, quantity, done) {
 				user.reportMoney();
 				return done();
 			});
-		},true);
+		}, true);
 	});
 };
 User.prototype.moveShip = function(shipId, destiny, done) {

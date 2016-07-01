@@ -45,7 +45,7 @@ describe('Game Loop', function() {
 				var cityProducts = res;
 				var origQuantity = cityProducts[key].quantity;
 				var origProd = cityProducts[key].production;
-				gu.startLoop(120,null, function(err, tickValue) {
+				gu.startLoop(120, null, function(err, tickValue) {
 					assert.notOk(err);
 					assert.strictEqual(ticks, tickValue);
 					assert.isBelow(ticks, 6);
@@ -75,7 +75,7 @@ describe('Game Loop', function() {
 			assert.strictEqual(userShip1.status.destiny, "rohan");
 			assert.closeTo(userShip1.status.remaining, rem, 0.5);
 
-			gu.startLoop(120,null, function(err, tickValue) {
+			gu.startLoop(120, null, function(err, tickValue) {
 				assert.notOk(err);
 				if (tickValue >= 5) {
 					gu.cancelLoop();
@@ -89,7 +89,7 @@ describe('Game Loop', function() {
 			});
 		});
 	});
-	it.skip('update sockets',function(done){
+	it.skip('update sockets', function(done) {
 		return done(new Error("Not implemented"));
 	});
 });

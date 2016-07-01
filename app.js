@@ -1,10 +1,10 @@
-//ONLY FOR BASIC TESTING
+"use strict";
 
 
 var app = require('express')();
 var http = require('http').createServer(app);
 require('./app/routes')(app); //loads routes
-ws = require('./app/websockets');
+var ws = require('./app/websockets');
 
 var serverConfig = require('./config/server');
 var config = require('./config/config');
@@ -40,7 +40,7 @@ World.restore(function(err) {
 			if (err) console.log(err);
 			http.listen(serverConfig.port, function() {
 				console.log("Server listening on port " + serverConfig.port);
-				gu.startLoop(null,io, function(err) {
+				gu.startLoop(null, io, function(err) {
 					var date = new Date();
 					var sec = date.getSeconds();
 					if (err)

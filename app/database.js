@@ -1,10 +1,12 @@
+"use strict";
+
 var MongoClient = require('mongodb').MongoClient;
 
 // Connection URL
 var url = require('../config/database').url;
 
 
-database = {
+module.exports = {
 	backup: function(name, list, done) {
 		var nameback = name + "Back";
 		MongoClient.connect(url, function(err, db) {
@@ -43,5 +45,3 @@ database = {
 		});
 	}
 };
-
-module.exports = database;
