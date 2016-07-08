@@ -99,6 +99,22 @@ var Users = {
 			}
 			return done(null);
 		});
+	},
+	getShipsCity: function(city, done) {
+		var ships = [];
+		for (var userId in this.users) {
+			var user=this.users[userId];
+			for (var shipId in user.ships) {
+				var ship=user.ships[shipId];
+				if (ship.city === city && ship.status.value === "docked") {
+					ships.push({
+						ship: ship.name,
+						type: ship.model.name
+					});
+				}
+			}
+		}
+		done(null,ships);
 	}
 };
 
