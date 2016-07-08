@@ -84,6 +84,17 @@ module.exports = function(app) {
 			}
 		});
 	});
+	app.get('/city/ships/:city_id', function(req, response) {
+		var cityId = req.params.city_id;
+		World.users.getShipsCity(cityId, function(err, res) {
+			if (err) return response.status(500).json({
+				error: err.toString()
+			});
+			else {
+				return response.status(200).json(res);
+			}
+		});
+	});
 	app.get('/ship_models', function(req, response) {
 		World.ships.getShipList(function(err, res) {
 			if (err) return response.status(500).json({
