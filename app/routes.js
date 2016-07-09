@@ -86,6 +86,9 @@ module.exports = function(app) {
 	});
 	app.get('/city/ships/:city_id', function(req, response) {
 		var cityId = req.params.city_id;
+		if (!World.map.isCity(cityId)) return response.status(500).json({
+			error: "City not found"
+		});
 		World.users.getShipsCity(cityId, function(err, res) {
 			if (err) return response.status(500).json({
 				error: err.toString()

@@ -53,6 +53,39 @@ describe('Routes', function() {
 					done();
 				});
 		});
+		it('/city/ships/:city_id', function(done) {
+			request(app)
+				.get('/city/ships/isengard')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end(function(err, res) {
+					assert.notOk(err);
+					assert.ok(res);
+					assert.isArray(res.body);
+					assert.isAtLeast(res.body.length, 2);
+					assert.strictEqual(res.body[0].ship, 'Black Pearl');
+					assert.strictEqual(res.body[0].type, 'Caravel');
+					request(app)
+						.get('/city/ships/rohan')
+						.expect('Content-Type', /json/)
+						.expect(200)
+						.end(function(err, res) {
+							assert.notOk(err);
+							assert.ok(res);
+							assert.isArray(res.body);
+							assert.strictEqual(res.body.length, 0);
+							request(app)
+								.get('/city/ships/foo')
+								.expect('Content-Type', /json/)
+								.expect(500)
+								.end(function(err, res) {
+									assert.notOk(err);
+									assert.ok(res);
+									done();
+								});
+						});
+				});
+		});
 		it('/city/:city_name', function(done) {
 			map.getAllCities(function(err, cities) {
 				assert.notOk(err);
